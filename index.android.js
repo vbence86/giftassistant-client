@@ -6,6 +6,6 @@
 
 import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
-import LoginView from './src/js/components/LoginView';
+import App from './src/js/App';
 
-AppRegistry.registerComponent('GiftAssistant', () => LoginView);
+AppRegistry.registerComponent('GiftAssistant', () => App);
