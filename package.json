@@ -15,7 +15,7 @@
     "json-mock": "^0.1.0",
     "mocha": "^3.2.0",
     "react": "15.4.2",
-    "react-native": "0.41.2",
+    "react-native": "0.42.0-rc.1",
     "react-native-elements": "^0.9.5",
     "react-native-vector-icons": "^4.0.0"
   },

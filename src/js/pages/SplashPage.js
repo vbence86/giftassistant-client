@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableHighlight, Text } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
+import { Button, SocialIcon } from 'react-native-elements';
+
+const splashImage = require('../../../resources/img/gift-flat.png');
 
 const styles = StyleSheet.create({
+  splashImage: {
+    marginBottom: 30
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
+  },
+  loginButton: {
+    width: '75%',
+    height: 100,
   }
 });
 
 export default class SplashPage extends React.Component {
 
-  _navigate(property){
+  constructor() {
+    super();
+    this.state = {
+      asyncProcess: false
+    };
+  }
+
+  _navigate(property) {
+    setTimeout(() => {
+
+    });
     this.props.navigator.push({
-      name: 'LoginPage',
+      id: 'LoginPage',
+      name: 'Login',
       passProps: {
         name: property
       }
@@ -23,9 +44,14 @@ export default class SplashPage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableHighlight onPress={ () => this._navigate() }>
-          <Text>Login</Text>
-        </TouchableHighlight>      
+        <Image source={splashImage} style={styles.splashImage}/>
+        <SocialIcon 
+          title='Sign In With Facebook' 
+          style={styles.loginButton} 
+          onPress={ () => this._navigate() } 
+          type='facebook'
+          loading={this.state.asyncProcess}
+          button />  
       </View>
     );
   }

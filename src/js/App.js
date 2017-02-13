@@ -3,9 +3,9 @@ import { Navigator } from 'react-native';
 import SplashPage from './pages/SplashPage';
 import LoginPage from './pages/LoginPage';
 
-class App extends React.Component {
+export default class App extends React.Component {
 
-  renderScene(route, navigor) {
+  renderScene(route, navigator) {
     var routeId = route.id;
     if (routeId === 'SplashPage') {
       return <SplashPage navigator={navigator} />
@@ -23,7 +23,7 @@ class App extends React.Component {
         if (route.sceneConfig) {
           return route.sceneConfig;
         }
-        return Navigator.SceneConfigs.VerticalDownSwipeJump;
+        return Navigator.SceneConfigs.HorizontalSwipeJump;
       }}/>
     );
   }
