@@ -6,9 +6,9 @@ require('es6-promise').polyfill();
 require('isomorphic-fetch');
 
 const defaults = {
-    headers: {
-        'Content-Type': 'application/json',
-    }
+  headers: {
+    'Content-Type': 'application/json'
+  }
 };
 
 /**
@@ -16,8 +16,8 @@ const defaults = {
  * @return {Headers} instance of native Headers prototype 
  */
 function getHeaders() {
-    let headers = new Headers(defaults.headers);
-    return headers;
+  let headers = new Headers(defaults.headers);
+  return headers;
 }
 
 /**
@@ -26,7 +26,7 @@ function getHeaders() {
  * @return {Promise} Genuine Promise instance
  */
 function getBody(req) {
-    return JSON.stringify(req);
+  return JSON.stringify(req);
 }
 
 /**
@@ -35,15 +35,15 @@ function getBody(req) {
  * @return {Promise} Promise object representing the result of the operation
  */
 function status(resp) {
-    if (resp.ok) {
-        return resp;
-    } else {
-        return new Promise((resolve, reject) => {
-            return jsonify(resp).then(json => {
-                reject(json);
-            });
+  if (resp.ok) {
+    return resp;
+  } else {
+    return new Promise((resolve, reject) => {
+        return jsonify(resp).then(json => {
+            reject(json);
         });
-    }
+    });
+  }
 }
 
 /**
@@ -52,8 +52,8 @@ function status(resp) {
  * @return {Promise} Promise object representing the result of the operation]
  */
 function jsonify(resp){
-    if (!resp || !resp.json) throw 'Invalid Response object!';
-    return resp.json();
+  if (!resp || !resp.json) throw 'Invalid Response object!';
+  return resp.json();
 }
 
 /**
@@ -62,64 +62,107 @@ function jsonify(resp){
  * @return {Promise} Rejected promise after the error is handled
  */
 function error(err){
-    return Promise.reject(err);
+  return Promise.reject(err);
 }
 
+/**
+ * Transforms an object into url params
+ * @param {object} Key value pairs to be translated into a string
+ * @return {string} url params
+ */
+function queryParams(params) {
+  const esc = encodeURIComponent;
+  return Object.keys(params)
+    .map(k => esc(k) + '=' + esc(params[k]))
+    .join('&');
+}
 
 /**
  * Client object that represent a connection to the given abel endpoint 
  * @param {string} serviceURL URL to the service endpoint
  */
-function Client(serviceURL){
-    return {
-        
-        /**
-         * Sends a post request to the specified endpoint 
-         * @param  {string} service suffix of service endpoint URL
-         * @param  {object} params  Data to send to the service
-         * @return {Promise} Promise for the resolution of the operation
-         */
-        post(service, params){
-            if (!service) throw 'Invalid service name!';
+function Client(serviceURL) {
 
-            const url = `${serviceURL}/${service}`;
-            const init = { 
-                method: 'POST',
-                headers: getHeaders(),
-                cache: 'default',
-                body: getBody(params),
-                credentials: 'same-origin'
-            };
-            return fetch( new Request(url, init) )
-                .then(status)
-                .then(jsonify)
-                .catch(error);
-        },
+  return {
 
-        /**
-         * Sends a delete request to the specified endpoint 
-         * @param  {string} service suffix of service endpoint URL
-         * @param  {object} params  Data to send to the service
-         * @return {Promise} Promise for the resolution of the operation
-         */
-        delete(service, params){
-            if (!service) throw 'Invalid service name!';
+    /**
+     * Sends a get request to the specified endpoint 
+     * @param  {string} service suffix of service endpoint URL
+     * @param  {object} params  Data to send to the service
+     * @return {Promise} Promise for the resolution of the operation
+     */
+    get(service, params){
+      if (!service) throw 'Invalid service name!';
 
-            const url = `${serviceURL}/${service}`;
-            const init = { 
-                method: 'DELETE',
-                headers: getHeaders(),
-                cache: 'default',
-                body: getBody(params),
-                credentials: 'same-origin'
-            };
-            return fetch( new Request(url, init) )
-                .then(status)
-                .then(jsonify)
-                .catch(error);
-        }
-                    
-    };
+      let url = `${serviceURL}/${service}`;
+      const init = { 
+        method: 'GET',
+        mode: 'cors',
+        headers: getHeaders(),
+        cache: 'default',
+        credentials: 'same-origin'
+      };
+
+      if (params) {
+        const query_string = queryParams(params);
+        url = `${url}?${query_string}`;
+      }
+
+      return fetch( new Request(url, init) )
+        .then(status)
+        .then(jsonify)
+        .catch(error);
+    },   
+
+    /**
+     * Sends a post request to the specified endpoint 
+     * @param  {string} service suffix of service endpoint URL
+     * @param  {object} params  Data to send to the service
+     * @return {Promise} Promise for the resolution of the operation
+     */
+    post(service, params){
+      if (!service) throw 'Invalid service name!';
+
+      const url = `${serviceURL}/${service}`;
+      const init = { 
+        method: 'POST',
+        mode: 'cors',
+        headers: getHeaders(),
+        cache: 'default',
+        body: getBody(params),
+        credentials: 'same-origin'
+      };
+      return fetch( new Request(url, init) )
+        .then(status)
+        .then(jsonify)
+        .catch(error);
+    },
+
+    /**
+     * Sends a delete request to the specified endpoint 
+     * @param  {string} service suffix of service endpoint URL
+     * @param  {object} params  Data to send to the service
+     * @return {Promise} Promise for the resolution of the operation
+     */
+    delete(service, params){
+        if (!service) throw 'Invalid service name!';
+
+        const url = `${serviceURL}/${service}`;
+        const init = { 
+          method: 'DELETE',
+          mode: 'cors',
+          headers: getHeaders(),
+          cache: 'default',
+          body: getBody(params),
+          credentials: 'same-origin'
+        };
+        return fetch( new Request(url, init) )
+          .then(status)
+          .then(jsonify)
+          .catch(error);
+    }
+                  
+  };
 }
 
 /**
@@ -127,13 +170,13 @@ function Client(serviceURL){
  * @type {object}
  */
 export default {
-    connect(config){
-        if (!config){
-            throw 'Invalid config object passed!';
-        }
-        if (!config.endpoint){
-            throw 'Endpoint to be specified!';
-        }
-        return new Client(config.endpoint);
+  connect(config){
+    if (!config){
+      throw 'Invalid config object passed!';
     }
+    if (!config.endpoint){
+      throw 'Endpoint to be specified!';
+    }
+    return new Client(config.endpoint);
+  }
 };
