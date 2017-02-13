@@ -35,10 +35,10 @@ and `routes` src directories.  In this case the naming should appear as follows
 
 # Code Style and Patterns
 
-- Information on Code Style can be found on along with the Photobox code style and guidelines for 
-[Javascript](#) and [Sass](#).  Please note that with the exception of API differences we do not 
+Please note that with the exception of API differences we do not 
 distinugish between Node and Browser Javascript.
-- We use Ecmascript 2015 extensively at Photobox, with the babel transpilitation system providing 
+
+- We use Ecmascript 2015 extensively with the babel transpilitation system providing 
 polyfills and transpilitation down to ES5 where appropriate.  Please do not add transpilitation 
 plugins or presets for language features that have not been promoted to `Adopt` on the Architecture 
 Team's technology radar.
