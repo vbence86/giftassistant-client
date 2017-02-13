@@ -48,8 +48,6 @@ configure your editor to show you rulers on 100 characters so you know where to 
 
 ## State management
 
-- We use Redux, please make sure you have read the manual and understand both Basic and Advanced 
-topics.
 - Design your state tree to be as flat as possible
 
 ## Functional programming
