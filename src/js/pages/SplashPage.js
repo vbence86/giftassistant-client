@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     width: '75%',
-    height: 100,
+    height: 100
   }
 });
 
@@ -28,17 +28,33 @@ export default class SplashPage extends React.Component {
     };
   }
 
-  _navigate(property) {
-    setTimeout(() => {
+  _loginClick(props) {
+    this._showAsyncIndicator();
+    this._doLogin();
+  }
 
-    });
+  _showAsyncIndicator() {
+    const data = {
+      asyncProcess: true
+    };
+    this.setState(data);
+  }
+
+  _doLogin() {
+    // @TODO change this with real login implementation
+    setTimeout(() => {
+      this._goToDialogPage();
+    }, 2000);
+  }
+
+  _goToDialogPage(props) {
     this.props.navigator.push({
-      id: 'LoginPage',
-      name: 'Login',
+      id: 'DialogPage',
+      name: 'Dialog',
       passProps: {
-        name: property
+        name: props
       }
-    })
+    });
   }
 
   render() {
@@ -48,7 +64,7 @@ export default class SplashPage extends React.Component {
         <SocialIcon 
           title='Sign In With Facebook' 
           style={styles.loginButton} 
-          onPress={ () => this._navigate() } 
+          onPress={ () => this._loginClick() } 
           type='facebook'
           loading={this.state.asyncProcess}
           button />  
