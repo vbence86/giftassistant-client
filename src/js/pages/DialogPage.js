@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button } from 'react-native-elements'
+import { Button, Text } from 'react-native-elements'
+import DialogClient from '../helpers/DialogClient';
+const appConfig = require('../../../environment.json');
 
 const styles = StyleSheet.create({
   container: {
@@ -12,10 +14,27 @@ const styles = StyleSheet.create({
 
 export default class DialogPage extends React.Component {
 
+  constructor() {
+    super();
+    this.state = {};
+  }
+
+  componentDidMount() {
+    const client = DialogClient.connect(appConfig.dialogServiceURL);
+    const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
+    client
+      .question(req)
+      .then(this._handleResponse.bind(this));
+  }
+
+  _handleResponse(resp) {
+    this.setState({ text: JSON.stringify(resp) });
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <Button title='Guest mode' icon={{ name: 'face' }} large raised />
+        <Text>{this.state.text}</Text>
       </View>
     );
   }
