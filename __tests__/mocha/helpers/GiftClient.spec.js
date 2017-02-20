@@ -1,5 +1,5 @@
-import DialogClient from '../../../src/js/helpers/DialogClient';
-import stabDialogService from '../stabs/DialogServer/DialogServer';
+import GiftClient from '../../../src/js/helpers/GiftClient';
+import stabGiftService from '../stabs/GiftServer/GiftServer';
 
 const assert = require('chai').assert;
 
@@ -12,7 +12,7 @@ const environment = {
 function testQuestionService(endpoint) {
 
   it('Calling the "question" service must return an object including questions', function () {
-    const client = DialogClient.connect(endpoint);
+    const client = GiftClient.connect(endpoint);
     const result = client.question({ id: 18 });
     return result.then(resp => {
       assert.isDefined(resp);
@@ -32,35 +32,35 @@ function testQuestionService(endpoint) {
 
 }
 
-describe('DialogDialogClient', () => {
+describe('DialogGiftClient', () => {
   'use strict';
 
-  before(stabDialogService.start.bind(null, MockServicePort));
+  before(stabGiftService.start.bind(null, MockServicePort));
 
   describe('#Availability', () => {
-      it('DialogClient must not be undefined when imported', () => {
-          assert.isDefined(DialogClient);
+      it('GiftClient must not be undefined when imported', () => {
+          assert.isDefined(GiftClient);
       });
   });
 
   describe('#API', () => {
 
-    it('DialogClient should expose a "connect" function', () => {
-      assert.isFunction(DialogClient.connect);
+    it('GiftClient should expose a "connect" function', () => {
+      assert.isFunction(GiftClient.connect);
     });
     it('connect() must throw an error when invoked with no params', function () {
-      assert.throws(DialogClient.connect);
+      assert.throws(GiftClient.connect);
     });
     it('connect() must return an object', () => {
-      const client = DialogClient.connect(environment.stab);
+      const client = GiftClient.connect(environment.stab);
       assert.isDefined(client);
     }); 
     it('connect() must return an object exposing "question" function',  () => {
-      const client = DialogClient.connect(environment.stab);
+      const client = GiftClient.connect(environment.stab);
       assert.isFunction(client.question);
     });
     it('question() must return a Promise', () => {
-      const client = DialogClient.connect(environment.stab);
+      const client = GiftClient.connect(environment.stab);
       const result = client.question({ authenticatedFacebookToken: 'jkfs7583452njfds7238423' });
       assert.isDefined(result);
       assert.isTrue(result instanceof Promise);

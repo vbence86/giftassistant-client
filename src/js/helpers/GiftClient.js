@@ -6,7 +6,7 @@ import Client from './Client';
  * Client object that represent a connection to the given abel endpoint 
  * @param {string} serviceURL URL to the service endpoint
  */
-function DialogClient(serviceURL) {
+function GiftClient(serviceURL) {
 
   const client = Client.connect({ endpoint: serviceURL });
 
@@ -28,15 +28,15 @@ function DialogClient(serviceURL) {
 export default {
 
   /**
-   * Returns an instance of a DialogClient connected to the given endpoint
-   * @param {string} endpoint Endpoint of the Dialog service
-   * @return {object} Instance of the DialogClient 
+   * Returns an instance of a GiftClient connected to the given endpoint
+   * @param {string} endpoint Endpoint of the Gift service
+   * @return {object} Instance of the GiftClient 
    */
   connect(endpoint){
     if (!endpoint){
       throw 'Endpoint to be specified!';
     }
-    return new DialogClient(endpoint);
+    return new GiftClient(endpoint);
   }
 
 };

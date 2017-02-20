@@ -2,7 +2,7 @@ const jsonServer = require('json-mock');
 const bodyParser = require('body-parser');
 const questionResponse = require('./question.json'); 
 
-function stabDialogService(port){
+function stabGiftService(port) {
 
   const server = jsonServer.create();
 
@@ -24,7 +24,7 @@ function stabDialogService(port){
   });
 
   server.listen(port, () => {
-    console.log(`DialogServer is stabbed at ${port}...`);
+    console.log(`GiftServer is stabbed at ${port}...`);
   });
 }
 
@@ -39,7 +39,7 @@ export default {
    * @param {string} port 
    */
   start: port => {
-    stabDialogService(port);
+    stabGiftService(port);
   }
 
 }
