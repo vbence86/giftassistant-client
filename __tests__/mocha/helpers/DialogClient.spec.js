@@ -13,14 +13,14 @@ function testQuestionService(endpoint) {
 
   it('Calling the "question" service must return an object including questions', function () {
     const client = DialogClient.connect(endpoint);
-    const result = client.question({ authenticatedFacebookToken: 'jkfs7583452njfds7238423' });
+    const result = client.question({ id: 18 });
     return result.then(resp => {
       assert.isDefined(resp);
-      assert.isDefined(resp.result);
-      assert.isDefined(resp.result.questionResponse);
-      assert.isDefined(resp.result.questionResponse);
-      assert.isArray(resp.result.questionResponse.questions);
-      resp.result.questionResponse.questions.forEach(question => {
+      assert.isDefined(resp.response);
+      assert.isDefined(resp.response.questions);
+      assert.isDefined(resp.response.questions);
+      assert.isArray(resp.response.questions);
+      resp.response.questions.forEach(question => {
         assert.isDefined(question.id);
         assert.isDefined(question.label);
         assert.isDefined(question.category);
@@ -70,13 +70,13 @@ describe('DialogDialogClient', () => {
 
   describe('#Services', () => {
 
-    describe('POST /question', testQuestionService.bind(null, environment.stab));
+    describe('GET /question', testQuestionService.bind(null, environment.stab));
       
   });
 
   describe('#Integration', () => {
 
-    describe('POST /question', testQuestionService.bind(null, environment.integration));
+    describe('GET /question', testQuestionService.bind(null, environment.integration));
     
   })
 

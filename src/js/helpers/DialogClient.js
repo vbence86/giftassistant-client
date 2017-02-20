@@ -13,13 +13,8 @@ function DialogClient(serviceURL) {
   return {
 
     question: function(options) {
-      const params = {
-        id: "1",
-        parameters: {
-          authenticatedFacebookToken: options.authenticatedFacebookToken
-        }
-      };
-      return client.post('question', params);
+      const id = options.id;
+      return client.get(`question/${id}`);
     }
 
   };

@@ -12,7 +12,7 @@ function stabDialogService(port){
     next(err);
   });
 
-  server.post('/question$', (req, res) => {
+  server.get('/question/:id', (req, res) => {
     /*if (!req.body.card) {
         res.status(400).json(responses.NO_NECTAR_CARD);
     } else if (!req.body.session) {
