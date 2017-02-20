@@ -15,6 +15,11 @@ function GiftClient(serviceURL) {
     question: function(options) {
       const id = options.id;
       return client.get(`question/${id}`);
+    },
+
+    giftCategory: function(options) {
+      const id = options.id;
+      return client.get(`giftCategory/${id}`);
     }
 
   };

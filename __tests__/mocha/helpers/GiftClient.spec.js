@@ -32,6 +32,26 @@ function testQuestionService(endpoint) {
 
 }
 
+function testGiftCategoryService(endpoint) {
+
+  it('Calling the "giftCategory" service must return an object including gift categories', function () {
+    const client = GiftClient.connect(endpoint);
+    const result = client.giftCategory({ id: 1 });
+    return result.then(resp => {
+      assert.isDefined(resp);
+      assert.isDefined(resp.response);
+      assert.isDefined(resp.response.listCategory);
+      assert.isArray(resp.response.listCategory);
+      resp.response.listCategory.forEach(category => {
+        assert.isDefined(category.id);
+        assert.isDefined(category.categoryName);
+        assert.isDefined(category.url);
+      });
+    });
+  });
+
+}
+
 describe('DialogGiftClient', () => {
   'use strict';
 
@@ -59,9 +79,19 @@ describe('DialogGiftClient', () => {
       const client = GiftClient.connect(environment.stab);
       assert.isFunction(client.question);
     });
+    it('connect() must return an object exposing "giftCategory" function',  () => {
+      const client = GiftClient.connect(environment.stab);
+      assert.isFunction(client.giftCategory);
+    });
     it('question() must return a Promise', () => {
       const client = GiftClient.connect(environment.stab);
-      const result = client.question({ authenticatedFacebookToken: 'jkfs7583452njfds7238423' });
+      const result = client.question({ id: 16 });
+      assert.isDefined(result);
+      assert.isTrue(result instanceof Promise);
+    });
+    it('giftCategory() must return a Promise', () => {
+      const client = GiftClient.connect(environment.stab);
+      const result = client.giftCategory({ id: 18 });
       assert.isDefined(result);
       assert.isTrue(result instanceof Promise);
     });
@@ -71,12 +101,14 @@ describe('DialogGiftClient', () => {
   describe('#Services', () => {
 
     describe('GET /question', testQuestionService.bind(null, environment.stab));
+    describe('GET /giftCategory', testGiftCategoryService.bind(null, environment.stab));
       
   });
 
   describe('#Integration', () => {
 
     describe('GET /question', testQuestionService.bind(null, environment.integration));
+    describe('GET /giftCategory', testGiftCategoryService.bind(null, environment.integration));
     
   })
 

@@ -1,6 +1,7 @@
 const jsonServer = require('json-mock');
 const bodyParser = require('body-parser');
 const questionResponse = require('./question.json'); 
+const giftCategoryResponse = require('./giftCategory.json'); 
 
 function stabGiftService(port) {
 
@@ -20,8 +21,20 @@ function stabGiftService(port) {
     } else {
         res.json(responses.OK);
     }*/
-    res.json(questionResponse)
+    res.json(questionResponse);
   });
+
+  server.get('/giftCategory/:id', (req, res) => {
+    /*if (!req.body.card) {
+        res.status(400).json(responses.NO_NECTAR_CARD);
+    } else if (!req.body.session) {
+        res.status(400).json(responses.NO_SESSION);
+    } else {
+        res.json(responses.OK);
+    }*/
+    res.json(giftCategoryResponse);
+  });
+
 
   server.listen(port, () => {
     console.log(`GiftServer is stabbed at ${port}...`);
