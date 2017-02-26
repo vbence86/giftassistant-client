@@ -20,6 +20,29 @@ function GiftClient(serviceURL) {
     giftCategory: function(options) {
       const id = options.id;
       return client.get(`giftCategory/${id}`);
+    },
+
+    answer: function(options) {
+      return client.post('answer', options);
+    },
+
+    start: function(options) {
+      const id = options.id;
+      return client.get(`start/${id}`);
+    },
+
+    flagGiftCategory: function(options) {
+      return client.post('flagGiftCategory', options);      
+    },
+
+    giftResult: function(options) {
+      const id = options.id;
+      return client.get(`giftResult/${id}`);
+    },
+
+    userDetail: function(options) {
+      const id = options.id;
+      return client.get(`userDetail/${id}`);
     }
 
   };

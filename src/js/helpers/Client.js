@@ -53,7 +53,11 @@ function status(resp) {
  */
 function jsonify(resp){
   if (!resp || !resp.json) throw 'Invalid Response object!';
-  return resp.json();
+  return resp
+    .json()
+    .catch(err => {
+      return Promise.resolve();
+    });
 }
 
 /**

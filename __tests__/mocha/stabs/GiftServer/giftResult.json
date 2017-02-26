@@ -1,0 +1,22 @@
+{
+  "response": {
+    "items": [
+      {
+        "asin": "asin1",
+        "label": "label1",
+        "price": 10,
+        "formattedPrice": "10.00",
+        "amazonURL": "amazon.com/shortURL",
+        "largeImageURL": "amazon.com/LongURL"
+      },
+      {
+        "asin": "asin1",
+        "label": "label1",
+        "price": 10,
+        "formattedPrice": "10.00",
+        "amazonURL": "amazon.com/shortURL",
+        "largeImageURL": "amazon.com/LongURL"
+      }
+    ]
+  }
+}
