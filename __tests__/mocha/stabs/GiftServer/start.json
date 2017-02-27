@@ -1,0 +1,36 @@
+{
+  "response": {
+    "startFlowList": [
+      {
+        "sequence": 1,
+        "methodName": "/question",
+        "methodType": "GET"
+      },
+      {
+        "sequence": 2,
+        "methodName": "/answer",
+        "methodType": "POST"
+      },
+      {
+        "sequence": 3,
+        "methodName": "/giftCategory",
+        "methodType": "GET"
+      },
+      {
+        "sequence": 4,
+        "methodName": "/flagGiftCategory",
+        "methodType": "POST"
+      },
+      {
+        "sequence": 5,
+        "methodName": "/giftResult",
+        "methodType": "GET"
+      },
+      {
+        "sequence": 6,
+        "methodName": "/swipeResult",
+        "methodType": "POST"
+      }
+    ]
+  }
+}
