@@ -55,6 +55,10 @@ function stabGiftService(port) {
     res.json(userDetails);
   });
 
+  server.post('/swipeResult$', (req, res) => {
+    res.sendStatus(200);
+  });   
+
 }
 
 /**

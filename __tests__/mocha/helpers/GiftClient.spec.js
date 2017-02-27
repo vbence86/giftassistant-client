@@ -163,6 +163,28 @@ function testUserDetails(endpoint) {
 
 }
 
+function testSwipeResult(endpoint) {
+
+  it('Calling the "swipeResult" service returns only an empty 200', function () {
+    const client = GiftClient.connect(endpoint);
+    const result = client.swipeResult({
+      facebookId: 1,
+      swipeDecisionList: [
+          {
+            id: 1,
+            flag: true
+          },
+          {
+            id: 2,
+            flag: true
+          }
+        ]
+    });
+    return result.should.be.fulfilled;
+  });
+
+}
+
 describe('GiftClient', () => {
   'use strict';
 
@@ -218,6 +240,7 @@ describe('GiftClient', () => {
     describe('POST /flagGiftCategory', testFlagGiftCategoryService.bind(null, environment.stab));
     describe('GET /giftResult', testGiftResult.bind(null, environment.stab));
     describe('GET /userDetail', testUserDetails.bind(null, environment.stab));
+    describe('POST /testSwipeResult', testSwipeResult.bind(null, environment.stab));
 
   });
 
@@ -230,6 +253,7 @@ describe('GiftClient', () => {
     describe('POST /flagGiftCategory', testFlagGiftCategoryService.bind(null, environment.integration));
     describe('GET /giftResult', testGiftResult.bind(null, environment.integration));
     describe('GET /userDetail', testUserDetails.bind(null, environment.integration));
+    describe('POST /testSwipeResult', testSwipeResult.bind(null, environment.integration));
     
   });
 

@@ -40,6 +40,10 @@ function GiftClient(serviceURL) {
       return client.get(`giftResult/${id}`);
     },
 
+    swipeResult: function(options) {
+      return client.post('swipeResult', options);
+    },
+
     userDetail: function(options) {
       const id = options.id;
       return client.get(`userDetail/${id}`);
