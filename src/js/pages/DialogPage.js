@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-elements'
-import DialogClient from '../helpers/DialogClient';
+import GiftClient from '../helpers/GiftClient';
 const appConfig = require('../../../environment.json');
 
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ export default class DialogPage extends React.Component {
   }
 
   componentDidMount() {
-    const client = DialogClient.connect(appConfig.dialogServiceURL);
+    const client = GiftClient.connect(appConfig.giftServiceURL);
     const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
     client
       .question(req)

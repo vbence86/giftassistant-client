@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "test": "jest",
-    "test-mocha": "mocha -t 10000 --require babel-core/register __tests__/mocha/**/*.spec.js"
+    "test-mocha": "mocha -t 10000 --require babel-core/register __tests__/mocha/**/*.spec.js",
+    "build": "npm run test && npm run test-mocha"
   },
   "dependencies": {
     "babel-core": "^6.22.1",
@@ -27,6 +28,7 @@
     "react-test-renderer": "15.4.2"
   },
   "jest": {
-    "preset": "react-native"
+    "preset": "react-native",
+    "testPathIgnorePatterns": ["mocha"]
   }
 }
