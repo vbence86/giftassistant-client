@@ -1,4 +1,4 @@
-# giftassistant-client
+# giftassistant-client [![Build Status](https://travis-ci.org/vbence86/giftassistant-client.svg?branch=master)](https://travis-ci.org/vbence86/giftassistant-client)
 React Native Application to realise the client mobile app for the GiftAssistant Project
 
 # Naming
