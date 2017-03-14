@@ -20,7 +20,7 @@ export default class DialogPage extends React.Component {
   }
 
   componentDidMount() {
-    const client = DialogClient.connect(appConfig.dialogServiceURL);
+    const client = DialogClient.connect(appConfig.giftServiceURL);
     const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
     client
       .question(req)
