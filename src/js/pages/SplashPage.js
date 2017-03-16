@@ -43,14 +43,14 @@ export default class SplashPage extends React.Component {
   _doLogin() {
     // @TODO change this with real login implementation
     setTimeout(() => {
-      this._goToDialogPage();
-    }, 2000);
+      this._goToPersonalQuestionsPage();
+    }, 100);
   }
 
-  _goToDialogPage(props) {
+  _goToPersonalQuestionsPage(props) {
     this.props.navigator.push({
-      id: 'DialogPage',
-      name: 'Dialog',
+      id: 'PersonalQuestionsPage',
+      name: 'PersonalQuestions',
       passProps: {
         name: props
       }

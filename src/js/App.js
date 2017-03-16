@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Navigator } from 'react-native';
 import SplashPage from './pages/SplashPage';
-import DialogPage from './pages/DialogPage';
+import PersonalQuestionsPage from './pages/PersonalQuestionsPage';
 import LoginPage from './pages/LoginPage';
 
 export default class App extends React.Component {
@@ -12,8 +12,8 @@ export default class App extends React.Component {
       return <SplashPage navigator={navigator} />
     } else if (routeId === 'LoginPage') {
       return <LoginPage navigator={navigator} />
-    } else if (routeId === 'DialogPage') {
-      return <DialogPage navigator={navigator} />
+    } else if (routeId === 'PersonalQuestionsPage') {
+      return <PersonalQuestionsPage navigator={navigator} />
     }
   }
 

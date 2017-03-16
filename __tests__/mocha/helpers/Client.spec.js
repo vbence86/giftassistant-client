@@ -1,3 +1,8 @@
+// Polyfill for Fetch API
+// https://github.com/matthew-andrews/isomorphic-fetch
+require('es6-promise').polyfill();
+require('isomorphic-fetch');
+
 import Client from '../../../src/js/helpers/Client';
 
 const assert = require('chai').assert;

@@ -1,10 +1,5 @@
 /* global module, Promise, require */
 
-// Polyfill for Fetch API
-// https://github.com/matthew-andrews/isomorphic-fetch
-require('es6-promise').polyfill();
-require('isomorphic-fetch');
-
 const defaults = {
   headers: {
     'Content-Type': 'application/json'

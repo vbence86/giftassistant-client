@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Button, Text } from 'react-native-elements'
+import { Button, Text } from 'react-native-elements';
+
+import QuestionView from '../components/QuestionView';
 import GiftClient from '../helpers/GiftClient';
 const appConfig = require('../../../environment.json');
 
@@ -12,10 +14,10 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class DialogPage extends React.Component {
+export default class PersonalQuestionsPage extends React.Component {
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {};
   }
 
@@ -28,15 +30,19 @@ export default class DialogPage extends React.Component {
   }
 
   _handleResponse(resp) {
-    this.setState({ text: JSON.stringify(resp) });
+    const state = resp.response.questions[0];
+    this.setState(state);
   }
 
   render() {
+    
     return (
       <View style={styles.container}>
-        <Text>{this.state.text}</Text>
+        <Text>{JSON.stringify(this.state)}</Text>
+        <QuestionView {...this.state} />
       </View>
     );
+
   }
 
 }
