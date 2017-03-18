@@ -29,11 +29,6 @@ class SelectionList extends React.Component {
 
 class Choice extends React.Component {
 
-  static propTypes = {
-    type: React.PropTypes.string.isRequired,
-    values: React.PropTypes.object.isRequired
-  };
-
   render() {
     
     const type = this.props.type;
@@ -41,6 +36,8 @@ class Choice extends React.Component {
 
     if (type === 'slider') {
       const { min, max } = values;
+      min = parseInt(min);
+      max = parseInt(max);
       return (
         <Slider minimumValue={min} maximumVaue={max} />
       );
@@ -48,6 +45,10 @@ class Choice extends React.Component {
       return (
         <SelectionList values={values} />
       );
+    } else {
+      return (
+        <Text>Please Wait...</Text>
+      )
     }
   }
 
@@ -56,6 +57,9 @@ class Choice extends React.Component {
 export default class QuestionView extends React.Component {
 
   render() {
+    if (!this.props || !this.props.input) {
+      return null;
+    }
     return (
       <View>
         <Grid>
@@ -63,7 +67,7 @@ export default class QuestionView extends React.Component {
             <Text h1>{this.props.label}</Text>
           </Row>
           <Row size={70}>
-            <Choice type={this.props.type} values={this.props.values} />
+            <Choice type={this.props.input} values={this.props.values} />
           </Row>
         </Grid>
       </View>
