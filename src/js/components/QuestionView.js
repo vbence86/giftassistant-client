@@ -1,16 +1,43 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Grid, Row, Button, Text, Slider } from 'react-native-elements'
+import { Grid, Row, Button, Text } from 'react-native-elements';
+import Slider from 'react-native-slider';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'stretch',
+    marginLeft: 15,
+    marginRight: 15,
   }
 });
 
-class SelectionList extends React.Component {
+class SliderGroup extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 0
+    }
+  }
+
+  render() {
+    let { min, max } = this.props.values;
+    min = parseInt(min);
+    max = parseInt(max);
+    return (
+      <View style={styles.container}>
+        <Slider value={this.state.value} 
+                onValueChange={(value) => this.setState({value})} />
+        <Button title="OK" />
+      </View>
+    );
+  }
+
+}
+
+class SelectionGroup extends React.Component {
     
   render() {
     
@@ -29,21 +56,25 @@ class SelectionList extends React.Component {
 
 class Choice extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: 0
+    }
+  }
+
   render() {
     
     const type = this.props.type;
     const values = this.props.values || {};
 
     if (type === 'slider') {
-      const { min, max } = values;
-      min = parseInt(min);
-      max = parseInt(max);
       return (
-        <Slider minimumValue={min} maximumVaue={max} />
+        <SliderGroup values={values} />
       );
     } else if (type === 'select') {
       return (
-        <SelectionList values={values} />
+        <SelectionGroup values={values} />
       );
     } else {
       return (
@@ -61,10 +92,10 @@ export default class QuestionView extends React.Component {
       return null;
     }
     return (
-      <View>
+      <View style={styles.container}>
         <Grid>
           <Row size={30}>
-            <Text h1>{this.props.label}</Text>
+            <Text h3>{this.props.label}</Text>
           </Row>
           <Row size={70}>
             <Choice type={this.props.input} values={this.props.values} />

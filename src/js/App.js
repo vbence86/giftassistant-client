@@ -4,6 +4,7 @@ import { SideMenu, List, ListItem } from 'react-native-elements';
 import SplashPage from './pages/SplashPage';
 import PersonalQuestionsPage from './pages/PersonalQuestionsPage';
 import LoginPage from './pages/LoginPage';
+import MenuButton from './components/MenuButton';
 
 export default class App extends React.Component {
 
@@ -22,6 +23,25 @@ export default class App extends React.Component {
   }
 
   getSideMenu() {
+
+    list = [
+      {
+        name: 'Menu 1',
+        subtitle: 'Menu 1 subtitle',
+        avatar_url: 'https://cdn1.iconfinder.com/data/icons/DarkGlass_Reworked/128x128/apps/package_favourite.png'
+      },
+      {
+        name: 'Menu 2',
+        subtitle: 'Menu 2 subtitle',
+        avatar_url: 'https://cdn1.iconfinder.com/data/icons/DarkGlass_Reworked/128x128/apps/package_favourite.png'
+      },
+      {
+        name: 'Menu 3',
+        subtitle: 'Menu 3 subtitle',
+        avatar_url: 'https://cdn1.iconfinder.com/data/icons/DarkGlass_Reworked/128x128/apps/package_favourite.png'
+      }
+    ];
+
     return (
       <View style={{flex: 1, backgroundColor: '#ededed', paddingTop: 50}}>
         <List containerStyle={{marginBottom: 20}}>
@@ -46,7 +66,8 @@ export default class App extends React.Component {
     return (
       <SideMenu
         isOpen={this.state.isOpen}
-        menu={this.getSideMenu}>
+        menu={this.getSideMenu()}>
+        <MenuButton onPress={() => this.toggleSideMenu()} />
         {page}
       </SideMenu>
     )
