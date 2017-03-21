@@ -24,7 +24,7 @@ const mockResponse = {
         "id": 2,
         "label": "Sex?",
         "category": "personal",
-        "input": "slider",
+        "input": "select",
         "values": {
           "OtherValue": "Other",
           "FemaleValue": "Female",
@@ -35,7 +35,7 @@ const mockResponse = {
         "id": 3,
         "label": "Purpose?",
         "category": "personal",
-        "input": "slider",
+        "input": "select",
         "values": {
           "MarriageValue:": "Marriage",
           "BirthdayValue:": "Birthday"
@@ -45,7 +45,7 @@ const mockResponse = {
         "id": 4,
         "label": "Price Range?",
         "category": "personal",
-        "input": "slider",
+        "input": "select",
         "values": {
           "Range1Value:": "0-10",
           "Range2Value:": "10-50",
@@ -57,8 +57,6 @@ const mockResponse = {
     ]
   }
 };
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -74,6 +72,9 @@ export default class PersonalQuestionsPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.questions = [];
+    this.currentQuestionIdx = 0;
+    this.handleAnswer = this.handleAnswer.bind(this);
   }
 
   componentDidMount() {
@@ -81,20 +82,48 @@ export default class PersonalQuestionsPage extends React.Component {
     const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
     client
       .question(req)
-      .then(this._handleResponse.bind(this))
-      .catch(this._handleResponse.bind(this, mockResponse));
+      .then(this.handleResponse.bind(this))
+      .catch(this.handleResponse.bind(this, mockResponse));
   }
 
-  _handleResponse(resp) {
-    const state = resp.response.questions[0];
-    this.setState(state);
+  handleResponse(resp) {
+    this.saveQuestionsFromResponse(resp);
+    this.setStateByCurrentQuestion();
+  }
+
+  saveQuestionsFromResponse(resp) {
+    this.questions = resp.response.questions;
+  } 
+
+  setStateByCurrentQuestion() {
+    this.setState(this.questions[this.currentQuestionIdx]);
+  }
+
+  nextQuestion() {
+    this.currentQuestionIdx += 1;
+    if (this.currentQuestionIdx < this.questions.length) {
+      this.setStateByCurrentQuestion();
+    } else {
+      this.lastQuestionIsAnswered();
+    }
+  }
+
+  handleAnswer() {
+    this.nextQuestion();
+  }
+
+  lastQuestionIsAnswered() {
+    this.props.navigator.push({
+      id: 'SplashPage',
+      name: 'SplashPage'
+    });
   }
 
   render() {
     
     return (
       <View style={styles.container}>
-        <QuestionView {...this.state}/>
+        <QuestionView {...this.state} onAnswer={this.handleAnswer}/>
       </View>
     );
 

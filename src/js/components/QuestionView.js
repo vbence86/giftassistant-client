@@ -20,6 +20,7 @@ class SliderGroup extends React.Component {
     this.state = {
       value: 0
     }
+    this.onPress = this.onPress.bind(this);
   }
 
   render() {
@@ -30,9 +31,14 @@ class SliderGroup extends React.Component {
       <View style={styles.container}>
         <Slider value={this.state.value} 
                 onValueChange={(value) => this.setState({value})} />
-        <Button title="OK" />
+        <Text h4>{this.state.value}</Text>
+        <Button title="OK" onPress={this.onPress}/>
       </View>
     );
+  }
+
+  onPress() {
+    this.props.onAnswer(this.state.value);
   }
 
 }
@@ -70,11 +76,11 @@ class Choice extends React.Component {
 
     if (type === 'slider') {
       return (
-        <SliderGroup values={values} />
+        <SliderGroup values={values} onAnswer={this.props.onAnswer} />
       );
     } else if (type === 'select') {
       return (
-        <SelectionGroup values={values} />
+        <SelectionGroup values={values} onAnswer={this.props.onAnswer} />
       );
     } else {
       return (
@@ -98,7 +104,7 @@ export default class QuestionView extends React.Component {
             <Text h3>{this.props.label}</Text>
           </Row>
           <Row size={70}>
-            <Choice type={this.props.input} values={this.props.values} />
+            <Choice type={this.props.input} values={this.props.values} onAnswer={this.props.onAnswer}/>
           </Row>
         </Grid>
       </View>
