@@ -71,10 +71,13 @@ export default class PersonalQuestionsPage extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.handleAnswer = this.handleAnswer.bind(this);
+
     this.state = {};
     this.questions = [];
+    this.answers = [];
     this.currentQuestionIdx = 0;
-    this.handleAnswer = this.handleAnswer.bind(this);
   }
 
   componentDidMount() {
@@ -108,7 +111,8 @@ export default class PersonalQuestionsPage extends React.Component {
     }
   }
 
-  handleAnswer() {
+  handleAnswer(value) {
+    this,answers.push({ id: this.questions[this.currentQuestionIdx].id, value });
     this.nextQuestion();
   }
 
