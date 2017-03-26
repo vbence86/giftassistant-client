@@ -44,6 +44,11 @@ class SliderGroup extends React.Component {
 }
 
 class SelectionGroup extends React.Component {
+
+  constructor(props) {
+    super(props);
+    this.onPress = this.onPress.bind(this);
+  }
     
   render() {
     
@@ -52,11 +57,15 @@ class SelectionGroup extends React.Component {
 
     Object.keys(values).forEach((key) => {
       const value = values[key];
-      selection.push(<Button title={value} value={value} key={key} />);
+      selection.push(<Button title={value} value={value} key={key} onPress={this.onPress}/>);
     });
     
     return selection;
   };
+
+  onPress() {
+    this.props.onAnswer('Bence');
+  }
 
 }
 
