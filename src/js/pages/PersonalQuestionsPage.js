@@ -112,14 +112,32 @@ export default class PersonalQuestionsPage extends React.Component {
   }
 
   handleAnswer(value) {
-    this.answers.push({ id: this.questions[this.currentQuestionIdx].id, value });
+    this.answers.push({ 
+      id: this.questions[this.currentQuestionIdx].id, 
+      value 
+    });
     this.nextQuestion();
   }
 
   lastQuestionIsAnswered() {
+    this.sendAnswersToGiftService()
+      .then(this.navigateToGiftCategoryPage.bind(this))
+      .catch(this.navigateToGiftCategoryPage.bind(this));
+  }
+
+  sendAnswersToGiftService() {
+    const client = GiftClient.connect(appConfig.giftServiceURL);
+    const req = { 
+      facebookId: 'jkfs7583452njfds7238423',
+      answers: this.answers 
+    };
+    return client.answer(req);
+  }
+
+  navigateToGiftCategoryPage() {
     this.props.navigator.push({
-      id: 'SplashPage',
-      name: 'SplashPage'
+      id: 'GiftCategoryPage',
+      name: 'GiftCategoryPage'
     });
   }
 
