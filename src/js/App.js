@@ -4,6 +4,8 @@ import { SideMenu, List, ListItem } from 'react-native-elements';
 import SplashPage from './pages/SplashPage';
 import PersonalQuestionsPage from './pages/PersonalQuestionsPage';
 import LoginPage from './pages/LoginPage';
+import GiftCategoryPage from './pages/GiftCategoryPage';
+import GiftResultPage from './pages/GiftResultPage';
 import MenuButton from './components/MenuButton';
 
 export default class App extends React.Component {
@@ -79,6 +81,10 @@ export default class App extends React.Component {
       return <SplashPage navigator={navigator} />
     } else if (routeId === 'PersonalQuestionsPage') {
       page = <PersonalQuestionsPage navigator={navigator} />
+    } else if (routeId === 'GiftCategoryPage') {
+      page = <GiftCategoryPage navigator={navigator} />
+    } else if (routeId === 'GiftResultPage') {
+      page = <GiftResultPage navigator={navigator} />
     }
     return this.renderPageWithSideMenu(page);
   }
