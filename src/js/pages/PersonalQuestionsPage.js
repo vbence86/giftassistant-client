@@ -112,7 +112,7 @@ export default class PersonalQuestionsPage extends React.Component {
   }
 
   handleAnswer(value) {
-    this,answers.push({ id: this.questions[this.currentQuestionIdx].id, value });
+    this.answers.push({ id: this.questions[this.currentQuestionIdx].id, value });
     this.nextQuestion();
   }
 
