@@ -25,20 +25,22 @@ class SliderGroup extends React.Component {
 
   render() {
     let { min, max } = this.props.values;
+    let shownValue;
     min = parseInt(min);
     max = parseInt(max);
+    shownValue = Math.round(this.state.value * (max - min) + min);
     return (
       <View style={styles.container}>
         <Slider value={this.state.value} 
                 onValueChange={(value) => this.setState({value})} />
-        <Text h4>{this.state.value}</Text>
+        <Text h4>{shownValue}</Text>
         <Button title="OK" onPress={this.onPress}/>
       </View>
     );
   }
 
   onPress() {
-    this.props.onAnswer(this.state.value);
+    this.props.onAnswer(Math.round(this.state.value));
   }
 
 }
@@ -52,15 +54,17 @@ class SelectionGroup extends React.Component {
     
   render() {
     
-    const { values } = this.props.values;
-    const selection = [];
-
-    Object.keys(values).forEach((key) => {
+    const { values } = this.props;
+    let selection = Object.keys(values).map((key) => {
       const value = values[key];
-      selection.push(<Button title={value} value={value} key={key} onPress={this.onPress}/>);
+      return (
+        <Button title={value} value={value} key={key} onPress={this.onPress}/>
+      );
     });
     
-    return selection;
+    return (
+      <View>{selection}</View>
+    );
   };
 
   onPress() {
