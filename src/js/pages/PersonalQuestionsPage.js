@@ -85,7 +85,7 @@ export default class PersonalQuestionsPage extends React.Component {
     const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
     client
       .question(req)
-      .then(this.handleResponse.bind(this))
+      .then(this.handleResponse.bind(this, mockResponse))
       .catch(this.handleResponse.bind(this, mockResponse));
   }
 
