@@ -58,7 +58,7 @@ class SelectionGroup extends React.Component {
     let selection = Object.keys(values).map((key) => {
       const value = values[key];
       return (
-        <Button title={value} value={value} key={key} onPress={this.onPress}/>
+        <Button title={value} key={key} onPress={this.onPress.bind(this, key)}/>
       );
     });
     
@@ -67,8 +67,8 @@ class SelectionGroup extends React.Component {
     );
   };
 
-  onPress() {
-    this.props.onAnswer('Bence');
+  onPress(value) {
+    this.props.onAnswer(value);
   }
 
 }

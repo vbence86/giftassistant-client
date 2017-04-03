@@ -138,11 +138,31 @@ export default class GiftCategoryPage extends React.Component {
   }
 
   lastCategoryIsFlagged() {
+    this.sendAnswersToGiftService()
+      .then(this.navigateToGiftResultPage.bind(this))
+      .catch(this.navigateToGiftResultPage.bind(this));    
+  }
+
+  sendAnswersToGiftService() {
+    const client = GiftClient.connect(appConfig.giftServiceURL);
+    const requests = this.answers.map(({id, flag}) => {
+        const req = { 
+          facebookId: 'jkfs7583452njfds7238423',
+          id,
+          flag
+        };
+        return client.flagGiftCategory(req);
+      });
+    return Promise.all(requests);
+  }
+
+  navigateToGiftResultPage() {
     this.props.navigator.push({
       id: 'GiftResultPage',
       name: 'GiftResultPage'
     });
   }
+
 
   render() {
     
