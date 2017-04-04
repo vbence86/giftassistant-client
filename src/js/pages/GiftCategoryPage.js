@@ -163,7 +163,6 @@ export default class GiftCategoryPage extends React.Component {
     });
   }
 
-
   render() {
     
     return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Animated, Easing } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import Slider from 'react-native-slider';
 
@@ -106,12 +106,39 @@ class Choice extends React.Component {
 
 export default class QuestionView extends React.Component {
 
+  constructor(props) {
+    super(props);
+    this.animValue = new Animated.Value(0);
+  }
+
+  componentDidMount() {
+    this.animate();
+  }
+  
+  animate() {
+    this.animValue.setValue(0);
+    Animated.timing(
+      this.animValue,
+      {
+        toValue: 1,
+        duration: 1000,
+        easing: Easing.linear
+      }
+    ).start();
+  }
+
   render() {
     if (!this.props || !this.props.input) {
       return null;
     }
+
+    const marginLeft = this.animValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [-300, 0]
+    });
+
     return (
-      <View style={styles.container}>
+      <Animated.View style={{ marginLeft }}>
         <Grid>
           <Row size={30}>
             <Text h3>{this.props.label}</Text>
@@ -120,7 +147,7 @@ export default class QuestionView extends React.Component {
             <Choice type={this.props.input} values={this.props.values} onAnswer={this.props.onAnswer}/>
           </Row>
         </Grid>
-      </View>
+      </Animated.View>
     );
   }
 
