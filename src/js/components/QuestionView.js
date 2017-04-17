@@ -108,23 +108,30 @@ export default class QuestionView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.animValue = new Animated.Value(0);
-  }
-
-  componentDidMount() {
-    this.animate();
+    this.animValue = new Animated.Value(1);
+    this.onAnswer = this.onAnswer.bind(this);
   }
   
   animate() {
     this.animValue.setValue(0);
-    Animated.timing(
+    Animated.spring(
       this.animValue,
       {
         toValue: 1,
-        duration: 1000,
-        easing: Easing.linear
+        friction: 7,
+        tension: 50
       }
     ).start();
+  }
+
+  onAnswer() {
+    if (!this.props.isLastQuestion) {
+      this.animate();
+    }
+    if (this.props.onAnswer) {
+      let args = Array.prototype.slice.call(arguments);
+      this.props.onAnswer.apply(null, args);
+    }
   }
 
   render() {
@@ -136,15 +143,20 @@ export default class QuestionView extends React.Component {
       inputRange: [0, 1],
       outputRange: [-300, 0]
     });
-
+    
+    const opacity = this.animValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, 1]
+    });
+    
     return (
-      <Animated.View style={{ marginLeft }}>
+      <Animated.View style={{ marginLeft, opacity }}>
         <Grid>
           <Row size={30}>
-            <Text h3>{this.props.label}</Text>
+            <Text>{this.props.label}</Text>
           </Row>
           <Row size={70}>
-            <Choice type={this.props.input} values={this.props.values} onAnswer={this.props.onAnswer}/>
+            <Choice type={this.props.input} values={this.props.values} onAnswer={this.onAnswer}/>
           </Row>
         </Grid>
       </Animated.View>

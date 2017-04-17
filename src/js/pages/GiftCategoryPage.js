@@ -120,7 +120,9 @@ export default class GiftCategoryPage extends React.Component {
   } 
 
   setStateByCurrentCategory() {
-    this.setState(this.categories[this.currentCategoryIdx]);
+    const category = this.categories[this.currentCategoryIdx];
+    const isLastCategory = this.currentCategoryIdx === this.categories.length - 1;
+    this.setState({ ...category, isLastCategory });
   }
 
   nextCategory() {
@@ -167,7 +169,7 @@ export default class GiftCategoryPage extends React.Component {
     
     return (
       <View style={styles.container}>
-        <GiftCategoryView name={this.state.categoryName} onAnswer={this.handleAnswer}/>
+        <GiftCategoryView isLastCategory={this.state.isLastCategory} name={this.state.categoryName} onAnswer={this.handleAnswer}/>
       </View>
     );
 
