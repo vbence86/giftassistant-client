@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Animated, Easing } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import Slider from 'react-native-slider';
+import LinearGradient from 'react-native-linear-gradient';
 
 const styles = StyleSheet.create({
   container: {
@@ -10,7 +11,39 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     marginLeft: 15,
     marginRight: 15,
+  },
+  header: {
+    width: '100%',
+    marginTop: 50,
+    textAlign: 'center',
+    fontSize: 50
+  },
+  selectionContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    margin: 0,
+    padding: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  selectionItem: {
+    width: '80%',
+    height: '20%',
+    padding: 50,
+    margin: 20,
+    backgroundColor: '#397af8',
+    borderRadius: 5,
+  },
+  selectionItemSmall: {
+    width: '40%',
+    height: '20%',
+    padding: 50,
+    margin: 20,
+    backgroundColor: '#397af8',
+    borderRadius: 5,
   }
+  
 });
 
 class SliderGroup extends React.Component {
@@ -55,15 +88,23 @@ class SelectionGroup extends React.Component {
   render() {
     
     const { values } = this.props;
-    let selection = Object.keys(values).map((key) => {
+    const keys = Object.keys(values);
+    const numberOfValues = keys.length;
+    let selection = keys.map((key) => {
       const value = values[key];
+      let buttonStyle = styles.selectionItem;
+      let fontSize = 30;
+      if (numberOfValues > 3) {
+        buttonStyle = styles.selectionItemSmall;
+        fontSize = 20;
+      }
       return (
-        <Button title={value} key={key} onPress={this.onPress.bind(this, key)}/>
+        <Button fontSize={fontSize} buttonStyle={buttonStyle} title={value} key={key} onPress={this.onPress.bind(this, key)} raised large/>
       );
     });
     
     return (
-      <View>{selection}</View>
+      <View style={styles.selectionContainer}>{selection}</View>
     );
   };
 
@@ -151,11 +192,11 @@ export default class QuestionView extends React.Component {
     
     return (
       <Animated.View style={{ marginLeft, opacity }}>
-        <Grid>
-          <Row size={30}>
-            <Text>{this.props.label}</Text>
+        <Grid style={{ width: 500 }}>
+          <Row size={20}>
+            <Text style={styles.header} h3>{this.props.label}</Text>
           </Row>
-          <Row size={70}>
+          <Row size={80}>
             <Choice type={this.props.input} values={this.props.values} onAnswer={this.onAnswer}/>
           </Row>
         </Grid>
