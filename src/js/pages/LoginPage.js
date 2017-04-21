@@ -1,23 +1,31 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Button, SocialIcon } from 'react-native-elements'
+import { View, Text } from 'react-native';
+import Auth0Lock from 'react-native-lock';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
+const appConfig = require('../../../environment.json');
+const lock = new Auth0Lock({ 
+  clientId: appConfig.auth0CID, 
+  domain: appConfig.auth0Domain 
 });
 
 export default class LoginPage extends React.Component {
 
+  componentDidMount() {
+    lock.show({}, (err, profile, token) => {
+      this.navigateToPersonalQuestionsPage();
+    }); 
+  }
+
+  navigateToPersonalQuestionsPage() {
+    this.props.navigator.push({
+      id: 'PersonalQuestionsPage',
+      name: 'PersonalQuestionsPage'
+    });
+  }  
+
   render() {
     return (
-      <View style={styles.container}>
-        <SocialIcon title='Sign In With Facebook' button type='facebook' />  
-        <Button title='Guest mode' icon={{ name: 'face' }} large raised />
-      </View>
+      <View />
     );
   }
 

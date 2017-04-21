@@ -23,34 +23,18 @@ export default class SplashPage extends React.Component {
 
   constructor() {
     super();
-    this.state = {
-      asyncProcess: false
-    };
   }
 
-  _loginClick(props) {
-    this._showAsyncIndicator();
-    this._doLogin();
-  }
-
-  _showAsyncIndicator() {
-    const data = {
-      asyncProcess: true
-    };
-    this.setState(data);
-  }
-
-  _doLogin() {
-    // @TODO change this with real login implementation
+  componentDidMount() {
     setTimeout(() => {
-      this._goToPersonalQuestionsPage();
-    }, 100);
+      this._goToLoginPage();
+    }, 1000);
   }
 
-  _goToPersonalQuestionsPage(props) {
+  _goToLoginPage(props) {
     this.props.navigator.push({
-      id: 'PersonalQuestionsPage',
-      name: 'PersonalQuestions',
+      id: 'LoginPage',
+      name: 'Authorisation',
       passProps: {
         name: props
       }
@@ -61,13 +45,6 @@ export default class SplashPage extends React.Component {
     return (
       <View style={styles.container}>
         <Image source={splashImage} style={styles.splashImage}/>
-        <SocialIcon 
-          title='Sign In With Facebook' 
-          style={styles.loginButton} 
-          onPress={ () => this._loginClick() } 
-          type='facebook'
-          loading={this.state.asyncProcess}
-          button />  
       </View>
     );
   }
