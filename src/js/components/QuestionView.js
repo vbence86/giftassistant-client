@@ -2,21 +2,32 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Animated, Easing } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import Slider from 'react-native-slider';
-import LinearGradient from 'react-native-linear-gradient';
+import Svg,{
+    Circle,
+    Ellipse,
+    G,
+    LinearGradient,
+    RadialGradient,
+    Line,
+    Path,
+    Polygon,
+    Polyline,
+    Rect,
+    Symbol,
+    Use,
+    Defs,
+    Stop
+} from 'react-native-svg';
+
+const FONT_SIZE_DEFAULT = 30;
+const FONT_SIZE_SMALL = 20;
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    marginLeft: 15,
-    marginRight: 15,
-  },
   header: {
     width: '100%',
-    marginTop: 50,
+    marginTop: '5%',
     textAlign: 'center',
-    fontSize: 50
+    fontSize: FONT_SIZE_DEFAULT
   },
   selectionContainer: {
     flex: 1,
@@ -30,18 +41,38 @@ const styles = StyleSheet.create({
   selectionItem: {
     width: '80%',
     height: '20%',
-    padding: 50,
-    margin: 20,
+    padding: '10%',
+    margin: '5%',
     backgroundColor: '#397af8',
     borderRadius: 5,
   },
   selectionItemSmall: {
     width: '40%',
     height: '20%',
-    padding: 50,
-    margin: 20,
+    padding: '10%',
+    margin: '5%',
     backgroundColor: '#397af8',
     borderRadius: 5,
+  },
+  sliderContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    margin: 0,
+    padding: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  sliderItem: {
+    width: '80%',
+    height: '20%',
+  },
+  sliderText: {
+    width: '100%',
+    height: '20%',
+    padding: '10%',
+    margin: '5%',
+    textAlign: 'center',
+    fontSize: FONT_SIZE_DEFAULT
   }
   
 });
@@ -63,11 +94,11 @@ class SliderGroup extends React.Component {
     max = parseInt(max);
     shownValue = Math.round(this.state.value * (max - min) + min);
     return (
-      <View style={styles.container}>
-        <Slider value={this.state.value} 
+      <View style={styles.sliderContainer}>
+        <Slider style={styles.sliderItem} value={this.state.value} 
                 onValueChange={(value) => this.setState({value})} />
-        <Text h4>{shownValue}</Text>
-        <Button title="OK" onPress={this.onPress}/>
+        <Text styles={styles.sliderText} h3>{shownValue}</Text>
+        <Button fontSize={FONT_SIZE_DEFAULT} buttonStyle={styles.selectionItem} title="OK" onPress={this.onPress}/>
       </View>
     );
   }
@@ -93,10 +124,10 @@ class SelectionGroup extends React.Component {
     let selection = keys.map((key) => {
       const value = values[key];
       let buttonStyle = styles.selectionItem;
-      let fontSize = 30;
+      let fontSize = FONT_SIZE_DEFAULT;
       if (numberOfValues > 3) {
         buttonStyle = styles.selectionItemSmall;
-        fontSize = 20;
+        fontSize = FONT_SIZE_SMALL;
       }
       return (
         <Button fontSize={fontSize} buttonStyle={buttonStyle} title={value} key={key} onPress={this.onPress.bind(this, key)} raised large/>
@@ -180,9 +211,9 @@ export default class QuestionView extends React.Component {
       return null;
     }
 
-    const marginLeft = this.animValue.interpolate({
+    const marginTop = this.animValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [-300, 0]
+      outputRange: [-150, 0]
     });
     
     const opacity = this.animValue.interpolate({
@@ -191,12 +222,34 @@ export default class QuestionView extends React.Component {
     });
     
     return (
-      <Animated.View style={{ marginLeft, opacity }}>
-        <Grid style={{ width: 500 }}>
+      <Animated.View style={{ marginTop, opacity }}>
+        <Grid style={{ width: '100%' }}>
           <Row size={20}>
             <Text style={styles.header} h3>{this.props.label}</Text>
           </Row>
           <Row size={80}>
+          <Svg
+                height="100"
+                width="100"
+            >
+                <Circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    stroke="blue"
+                    strokeWidth="2.5"
+                    fill="green"
+                />
+                <Rect
+                    x="15"
+                    y="15"
+                    width="70"
+                    height="70"
+                    stroke="red"
+                    strokeWidth="2"
+                    fill="yellow"
+                />
+            </Svg>
             <Choice type={this.props.input} values={this.props.values} onAnswer={this.onAnswer}/>
           </Row>
         </Grid>
