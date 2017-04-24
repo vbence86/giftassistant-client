@@ -20,6 +20,7 @@
     "react-native": "0.42.0-rc.1",
     "react-native-elements": "^0.9.5",
     "react-native-slider": "^0.9.1",
+    "react-native-svg": "^5.1.7",
     "react-native-vector-icons": "^4.0.0"
   },
   "devDependencies": {
@@ -29,7 +30,6 @@
     "babel-register": "^6.24.0",
     "chai-as-promised": "^6.0.0",
     "jest": "18.1.0",
-    "react-native-linear-gradient": "^2.0.0",
     "react-test-renderer": "15.4.2"
   },
   "jest": {
