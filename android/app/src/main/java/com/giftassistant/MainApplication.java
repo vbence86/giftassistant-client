@@ -4,11 +4,8 @@ import android.app.Application;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
-<<<<<<< HEAD
 import com.auth0.lock.react.LockReactPackage;
-=======
 import com.horcrux.svg.SvgPackage;
->>>>>>> origin/feature/0.7
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;

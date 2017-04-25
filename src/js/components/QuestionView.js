@@ -2,22 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Animated, Easing } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import Slider from 'react-native-slider';
-import Svg,{
-    Circle,
-    Ellipse,
-    G,
-    LinearGradient,
-    RadialGradient,
-    Line,
-    Path,
-    Polygon,
-    Polyline,
-    Rect,
-    Symbol,
-    Use,
-    Defs,
-    Stop
-} from 'react-native-svg';
+import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
 
 const FONT_SIZE_DEFAULT = 30;
 const FONT_SIZE_SMALL = 20;
@@ -41,7 +26,6 @@ const styles = StyleSheet.create({
   selectionItem: {
     width: '80%',
     height: '20%',
-    padding: '10%',
     margin: '5%',
     backgroundColor: '#397af8',
     borderRadius: 5,
@@ -49,7 +33,6 @@ const styles = StyleSheet.create({
   selectionItemSmall: {
     width: '40%',
     height: '20%',
-    padding: '10%',
     margin: '5%',
     backgroundColor: '#397af8',
     borderRadius: 5,
@@ -73,8 +56,15 @@ const styles = StyleSheet.create({
     margin: '5%',
     textAlign: 'center',
     fontSize: FONT_SIZE_DEFAULT
+  },
+  svg: { 
+    position: 'absolute', 
+    zIndex: 0, 
+    left: 0, 
+    top: 0, 
+    width: '100%', 
+    height: '100%' 
   }
-  
 });
 
 class SliderGroup extends React.Component {
@@ -222,38 +212,27 @@ export default class QuestionView extends React.Component {
     });
     
     return (
-      <Animated.View style={{ marginTop, opacity }}>
-        <Grid style={{ width: '100%' }}>
-          <Row size={20}>
-            <Text style={styles.header} h3>{this.props.label}</Text>
-          </Row>
-          <Row size={80}>
-          <Svg
-                height="100"
-                width="100"
-            >
-                <Circle
-                    cx="50"
-                    cy="50"
-                    r="45"
-                    stroke="blue"
-                    strokeWidth="2.5"
-                    fill="green"
-                />
-                <Rect
-                    x="15"
-                    y="15"
-                    width="70"
-                    height="70"
-                    stroke="red"
-                    strokeWidth="2"
-                    fill="yellow"
-                />
-            </Svg>
-            <Choice type={this.props.input} values={this.props.values} onAnswer={this.onAnswer}/>
-          </Row>
-        </Grid>
-      </Animated.View>
+      <View>
+        <Svg style={styles.svg}>
+          <Defs> 
+            <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
+              <Stop offset="0" stopColor="rgb(255, 255, 255)" stopOpacity="1" />
+              <Stop offset="1" stopColor="rgb(156, 199, 255)" stopOpacity="1" />
+            </LinearGradient> 
+          </Defs>
+          <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
+        </Svg>
+        <Animated.View style={{ marginTop, opacity }}>
+          <Grid style={{ width: '100%' }}>
+            <Row size={20}>
+              <Text style={styles.header} h3>{this.props.label}</Text>
+            </Row>
+            <Row size={80}>
+              <Choice type={this.props.input} values={this.props.values} onAnswer={this.onAnswer}/>
+            </Row>
+          </Grid>
+        </Animated.View>
+      </View>
     );
   }
 
