@@ -5,6 +5,8 @@ import { Grid, Col, Icon } from 'react-native-elements'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',    
     justifyContent: 'center',
     alignItems: 'center'
   }
@@ -37,7 +39,7 @@ class EmoticonButton extends React.Component {
   render () {
     return (
       <Animated.View style={{ transform: [{scale: this.animValue}] }}>
-        <Icon {...this.props} size={60} type="font-awesome" reverse raised />
+        <Icon {...this.props} size={40} type="font-awesome" reverse raised />
       </Animated.View>
     )
   }
