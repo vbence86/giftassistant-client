@@ -99,7 +99,17 @@ export default class PersonalQuestionsPage extends React.Component {
   } 
 
   setStateByCurrentQuestion() {
-    this.setState(this.questions[this.currentQuestionIdx]);
+    const questionDetails = this.questions[this.currentQuestionIdx];
+    const isLastQuestion = this.currentQuestionIdx === this.questions.length - 1;
+    this.setState({...questionDetails, isLastQuestion});
+  }
+
+  handleAnswer(value) {
+    this.answers.push({ 
+      id: this.questions[this.currentQuestionIdx].id, 
+      value 
+    });
+    this.nextQuestion();
   }
 
   nextQuestion() {
@@ -109,14 +119,6 @@ export default class PersonalQuestionsPage extends React.Component {
     } else {
       this.lastQuestionIsAnswered();
     }
-  }
-
-  handleAnswer(value) {
-    this.answers.push({ 
-      id: this.questions[this.currentQuestionIdx].id, 
-      value 
-    });
-    this.nextQuestion();
   }
 
   lastQuestionIsAnswered() {

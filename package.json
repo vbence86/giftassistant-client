@@ -1,6 +1,6 @@
 {
   "name": "GiftAssistant",
-  "version": "0.0.1",
+  "version": "0.7",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -20,6 +20,7 @@
     "react-native": "0.42.0-rc.1",
     "react-native-elements": "^0.9.5",
     "react-native-slider": "^0.9.1",
+    "react-native-svg": "^5.1.7",
     "react-native-vector-icons": "^4.0.0"
   },
   "devDependencies": {
@@ -29,7 +30,9 @@
     "babel-register": "^6.24.0",
     "chai-as-promised": "^6.0.0",
     "jest": "18.1.0",
-    "react-test-renderer": "15.4.2"
+    "react-native-lock": "^0.6.0",
+    "react-test-renderer": "15.4.2",
+    "sinon": "^2.1.0"
   },
   "jest": {
     "preset": "react-native",

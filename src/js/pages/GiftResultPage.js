@@ -71,7 +71,9 @@ export default class GiftResultPage extends React.Component {
   } 
 
   setStateByGift() {
-    this.setState(this.gifts[this.currentGiftIdx]);
+    const gift = this.gifts[this.currentGiftIdx];
+    const isLastGiftResult = this.currentGiftIdx === this.gifts.length - 1;
+    this.setState({ ...gift, isLastGiftResult });
   }
 
   nextGift() {
