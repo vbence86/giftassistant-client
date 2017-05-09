@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Image, Animated } from 'react-native';
+import { StyleSheet, View, Animated, Easing } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
-import EmoticonChoiceList from './EmoticonChoiceList';
 
 const FONT_SIZE_DEFAULT = 30;
 const FONT_SIZE_SMALL = 20;
@@ -14,19 +13,28 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: FONT_SIZE_DEFAULT
   },
-  price: {
-    width: '100%',
-    marginTop: '5%',
-    textAlign: 'center',
-    fontSize: FONT_SIZE_SMALL
-  },
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     margin: 0,
     padding: 0,
     alignItems: 'center',
     justifyContent: 'center'
+  },
+  button: {
+    width: '80%',
+    height: '20%',
+    margin: '5%',
+    backgroundColor: '#397af8',
+    borderRadius: 5,
+  },
+  buttonSmall: {
+    width: '40%',
+    height: '20%',
+    margin: '5%',
+    backgroundColor: '#397af8',
+    borderRadius: 5,
   },
   svg: { 
     position: 'absolute', 
@@ -35,19 +43,15 @@ const styles = StyleSheet.create({
     top: 0, 
     width: '100%', 
     height: '100%' 
-  },
-  image: {
-    width: 200,
-    height: 200
   }
 });
 
-export default class GiftResultView extends React.Component {
+export default class FavouritesView extends React.Component {
 
   constructor(props) {
     super(props);
     this.animValue = new Animated.Value(1);
-    this.onAnswer = this.onAnswer.bind(this);
+    this.onSelect = this.onSelect.bind(this);
   }
   
   animate() {
@@ -62,18 +66,11 @@ export default class GiftResultView extends React.Component {
     ).start();
   }
 
-  onAnswer() {
-    if (!this.props.isLastGiftResult) {
-      this.animate();
-    }
-    if (this.props.onAnswer) {
-      let args = Array.prototype.slice.call(arguments);
-      this.props.onAnswer.apply(null, args);
-    }
+  onSelect() {
   }
 
   render() {
-    if (!this.props) {
+    if (!this.props || !this.props.input) {
       return null;
     }
 
@@ -86,7 +83,7 @@ export default class GiftResultView extends React.Component {
       inputRange: [0, 1],
       outputRange: [0, 1]
     });
-
+    
     return (
       <View>
         <Svg style={styles.svg}>
@@ -97,25 +94,11 @@ export default class GiftResultView extends React.Component {
             </LinearGradient> 
           </Defs>
           <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
-        </Svg>      
+        </Svg>
         <Animated.View style={{ marginTop, opacity }}>
-          <View style={styles.container}>
-            <Grid>
-              <Row size={20}>
-                <Text style={styles.header} h3>{this.props.label}</Text>
-              </Row>
-              <Row size={40}>
-                <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
-              </Row>
-              <Row size={10}>
-                <Text style={styles.price} h3>{this.props.formattedPrice}</Text>
-              </Row>
-              <Row size={30}>
-                <EmoticonChoiceList onAnswer={this.onAnswer}/>
-              </Row>
-            </Grid>
-          </View>
+          <Text>List</Text>
         </Animated.View>
+      </View>
     );
   }
 

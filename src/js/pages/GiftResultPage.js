@@ -4,6 +4,7 @@ import { Button, Text } from 'react-native-elements';
 
 import GiftResultView from '../components/GiftResultView';
 import GiftClient from '../helpers/GiftClient';
+import Favourites from '../helpers/Favourites';
 
 const appConfig = require('../../../environment.json');
 
@@ -50,6 +51,7 @@ export default class GiftResultPage extends React.Component {
     this.gifts = [];
     this.answers = [];
     this.currentGiftIdx = 0;
+    this.favourites = Favourites.getInstance();
   }
 
   componentDidMount() {
@@ -90,6 +92,9 @@ export default class GiftResultPage extends React.Component {
         id: this.gifts[this.currentGiftIdx].id, 
         value 
     });
+    if (value >= 1) {
+      this.favourites.add(this.gifts[this.currentGiftIdx]);
+    }
     this.nextGift();
   }
 
