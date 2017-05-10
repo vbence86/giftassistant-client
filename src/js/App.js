@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import PersonalQuestionsPage from './pages/PersonalQuestionsPage';
 import GiftCategoryPage from './pages/GiftCategoryPage';
 import GiftResultPage from './pages/GiftResultPage';
+import FavouritesPage from './pages/FavouritesPage';
 
 export default class App extends React.Component {
 
@@ -25,8 +26,10 @@ export default class App extends React.Component {
       page = <GiftCategoryPage navigator={navigator} />
     } else if (routeId === 'GiftResultPage') {
       page = <GiftResultPage navigator={navigator} />
+    } else if (routeId === 'FavouritesPage') {
+      page = <FavouritesPage navigator={navigator} />
     }
-    return <Menu page={page} />
+    return <Menu page={page} navigator={navigator} />
   }
 
   render () {

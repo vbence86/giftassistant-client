@@ -3,19 +3,18 @@ let singleton;
 
 class Favourites {
 
-	constructor(props) {
-		super(props);
+	constructor() {
 		this.favourites = [];
 	}
 
 	add(gift) {
 		this.favourites.push(gift);
-	},
+	}
 
 	get(idx) {
 		if (!idx) return this.favourites;
 		return this.favourites[idx];
-	},
+	}
 
 	empty() {
 		while (this.favourites.length) this.favourites.pop();

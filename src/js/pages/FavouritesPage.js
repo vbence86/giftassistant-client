@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
+import { StyleSheet, View } from 'react-native';
 import FavouritesView from '../components/FavouritesView';
 import Favourites from '../helpers/Favourites';
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  }
+});
 
 export default class FavouritesPage extends React.Component {
 
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
-    this.setState({
+    this.state = {
       favourites: Favourites.getInstance().get()
-    });
+    };
   }
-
 
   navigateToGiftResultPage() {
     this.props.navigator.push({
@@ -25,7 +31,9 @@ export default class FavouritesPage extends React.Component {
   render() {
     
     return (
-      <FavouritesView {...this.state} />
+      <View style={styles.container}>
+        <FavouritesView {...this.state} />
+      </View>
     );
 
   }

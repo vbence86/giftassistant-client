@@ -116,6 +116,7 @@ export default class GiftResultView extends React.Component {
             </Grid>
           </View>
         </Animated.View>
+      </View>
     );
   }
 
