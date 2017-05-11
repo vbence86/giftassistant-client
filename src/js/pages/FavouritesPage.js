@@ -21,10 +21,16 @@ export default class FavouritesPage extends React.Component {
     };
   }
 
-  navigateToGiftResultPage() {
+  onSelect(data, idx) {
+    this.navigateToGiftDetailsPage(data, idx)
+  }
+
+  navigateToGiftDetailsPage(data, index) {
     this.props.navigator.push({
-      id: 'GiftResultPage',
-      name: 'GiftResultPage'
+      id: 'GiftDetailsPage',
+      name: 'GiftDetailsPage',
+      data,
+      index
     });
   }
 
@@ -32,7 +38,7 @@ export default class FavouritesPage extends React.Component {
     
     return (
       <View style={styles.container}>
-        <FavouritesView {...this.state} />
+        <FavouritesView {...this.state} onSelect={this.onSelect.bind(this)}/>
       </View>
     );
 

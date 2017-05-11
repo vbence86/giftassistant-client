@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import PersonalQuestionsPage from './pages/PersonalQuestionsPage';
 import GiftCategoryPage from './pages/GiftCategoryPage';
 import GiftResultPage from './pages/GiftResultPage';
+import GiftDetailsPage from './pages/GiftDetailsPage';
 import FavouritesPage from './pages/FavouritesPage';
 
 export default class App extends React.Component {
@@ -19,13 +20,15 @@ export default class App extends React.Component {
     if (routeId === 'SplashPage') {
       return <SplashPage navigator={navigator} />
     } else if (routeId === 'LoginPage') {
-      return <LoginPage navigator={navigator} />
+      return <PersonalQuestionsPage navigator={navigator} />
     } else if (routeId === 'PersonalQuestionsPage') {
       page = <PersonalQuestionsPage navigator={navigator} />
     } else if (routeId === 'GiftCategoryPage') {
       page = <GiftCategoryPage navigator={navigator} />
     } else if (routeId === 'GiftResultPage') {
       page = <GiftResultPage navigator={navigator} />
+    } else if (routeId === 'GiftDetailsPage') {
+      page = <GiftDetailsPage navigator={navigator} data={route.data} index={route.index} />
     } else if (routeId === 'FavouritesPage') {
       page = <FavouritesPage navigator={navigator} />
     }

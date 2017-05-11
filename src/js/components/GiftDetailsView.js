@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Animated } from 'react-native';
-import { Grid, Row, Button, Text } from 'react-native-elements';
+import { Grid, Row, Column, Button, Text } from 'react-native-elements';
 import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
 
 const FONT_SIZE_DEFAULT = 30;
@@ -21,12 +21,20 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     margin: 0,
     padding: 0,
     alignItems: 'center',
     justifyContent: 'center'
   },
+  buttonSmall: {
+    width: '40%',
+    height: '20%',
+    margin: '5%',
+    backgroundColor: '#397af8',
+    borderRadius: 5,
+  },  
   svg: { 
     position: 'absolute', 
     zIndex: 0, 
@@ -45,11 +53,12 @@ export default class GiftDetailsView extends React.Component {
 
   constructor(props) {
     super(props);
+    this.data = this.props.data;
   }
- 
 
   render() {
-    if (!this.props) {
+
+    if (!this.props.data) {
       return null;
     }
 
@@ -65,20 +74,24 @@ export default class GiftDetailsView extends React.Component {
           <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
         </Svg>      
         <View style={styles.container}>
-        <Grid>
-            <Row size={20}>
-            <Text style={styles.header} h3>{this.props.label}</Text>
-            </Row>
-            <Row size={40}>
-            <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
-            </Row>
-            <Row size={10}>
-            <Text style={styles.price} h3>{this.props.formattedPrice}</Text>
-            </Row>
-            <Row size={30}>
-            <EmoticonChoiceList onAnswer={this.onAnswer}/>
-            </Row>
-        </Grid>
+          <Grid style={{ width: '100%' }}>
+              <Row size={20}>
+                <Text style={styles.header} h3>{this.data.label}</Text>
+              </Row>
+              <Row size={40}>
+                <Image style={styles.image} source={{uri: this.data.largeImageURL}} />
+                <Text>description gfkglsdktr twetlekt gdfstorietoiw5 gflkgls</Text>
+              </Row>
+              <Row size={10}>
+                <Text style={styles.price} h3>{this.data.formattedPrice}</Text>
+              </Row>
+              <Row size={30}>
+                <View>
+                  <Button fontSize={FONT_SIZE_SMALL} buttonStyle={styles.buttonSmall} title="Remove" onPress={this.props.onRemove} raised large/>
+                  <Button fontSize={FONT_SIZE_SMALL} buttonStyle={styles.buttonSmall} title="Buy" onPress={this.props.onBuy} raised large/>
+                </View>
+              </Row>
+          </Grid>
         </View>
       </View>
     );

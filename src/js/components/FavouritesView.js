@@ -33,14 +33,6 @@ const styles = StyleSheet.create({
 
 export default class FavouritesView extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.onSelect = this.onSelect.bind(this);
-  }
-  
-  onSelect() {
-  }
-
   renderRow (data, idx) {
     return (
       <ListItem
@@ -50,7 +42,7 @@ export default class FavouritesView extends React.Component {
         subtitle={data.formattedPrice}
         avatar={{uri:data.largeImageURL}}
         onPress={() => {
-          console.log('onPress');
+          this.props.onSelect(data, idx);
         }}
       />
     )
