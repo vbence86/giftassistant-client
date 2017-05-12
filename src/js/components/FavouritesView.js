@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { List, ListItem, Button, Text } from 'react-native-elements';
+import { StyleSheet, View, ScrollView } from 'react-native';
+import { List, ListItem } from 'react-native-elements';
 import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
 
 const FONT_SIZE_DEFAULT = 30;
@@ -14,12 +14,12 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_DEFAULT
   },
   container: {
-    flexDirection: 'column',
-    flex: 1,
     width: '100%',
     height: '100%',
-    justifyContent: 'space-between',
     padding: 0
+  },
+  list: {
+    backgroundColor: '#fff'
   },
   svg: { 
     position: 'absolute', 
@@ -51,7 +51,7 @@ export default class FavouritesView extends React.Component {
   render() {
     
     return (
-      <View>
+      <View style={styles.container}>
         <Svg style={styles.svg}>
           <Defs> 
             <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
@@ -61,11 +61,9 @@ export default class FavouritesView extends React.Component {
           </Defs>
           <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
         </Svg>      
-        <View style={styles.container}>
-          <List containerStyle={{marginTop: 0 }}>
-            {this.props.favourites.map((data, idx) => this.renderRow(data, idx))}
-          </List>
-        </View>
+        <ScrollView contentContainerStyle={styles.list}>
+          {this.props.favourites.map((data, idx) => this.renderRow(data, idx))}
+        </ScrollView>
       </View>
     );
   }
