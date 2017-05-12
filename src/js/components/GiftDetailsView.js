@@ -13,20 +13,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: FONT_SIZE_DEFAULT
   },
+  container: {
+    width: '100%',
+    height: '100%',
+    padding: 0
+  },  
   price: {
     width: '100%',
     marginTop: '5%',
     textAlign: 'center',
     fontSize: FONT_SIZE_SMALL
-  },
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    margin: 0,
-    padding: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
   },
   buttonSmall: {
     width: '40%',
@@ -63,7 +59,7 @@ export default class GiftDetailsView extends React.Component {
     }
 
     return (
-      <View>
+      <View style={styles.container}>
         <Svg style={styles.svg}>
           <Defs> 
             <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
@@ -73,26 +69,24 @@ export default class GiftDetailsView extends React.Component {
           </Defs>
           <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
         </Svg>      
-        <View style={styles.container}>
-          <Grid style={{ width: '100%' }}>
-              <Row size={20}>
-                <Text style={styles.header} h3>{this.data.label}</Text>
-              </Row>
-              <Row size={40}>
-                <Image style={styles.image} source={{uri: this.data.largeImageURL}} />
-                <Text>description gfkglsdktr twetlekt gdfstorietoiw5 gflkgls</Text>
-              </Row>
-              <Row size={10}>
-                <Text style={styles.price} h3>{this.data.formattedPrice}</Text>
-              </Row>
-              <Row size={30}>
-                <View>
-                  <Button fontSize={FONT_SIZE_SMALL} buttonStyle={styles.buttonSmall} title="Remove" onPress={this.props.onRemove} raised large/>
-                  <Button fontSize={FONT_SIZE_SMALL} buttonStyle={styles.buttonSmall} title="Buy" onPress={this.props.onBuy} raised large/>
-                </View>
-              </Row>
-          </Grid>
-        </View>
+        <Grid style={{ width: '100%' }}>
+            <Row size={20}>
+              <Text style={styles.header} h3>{this.data.label}</Text>
+            </Row>
+            <Row size={40}>
+              <Image style={styles.image} source={{uri: this.data.largeImageURL}} />
+              <Text>description gfkglsdktr twetlekt gdfstorietoiw5 gflkgls</Text>
+            </Row>
+            <Row size={10}>
+              <Text style={styles.price} h3>{this.data.formattedPrice}</Text>
+            </Row>
+            <Row size={30}>
+              <View>
+                <Button fontSize={FONT_SIZE_SMALL} buttonStyle={styles.buttonSmall} title="Remove" onPress={this.props.onRemove} raised large/>
+                <Button fontSize={FONT_SIZE_SMALL} buttonStyle={styles.buttonSmall} title="Buy" onPress={this.props.onBuy} raised large/>
+              </View>
+            </Row>
+        </Grid>
       </View>
     );
   }
