@@ -26,6 +26,14 @@ const mockResponse = {
         "formattedPrice": "$9.99",
         "amazonURL": "amazon.com/shortURL",
         "largeImageURL": "https://images-na.ssl-images-amazon.com/images/I/912ud5CJkEL._SL1500_.jpg"
+      },
+      {
+        "asin": "asin1",
+        "label": "Swimming glass",
+        "price": 29.99,
+        "formattedPrice": "$29.99",
+        "amazonURL": "amazon.com/shortURL",
+        "largeImageURL": "https://images-na.ssl-images-amazon.com/images/I/61T9Y0Hl98L._SL1000_.jpg"
       }
     ]
   }
