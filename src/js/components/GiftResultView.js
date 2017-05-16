@@ -2,9 +2,10 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, Animated } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
+import { BoxShadow } from 'react-native-shadow';
 import EmoticonChoiceList from './EmoticonChoiceList';
 
-const FONT_SIZE_DEFAULT = 30;
+const FONT_SIZE_DEFAULT = 20;
 const FONT_SIZE_SMALL = 20;
 
 const styles = StyleSheet.create({
@@ -21,8 +22,8 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_SMALL
   },
   container: {
-    flex: 1,
-    flexDirection: 'column',
+    width: '100%',
+    height: '100%',
     margin: 0,
     padding: 0,
     alignItems: 'center',
@@ -36,9 +37,34 @@ const styles = StyleSheet.create({
     width: '100%', 
     height: '100%' 
   },
+  imageContainer: {
+    width: '60%',
+    marginLeft: '20%',
+    marginRight: '20%',
+    marginTop: '10%',
+    marginBottom: '10%',
+    overflow: 'hidden',
+    position: 'relative'
+  },
   image: {
-    width: 200,
-    height: 200
+    width: '100%',
+    minHeight: '100%',
+  },
+  priceLabelContainer: {
+    position: 'absolute',
+    width: '100%',
+    left: 0,
+    top: 0,
+    backgroundColor: 'red',
+    zIndex: 1,
+    opacity: 0.85,
+  },
+  priceLabelText: {
+    width: '100%',
+    margin: 5,
+    textAlign: 'center',
+    color: 'white',
+    fontSize: FONT_SIZE_SMALL    
   }
 });
 
@@ -62,6 +88,10 @@ export default class GiftResultView extends React.Component {
     ).start();
   }
 
+  componentDidMount() {
+    this.animate();
+  }
+
   onAnswer() {
     if (!this.props.isLastGiftResult) {
       this.animate();
@@ -77,9 +107,9 @@ export default class GiftResultView extends React.Component {
       return null;
     }
 
-    const marginTop = this.animValue.interpolate({
+    const scale = this.animValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [-150, 0]
+      outputRange: [0, 1]
     });
     
     const opacity = this.animValue.interpolate({
@@ -98,24 +128,23 @@ export default class GiftResultView extends React.Component {
           </Defs>
           <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
         </Svg>      
-        <Animated.View style={{ marginTop, opacity }}>
-          <View style={styles.container}>
-            <Grid>
-              <Row size={20}>
-                <Text style={styles.header} h3>{this.props.label}</Text>
-              </Row>
-              <Row size={40}>
-                <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
-              </Row>
-              <Row size={10}>
-                <Text style={styles.price} h3>{this.props.formattedPrice}</Text>
-              </Row>
-              <Row size={30}>
-                <EmoticonChoiceList onAnswer={this.onAnswer}/>
-              </Row>
-            </Grid>
-          </View>
-        </Animated.View>
+        <View style={styles.container}>
+          <Grid style={{ width: '100%' }}>
+            <Row size={80}>
+              <View style={styles.imageContainer}>
+                <Animated.View style={{ transform: [{scale}], opacity }}>
+                  <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
+                  <View style={styles.priceLabelContainer}>
+                    <Text style={styles.priceLabelText}>{this.props.formattedPrice}</Text>
+                  </View>
+                </Animated.View>
+              </View>
+            </Row>
+            <Row size={20}>
+              <EmoticonChoiceList onAnswer={this.onAnswer}/>
+            </Row>
+          </Grid>
+        </View>
       </View>
     );
   }
