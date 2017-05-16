@@ -23,19 +23,13 @@ class Menu extends React.Component {
 
     return [
       {
-        name: 'Menu 1',
-        subtitle: 'Menu 1 subtitle',
-        avatar_url: 'https://cdn1.iconfinder.com/data/icons/DarkGlass_Reworked/128x128/apps/package_favourite.png'
-      },
-      {
-        name: 'Menu 2',
-        subtitle: 'Menu 2 subtitle',
-        avatar_url: 'https://cdn1.iconfinder.com/data/icons/DarkGlass_Reworked/128x128/apps/package_favourite.png'
-      },
-      {
-        name: 'Menu 3',
-        subtitle: 'Menu 3 subtitle',
-        avatar_url: 'https://cdn1.iconfinder.com/data/icons/DarkGlass_Reworked/128x128/apps/package_favourite.png'
+        title: 'Favourites',
+        subtitle: 'Browse your previously liked items',
+        leftIcon: {
+          type: 'font-awesome',
+          name: 'gift'
+        },
+        onPress: () => this.goToFavouritesPages()
       }
     ];
 
@@ -43,23 +37,23 @@ class Menu extends React.Component {
 
   getSideMenu() {
     return (
-      <View style={{flex: 1, backgroundColor: '#ededed', paddingTop: 50}}>
+      <View style={{flex: 1, backgroundColor: '#efefef', paddingTop: 50, margin: 0}}>
         <List containerStyle={{marginBottom: 20}}>
         {
           this.getDataModel().map((l, i) => (
-            <ListItem
-              roundAvatar
-              onPress={() => console.log('Pressed')}
-              avatar={l.avatar_url}
-              key={i}
-              title={l.name}
-              subtitle={l.subtitle}
-            />
+            <ListItem roundAvatar key={i} {...l} />
           ))
         }
         </List>
       </View>
     );
+  }
+
+  goToFavouritesPages() {
+    this.props.navigator.push({
+      id: 'FavouritesPage',
+      name: 'FavouritesPage'
+    });
   }
 
   render() {

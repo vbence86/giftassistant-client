@@ -4,9 +4,19 @@ import { Grid, Col, Icon } from 'react-native-elements'
 
 const styles = StyleSheet.create({
   container: {
+    width: '100%',
+    height: '100%',
+    margin: 0,
+    padding: 0,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    flexDirection: 'row',
+    justifyContent: 'space-between'    
+  },
+  likeButton: {
+    marginRight: 10
+  },
+  dislikeButton: {
+    marginLeft: 10
   }
 });
 
@@ -36,9 +46,11 @@ class EmoticonButton extends React.Component {
 
   render () {
     return (
-      <Animated.View style={{ transform: [{scale: this.animValue}] }}>
-        <Icon {...this.props} size={60} type="font-awesome" reverse raised />
-      </Animated.View>
+        <Animated.View style={{ transform: [{scale: this.animValue}] }}>
+          <View style={this.props.style}>
+            <Icon {...this.props} size={40} type="font-awesome" reverse raised />
+          </View>
+        </Animated.View>
     )
   }
 }
@@ -52,10 +64,8 @@ class EmoticonChoiceList extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Grid>
-          <Col><EmoticonButton name="close" color="#FF4200" onPress={this.handleClick.bind(this, 0)} /></Col>
-          <Col><EmoticonButton name="check" color="#72D33E" onPress={this.handleClick.bind(this, 1)} /></Col>
-        </Grid>
+        <EmoticonButton style={styles.dislikeButton} name="close" color="#FF4200" onPress={this.handleClick.bind(this, 0)} />
+        <EmoticonButton style={styles.likeButton} name="check" color="#72D33E" onPress={this.handleClick.bind(this, 1)} />
       </View>
     );
   }

@@ -1,20 +1,88 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Animated } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
+import Svg, { LinearGradient, RadialGradient, Rect, Defs, Stop } from 'react-native-svg';
+import { BoxShadow } from 'react-native-shadow';
 import EmoticonChoiceList from './EmoticonChoiceList';
 
+const FONT_SIZE_DEFAULT = 20;
+const FONT_SIZE_SMALL = 20;
+
 const styles = StyleSheet.create({
+  header: {
+    width: '100%',
+    marginTop: '5%',
+    textAlign: 'center',
+    fontSize: FONT_SIZE_DEFAULT
+  },
+  price: {
+    width: '100%',
+    marginTop: '5%',
+    textAlign: 'center',
+    fontSize: FONT_SIZE_SMALL
+  },
   container: {
     width: '100%',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'stretch',
-    marginLeft: 15,
-    marginRight: 15,
+    height: '100%',
+    margin: 0,
+    padding: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  svg: { 
+    position: 'absolute', 
+    zIndex: 0, 
+    left: 0, 
+    top: 0, 
+    width: '100%', 
+    height: '100%' 
+  },
+  imageContainer: {
+    width: '60%',
+    marginLeft: '20%',
+    marginRight: '20%',
+    marginTop: '5%',
+    marginBottom: '30%',
+    position: 'relative'
   },
   image: {
-    width: 200,
-    height: 200
+    width: '100%',
+    minHeight: '100%',
+  },
+  priceLabelContainer: {
+    position: 'absolute',
+    width: '100%',
+    left: 0,
+    top: 0,
+    backgroundColor: 'red',
+    zIndex: 1,
+    opacity: 0.85,
+  },
+  priceLabelText: {
+    width: '100%',
+    margin: 5,
+    textAlign: 'center',
+    color: 'white',
+    fontSize: FONT_SIZE_SMALL    
+  },
+  shadow: {
+    position: 'absolute',
+    width: '75%',
+    height: '75%',
+    minWidth: 400,
+    minHeight: 400,
+    top: '20%',
+    left: '-40%'
+  },
+  shadowSvg: {
+    width: '100%',
+    height: '100%'
+  },
+  choiceListContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: '20%',
+    bottom: 0
   }
 });
 
@@ -22,25 +90,46 @@ export default class GiftResultView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.animValue = new Animated.Value(1);
-    this.onAnswer = this.onAnswer.bind(this);
+    this.initAnimations();
+    this.initEventListeners();
   }
-  
-  animate() {
-    this.animValue.setValue(0);
-    Animated.spring(
-      this.animValue,
-      {
-        toValue: 1,
-        friction: 7,
-        tension: 50
-      }
-    ).start();
+
+  initAnimations() {
+    this.introAnimValue = new Animated.Value(1);
+    this.outroAnimValue = new Animated.Value(0);
+  }
+
+  initEventListeners() {
+    this.onAnswer = this.onAnswer.bind(this);    
+  }
+ 
+  animateNewGift() {
+    const anim = this.getNewGiftAnimation();
+    this.introAnimValue.setValue(0);
+    anim.start();
+  }
+
+  animatePreviousGift() {
+    const anim = this.getPreviousGiftAnimation();
+    this.outroAnimValue.setValue(0);
+    anim.start();
+  }
+
+  animateFullCycle() {
+    this.introAnimValue.setValue(0);
+    this.outroAnimValue.setValue(0);
+    Animated.sequence([
+      this.getNewGiftAnimation()
+    ]).start();
+  }
+
+  componentDidMount() {
+    this.animateNewGift();
   }
 
   onAnswer() {
     if (!this.props.isLastGiftResult) {
-      this.animate();
+      this.animateFullCycle();
     }
     if (this.props.onAnswer) {
       let args = Array.prototype.slice.call(arguments);
@@ -53,36 +142,81 @@ export default class GiftResultView extends React.Component {
       return null;
     }
 
-    const marginLeft = this.animValue.interpolate({
+    const scale = this.introAnimValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [-300, 0]
+      outputRange: [0, 1]
     });
     
-    const opacity = this.animValue.interpolate({
+    const opacity = this.introAnimValue.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 1]
     });
 
+    const marginLeft = this.outroAnimValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, -1000]
+    });
+
+
     return (
-      <Animated.View style={{ marginLeft, opacity }}>
+      <View>
+        <Svg style={styles.svg}>
+          <Defs> 
+            <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
+              <Stop offset="0" stopColor="rgb(255, 255, 255)" stopOpacity="1" />
+              <Stop offset="1" stopColor="rgb(156, 199, 255)" stopOpacity="1" />
+            </LinearGradient>
+          </Defs>
+          <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
+        </Svg>      
         <View style={styles.container}>
-          <Grid>
-            <Row size={20}>
-              <Text h3>{this.props.label}</Text>
-            </Row>
-            <Row size={40}>
+          <Animated.View style={{ transform: [{scale}], opacity, marginLeft }}>
+            <View style={styles.imageContainer}>
+              <View style={styles.shadow}>
+                <Svg style={styles.shadowSvg}>
+                  <Defs>
+                    <RadialGradient id="shadow">
+                      <Stop offset="0%" stopColor="rgb(0, 0, 0)" stopOpacity="0.75"/>
+                      <Stop offset="100%" stopColor="rgb(0, 0, 0)" stopOpacity="0"/>
+                    </RadialGradient>
+                  </Defs>
+                  <Rect x="0" y="0" width="100%" height="100%" fill="url(#shadow)"/>
+                </Svg>
+              </View>
               <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
-            </Row>
-            <Row size={10}>
-              <Text h3>{this.props.formattedPrice}</Text>
-            </Row>
-            <Row size={30}>
-              <EmoticonChoiceList onAnswer={this.onAnswer}/>
-            </Row>
-          </Grid>
+              <View style={styles.priceLabelContainer}>
+                <Text style={styles.priceLabelText}>{this.props.formattedPrice}</Text>
+              </View>
+            </View>
+          </Animated.View>
+          <View style={styles.choiceListContainer}>                
+            <EmoticonChoiceList onAnswer={this.onAnswer}/>
+          </View>
         </View>
-      </Animated.View>
+      </View>
     );
   }
+
+  getNewGiftAnimation() {
+    return Animated.spring(
+      this.introAnimValue,
+      {
+        toValue: 1,
+        friction: 7,
+        tension: 50
+      }
+    );
+  }
+
+  getPreviousGiftAnimation() {
+    return Animated.timing(
+      this.outroAnimValue,
+      {
+        toValue: 1,
+      }
+    );
+  }
+
+
 
 }

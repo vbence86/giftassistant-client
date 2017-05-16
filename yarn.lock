@@ -3717,6 +3717,12 @@ react-native-lock@^0.6.0:
   dependencies:
     react-native-auth0 "^0.0.1"
 
+react-native-shadow@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-native-shadow/-/react-native-shadow-1.1.2.tgz#5baf3a69620f26c6c910a233439447bdb3e16514"
+  dependencies:
+    react-native-svg "^4.3.1"
+
 react-native-side-menu@^0.20.1:
   version "0.20.1"
   resolved "https://registry.yarnpkg.com/react-native-side-menu/-/react-native-side-menu-0.20.1.tgz#df21b4bb9d8a1aa3bae53d74ddf8a739eb59bfc5"
@@ -3727,6 +3733,13 @@ react-native-slider@^0.9.1:
   dependencies:
     react-addons-shallow-compare "^15.0.2"
     style-equal "^1.0.0"
+
+react-native-svg@^4.3.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-4.6.1.tgz#08fbc57137e8d570a73c2d35c6b89abb239cd40b"
+  dependencies:
+    color "^0.11.1"
+    lodash "^4.0.0"
 
 react-native-svg@^5.1.7:
   version "5.1.7"

@@ -4,6 +4,7 @@ import { Button, Text } from 'react-native-elements';
 
 import GiftResultView from '../components/GiftResultView';
 import GiftClient from '../helpers/GiftClient';
+import Favourites from '../helpers/Favourites';
 
 const appConfig = require('../../../environment.json');
 
@@ -25,6 +26,14 @@ const mockResponse = {
         "formattedPrice": "$9.99",
         "amazonURL": "amazon.com/shortURL",
         "largeImageURL": "https://images-na.ssl-images-amazon.com/images/I/912ud5CJkEL._SL1500_.jpg"
+      },
+      {
+        "asin": "asin1",
+        "label": "Swimming glass",
+        "price": 29.99,
+        "formattedPrice": "$29.99",
+        "amazonURL": "amazon.com/shortURL",
+        "largeImageURL": "https://images-na.ssl-images-amazon.com/images/I/61T9Y0Hl98L._SL1000_.jpg"
       }
     ]
   }
@@ -50,6 +59,7 @@ export default class GiftResultPage extends React.Component {
     this.gifts = [];
     this.answers = [];
     this.currentGiftIdx = 0;
+    this.favourites = Favourites.getInstance();
   }
 
   componentDidMount() {
@@ -90,6 +100,9 @@ export default class GiftResultPage extends React.Component {
         id: this.gifts[this.currentGiftIdx].id, 
         value 
     });
+    if (value >= 1) {
+      this.favourites.add(this.gifts[this.currentGiftIdx]);
+    }
     this.nextGift();
   }
 
