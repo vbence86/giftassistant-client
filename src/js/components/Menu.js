@@ -37,7 +37,7 @@ class Menu extends React.Component {
 
   getSideMenu() {
     return (
-      <View style={{flex: 1, backgroundColor: '#ededed', paddingTop: 50}}>
+      <View style={{flex: 1, backgroundColor: '#efefef', paddingTop: 50, margin: 0}}>
         <List containerStyle={{marginBottom: 20}}>
         {
           this.getDataModel().map((l, i) => (
