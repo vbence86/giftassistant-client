@@ -2,10 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Image, Animated } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import Svg, { LinearGradient, RadialGradient, Rect, Defs, Stop } from 'react-native-svg';
-import { BoxShadow } from 'react-native-shadow';
 import EmoticonChoiceList from './EmoticonChoiceList';
 
-const FONT_SIZE_DEFAULT = 20;
 const FONT_SIZE_SMALL = 20;
 
 const styles = StyleSheet.create({
@@ -13,7 +11,7 @@ const styles = StyleSheet.create({
     width: '100%',
     marginTop: '5%',
     textAlign: 'center',
-    fontSize: FONT_SIZE_DEFAULT
+    fontSize: FONT_SIZE_SMALL
   },
   price: {
     width: '100%',
