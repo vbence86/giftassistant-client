@@ -58,7 +58,7 @@ class Menu extends React.Component {
 
   render() {
     return (
-      <SideMenu isOpen={this.state.isOpen} menu={this.getSideMenu()}>
+      <SideMenu style={{ marginTop: 0 }} isOpen={this.state.isOpen} menu={this.getSideMenu()}>
         <MenuButton onPress={() => this.toggleSideMenu()} />
         {this.props.page}
       </SideMenu>

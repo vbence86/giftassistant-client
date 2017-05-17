@@ -49,6 +49,8 @@ export default class FavouritesView extends React.Component {
   }
 
   render() {
+
+    if (!this.props.favourites) return null;
     
     return (
       <View style={styles.container}>

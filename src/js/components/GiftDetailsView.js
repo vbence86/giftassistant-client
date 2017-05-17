@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   },  
   ctaContainer: {
     width: '100%',
-    height: '20%',
+    height: '30%',
     flex: 1,
     flexWrap: 'wrap',
     flexDirection: 'row',
@@ -34,19 +34,19 @@ const styles = StyleSheet.create({
   },
   buttonSmall: {
     width: '40%',
-    height: '90%',
+    height: '50%',
     margin: '5%',
     backgroundColor: '#397af8',
     borderRadius: 5,
   },  
   contentContainer: {
     width: '100%',
-    height: '80%',
+    height: '70%',
     flexDirection: 'row'
   },
   imageContainer: {
     width: '48%',
-    height: '80%',
+    height: '60%',
     marginLeft: '2%',
     marginTop: '2%',
   },
@@ -128,7 +128,7 @@ export default class GiftDetailsView extends React.Component {
           <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
         </Svg>
         <View style={styles.navigatorContainer}>
-          <BackButton />
+          <BackButton onPress={this.props.onBack} />
         </View>
         <View style={styles.contentContainer}>
           <View style={styles.imageContainer}>

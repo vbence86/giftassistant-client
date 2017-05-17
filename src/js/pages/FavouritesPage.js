@@ -16,6 +16,9 @@ export default class FavouritesPage extends React.Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
     this.state = {
       favourites: Favourites.getInstance().get()
     };
