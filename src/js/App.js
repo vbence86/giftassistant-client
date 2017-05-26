@@ -22,7 +22,7 @@ export default class App extends React.Component {
     } else if (routeId === 'LoginPage') {
       return <LoginPage navigator={navigator} />
     } else if (routeId === 'PersonalQuestionsPage') {
-      page = <PersonalQuestionsPage navigator={navigator} />
+      page = <PersonalQuestionsPage reset={route.reset} navigator={navigator} />
     } else if (routeId === 'GiftCategoryPage') {
       page = <GiftCategoryPage navigator={navigator} />
     } else if (routeId === 'GiftResultPage') {
