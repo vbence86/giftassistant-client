@@ -10,12 +10,19 @@ class Menu extends React.Component {
     this.state = {
       isOpen: false
     }
-    this.toggleSideMenu = this.toggleSideMenu.bind(this)
+    this.toggleSideMenu = this.toggleSideMenu.bind(this);
+    this.onSideMenuChange = this.onSideMenuChange.bind(this);
   }
 
-  toggleSideMenu () {
+  toggleSideMenu() {
     this.setState({
       isOpen: !this.state.isOpen
+    })
+  }
+  
+  onSideMenuChange(isOpen) {
+    this.setState({
+      isOpen: isOpen
     })
   }
 
@@ -58,8 +65,11 @@ class Menu extends React.Component {
 
   render() {
     return (
-      <SideMenu style={{ marginTop: 0 }} isOpen={this.state.isOpen} menu={this.getSideMenu()}>
-        <MenuButton onPress={() => this.toggleSideMenu()} />
+      <SideMenu 
+        onChange={this.onSideMenuChange} 
+        isOpen={this.state.isOpen} 
+        menu={this.getSideMenu()}>
+        <MenuButton onPress={this.toggleSideMenu} />
         {this.props.page}
       </SideMenu>
     )

@@ -3,8 +3,10 @@ import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
 
 const styles = StyleSheet.create({
   menuButton: {
-    marginTop: 20,
-    backgroundColor: '#777'
+    width: '100%',
+    alignItems: 'flex-start',
+    marginTop: 0,
+    backgroundColor: '#f2f2f2'
   }
 });
 
