@@ -16,6 +16,8 @@ export default class FavouritesPage extends React.Component {
 
   constructor(props) {
     super(props);
+    this.onBack = this.onBack.bind(this);
+    this.onSelect = this.onSelect.bind(this);
   }
 
   componentWillMount() {
@@ -37,11 +39,22 @@ export default class FavouritesPage extends React.Component {
     });
   }
 
+  onBack() {
+    this.navigateBack();
+  }  
+
+  navigateBack() {
+    this.props.navigator.pop();
+  }  
+
   render() {
     
     return (
       <View style={styles.container}>
-        <FavouritesView {...this.state} onSelect={this.onSelect.bind(this)}/>
+        <FavouritesView {...this.state} 
+          onSelect={this.onSelect}
+          onBack={this.onBack}
+        />
       </View>
     );
 

@@ -2,16 +2,17 @@ import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
+import BackButton from './BackButton';
 
 const FONT_SIZE_DEFAULT = 30;
 const FONT_SIZE_SMALL = 20;
 
 const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    marginTop: '5%',
-    textAlign: 'center',
-    fontSize: FONT_SIZE_DEFAULT
+  navigatorContainer: {
+    width: '100%', 
+    height: 50,
+    alignItems: 'flex-start',
+    backgroundColor: '#f2f2f2', 
   },
   container: {
     width: '100%',
@@ -62,7 +63,10 @@ export default class FavouritesView extends React.Component {
             </LinearGradient> 
           </Defs>
           <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
-        </Svg>      
+        </Svg>
+        <View style={styles.navigatorContainer}>
+          <BackButton onPress={this.props.onBack} />
+        </View>      
         <ScrollView contentContainerStyle={styles.list}>
           {this.props.favourites.map((data, idx) => this.renderRow(data, idx))}
         </ScrollView>
