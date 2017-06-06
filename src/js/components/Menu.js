@@ -30,6 +30,15 @@ class Menu extends React.Component {
 
     return [
       {
+        title: 'New Gift',
+        subtitle: 'Create a new session to find awesome gifts',
+        leftIcon: {
+          type: 'font-awesome',
+          name: 'repeat'
+        },
+        onPress: () => this.goToPersonalQuestionsPage()
+      },
+      {
         title: 'Favourites',
         subtitle: 'Browse your previously liked items',
         leftIcon: {
@@ -37,7 +46,7 @@ class Menu extends React.Component {
           name: 'gift'
         },
         onPress: () => this.goToFavouritesPages()
-      }
+      },
     ];
 
   }
@@ -58,8 +67,14 @@ class Menu extends React.Component {
 
   goToFavouritesPages() {
     this.props.navigator.push({
-      id: 'FavouritesPage',
-      name: 'FavouritesPage'
+      id: 'FavouritesPage'
+    });
+  }
+
+  goToPersonalQuestionsPage() {
+    this.props.navigator.resetTo({
+      id: 'PersonalQuestionsPage',
+      reset: true
     });
   }
 

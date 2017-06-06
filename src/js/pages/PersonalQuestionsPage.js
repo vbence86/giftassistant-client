@@ -71,16 +71,22 @@ export default class PersonalQuestionsPage extends React.Component {
 
   constructor(props) {
     super(props);
-
-    this.handleAnswer = this.handleAnswer.bind(this);
-
     this.state = {};
+    this.handleAnswer = this.handleAnswer.bind(this);
+  }
+
+  componentDidMount() {
+    this.initHelpers();
+    this.loadQuestions();
+  }
+
+  initHelpers() {
     this.questions = [];
     this.answers = [];
     this.currentQuestionIdx = 0;
   }
 
-  componentDidMount() {
+  loadQuestions() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
     const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
     client

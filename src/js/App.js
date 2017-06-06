@@ -22,7 +22,7 @@ export default class App extends React.Component {
     } else if (routeId === 'LoginPage') {
       return <LoginPage navigator={navigator} />
     } else if (routeId === 'PersonalQuestionsPage') {
-      page = <PersonalQuestionsPage navigator={navigator} />
+      page = <PersonalQuestionsPage reset={route.reset} navigator={navigator} />
     } else if (routeId === 'GiftCategoryPage') {
       page = <GiftCategoryPage navigator={navigator} />
     } else if (routeId === 'GiftResultPage') {
@@ -30,7 +30,7 @@ export default class App extends React.Component {
     } else if (routeId === 'GiftDetailsPage') {
       return <GiftDetailsPage navigator={navigator} data={route.data} index={route.index} />
     } else if (routeId === 'FavouritesPage') {
-      page = <FavouritesPage navigator={navigator} />
+      return <FavouritesPage navigator={navigator} />
     }
     return <Menu page={page} navigator={navigator} />
   }

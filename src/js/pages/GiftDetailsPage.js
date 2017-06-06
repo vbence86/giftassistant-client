@@ -25,30 +25,20 @@ export default class GiftDetailsPage extends React.Component {
   }
 
   onBack() {
-    this.navigateToFavouritesPage();
+    this.navigateBack();
   }
 
   onRemove() {
     this.favourites.remove(this.gift);
-    this.navigateToFavouritesPage();
+    this.navigateBack();
   }
 
   onBuy() {
 
   }
 
-  navigateToGiftResultPage() {
-    this.props.navigator.push({
-      id: 'GiftResultPage',
-      name: 'GiftResultPage'
-    });
-  }
-
-  navigateToFavouritesPage() {
-    this.props.navigator.push({
-      id: 'FavouritesPage',
-      name: 'FavouritesPage'
-    });
+  navigateBack() {
+    this.props.navigator.pop();
   }
 
   render() {
