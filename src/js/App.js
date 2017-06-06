@@ -32,7 +32,7 @@ export default class App extends React.Component {
     } else if (routeId === 'FavouritesPage') {
       return <FavouritesPage navigator={navigator} />
     }
-    return <Menu page={page} navigator={navigator} />
+    return <Menu page={page} navigator={navigator} closeMenu={route.closeMenu}/>
   }
 
   render () {

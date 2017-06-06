@@ -66,12 +66,14 @@ class Menu extends React.Component {
   }
 
   goToFavouritesPages() {
+    this.toggleSideMenu();
     this.props.navigator.push({
       id: 'FavouritesPage'
     });
   }
 
   goToPersonalQuestionsPage() {
+    this.toggleSideMenu();
     this.props.navigator.resetTo({
       id: 'PersonalQuestionsPage',
       reset: true

@@ -44,7 +44,9 @@ export default class FavouritesPage extends React.Component {
   }  
 
   navigateBack() {
-    this.props.navigator.pop();
+    this.props.navigator.pop({
+      closeMenu: true
+    });
   }  
 
   render() {
