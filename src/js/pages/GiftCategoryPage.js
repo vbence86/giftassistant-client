@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-elements';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import GiftCategoryView from '../components/GiftCategoryView';
 import GiftClient from '../helpers/GiftClient';
@@ -95,7 +96,9 @@ export default class GiftCategoryPage extends React.Component {
 
     this.handleAnswer = this.handleAnswer.bind(this);
 
-    this.state = {};
+    this.state = {
+      showAsyncLoader: false
+    };
     this.categories = [];
     this.answers = [];
     this.currentCategoryIdx = 0;
@@ -104,10 +107,13 @@ export default class GiftCategoryPage extends React.Component {
   componentDidMount() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
     const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
+
+    this.showAsyncLoader();
+
     client
       .giftCategory(req)
-      .then(this.handleResponse.bind(this, mockResponse))
-      .catch(this.handleResponse.bind(this, mockResponse));
+      .then(this.handleResponse.bind(this, mockResponse), this.handleResponse.bind(this, mockResponse))
+      .then(this.hideAsyncLoader.bind(this));
   }
 
   handleResponse(resp) {
@@ -140,9 +146,10 @@ export default class GiftCategoryPage extends React.Component {
   }
 
   lastCategoryIsFlagged() {
+    this.showAsyncLoader();
     this.sendAnswersToGiftService()
-      .then(this.navigateToGiftResultPage.bind(this))
-      .catch(this.navigateToGiftResultPage.bind(this));    
+      .then(this.navigateToGiftResultPage.bind(this), this.navigateToGiftResultPage.bind(this))
+      .then(this.hideAsyncLoader.bind(this));
   }
 
   sendAnswersToGiftService() {
@@ -165,10 +172,19 @@ export default class GiftCategoryPage extends React.Component {
     });
   }
 
+  showAsyncLoader() {
+    this.setState({ ...this.state, showAsyncLoader: true });
+  }
+
+  hideAsyncLoader() {
+    this.setState({ ...this.state, showAsyncLoader: false });
+  }  
+
   render() {
     
     return (
       <View style={styles.container}>
+        <Spinner visible={this.state.showAsyncLoader} overlayColor="rgba(0, 0, 0, 0.75)" />
         <GiftCategoryView isLastCategory={this.state.isLastCategory} name={this.state.categoryName} onAnswer={this.handleAnswer}/>
       </View>
     );
