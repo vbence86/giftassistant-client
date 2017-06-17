@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { Button, Text } from 'react-native-elements';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import GiftResultView from '../components/GiftResultView';
 import GiftClient from '../helpers/GiftClient';
@@ -55,7 +56,9 @@ export default class GiftResultPage extends React.Component {
 
     this.handleAnswer = this.handleAnswer.bind(this);
 
-    this.state = {};
+    this.state = {
+      showAsyncLoader: false
+    };
     this.gifts = [];
     this.answers = [];
     this.currentGiftIdx = 0;
@@ -65,11 +68,15 @@ export default class GiftResultPage extends React.Component {
   componentDidMount() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
     const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
+
+    this.showAsyncLoader();
+
     client
       .giftResult(req)
       .then(this.handleResponse.bind(this, mockResponse))
+      .then(this.handleResponse.bind(this, mockResponse), this.handleResponse.bind(this, mockResponse))
       .then(this.preloadImages.bind(this))
-      .catch(this.handleResponse.bind(this, mockResponse));
+      .then(this.hideAsyncLoader.bind(this));
   }
 
   handleResponse(resp) {
@@ -114,9 +121,10 @@ export default class GiftResultPage extends React.Component {
   }
 
   lastGiftIsFlagged() {
+    this.showAsyncLoader();
     this.sendAnswersToGiftService()
-      .then(this.navigateToGiftResultPage.bind(this))
-      .catch(this.navigateToGiftResultPage.bind(this));
+      .then(this.navigateToGiftResultPage.bind(this), this.navigateToGiftResultPage.bind(this))
+      .then(this.hideAsyncLoader.bind(this));
   }
 
   sendAnswersToGiftService() {
@@ -134,10 +142,19 @@ export default class GiftResultPage extends React.Component {
     });
   }
 
+  showAsyncLoader() {
+    this.setState({ ...this.state, showAsyncLoader: true });
+  }
+
+  hideAsyncLoader() {
+    this.setState({ ...this.state, showAsyncLoader: false });
+  }  
+
   render() {
     
     return (
       <View style={styles.container}>
+        <Spinner visible={this.state.showAsyncLoader} overlayColor="rgba(0, 0, 0, 0.75)" />
         <GiftResultView {...this.state} onAnswer={this.handleAnswer}/>
       </View>
     );

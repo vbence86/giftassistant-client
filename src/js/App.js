@@ -34,7 +34,7 @@ export default class App extends React.Component {
     } else if (routeId === 'SettingsPage') {
       return <SettingsPage navigator={navigator} />
     }    
-    return <Menu page={page} navigator={navigator} />
+    return <Menu page={page} navigator={navigator} closeMenu={route.closeMenu}/>
   }
 
   render () {

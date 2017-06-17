@@ -1,4 +1,5 @@
 /* global module, Promise, require */
+const TIMEOUT = 10000;
 
 const defaults = {
   headers: {
@@ -77,6 +78,16 @@ function queryParams(params) {
 }
 
 /**
+ * General timeout function to avoid stuck clients
+ * @return {Promise} 
+ */
+function timeout() {
+  return new Promise((resolve, reject) => {
+    setTimeout(reject, TIMEOUT);
+  });
+}
+
+/**
  * Client object that represent a connection to the given abel endpoint 
  * @param {string} serviceURL URL to the service endpoint
  */
@@ -107,10 +118,13 @@ function Client(serviceURL) {
         url = `${url}?${query_string}`;
       }
 
-      return fetch( new Request(url, init) )
+      const timeoutPromise = timeout();
+      const fetchPromise = fetch( new Request(url, init) )
         .then(status)
         .then(jsonify)
         .catch(error);
+
+      return Promise.race([ timeoutPromise, fetchPromise ]);
     },   
 
     /**
@@ -131,10 +145,14 @@ function Client(serviceURL) {
         body: getBody(params),
         credentials: 'same-origin'
       };
-      return fetch( new Request(url, init) )
+
+      const timeoutPromise = timeout();
+      const fetchPromise = fetch( new Request(url, init) )
         .then(status)
         .then(jsonify)
         .catch(error);
+
+      return Promise.race([ timeoutPromise, fetchPromise ]);
     },
 
     /**
@@ -144,21 +162,25 @@ function Client(serviceURL) {
      * @return {Promise} Promise for the resolution of the operation
      */
     delete(service, params){
-        if (!service) throw 'Invalid service name!';
+      if (!service) throw 'Invalid service name!';
 
-        const url = `${serviceURL}/${service}`;
-        const init = { 
-          method: 'DELETE',
-          mode: 'cors',
-          headers: getHeaders(),
-          cache: 'default',
-          body: getBody(params),
-          credentials: 'same-origin'
-        };
-        return fetch( new Request(url, init) )
-          .then(status)
-          .then(jsonify)
-          .catch(error);
+      const url = `${serviceURL}/${service}`;
+      const init = { 
+        method: 'DELETE',
+        mode: 'cors',
+        headers: getHeaders(),
+        cache: 'default',
+        body: getBody(params),
+        credentials: 'same-origin'
+      };
+
+      const timeoutPromise = timeout();
+      const fetchPromise = fetch( new Request(url, init) )
+        .then(status)
+        .then(jsonify)
+        .catch(error);
+
+      return Promise.race([ timeoutPromise, fetchPromise ]);
     }
                   
   };
