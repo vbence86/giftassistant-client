@@ -40,13 +40,22 @@ class Menu extends React.Component {
       },
       {
         title: 'Favourites',
-        subtitle: 'Browse your previously liked items',
+        subtitle: 'Browse item you have liked',
         leftIcon: {
           type: 'font-awesome',
           name: 'gift'
         },
         onPress: () => this.goToFavouritesPages()
       },
+      {
+        title: 'Settings',
+        subtitle: 'Change your personal settings',
+        leftIcon: {
+          type: 'font-awesome',
+          name: 'gift'
+        },
+        onPress: () => this.goToSettingsPages()
+      },      
     ];
 
   }
@@ -70,6 +79,12 @@ class Menu extends React.Component {
       id: 'FavouritesPage'
     });
   }
+
+  goToSettingsPages() {
+    this.props.navigator.push({
+      id: 'SettingsPage'
+    });
+  }  
 
   goToPersonalQuestionsPage() {
     this.props.navigator.resetTo({

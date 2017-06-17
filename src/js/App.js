@@ -31,7 +31,9 @@ export default class App extends React.Component {
       return <GiftDetailsPage navigator={navigator} data={route.data} index={route.index} />
     } else if (routeId === 'FavouritesPage') {
       return <FavouritesPage navigator={navigator} />
-    }
+    } else if (routeId === 'SettingsPage') {
+      return <SettingsPage navigator={navigator} />
+    }    
     return <Menu page={page} navigator={navigator} />
   }
 

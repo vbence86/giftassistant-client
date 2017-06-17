@@ -19,6 +19,7 @@
     "react": "15.4.2",
     "react-native": "0.42.0-rc.1",
     "react-native-elements": "^0.9.5",
+    "react-native-settings-list": "^1.4.0",
     "react-native-slider": "^0.9.1",
     "react-native-star-rating": "^1.0.7",
     "react-native-svg": "^5.1.7",

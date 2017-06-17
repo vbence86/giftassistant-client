@@ -3721,6 +3721,10 @@ react-native-lock@^0.6.0:
   dependencies:
     react-native-auth0 "^0.0.1"
 
+react-native-settings-list@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-settings-list/-/react-native-settings-list-1.4.0.tgz#75533e72e109ea478f9abd9cc491703970153a5b"
+
 react-native-side-menu@^0.20.1:
   version "0.20.1"
   resolved "https://registry.yarnpkg.com/react-native-side-menu/-/react-native-side-menu-0.20.1.tgz#df21b4bb9d8a1aa3bae53d74ddf8a739eb59bfc5"
