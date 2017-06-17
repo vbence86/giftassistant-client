@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { Button, Text } from 'react-native-elements';
 
 import GiftResultView from '../components/GiftResultView';
@@ -68,6 +68,7 @@ export default class GiftResultPage extends React.Component {
     client
       .giftResult(req)
       .then(this.handleResponse.bind(this, mockResponse))
+      .then(this.preloadImages.bind(this))
       .catch(this.handleResponse.bind(this, mockResponse));
   }
 
@@ -84,6 +85,12 @@ export default class GiftResultPage extends React.Component {
     const gift = this.gifts[this.currentGiftIdx];
     const isLastGiftResult = this.currentGiftIdx === this.gifts.length - 1;
     this.setState({ ...gift, isLastGiftResult });
+  }
+
+  preloadImages() {
+    const uris = this.gifts.map( v => v.largeImageURL );
+    const imagePrefetch = uris.map( uri => Image.prefetch(uri));
+    return Promise.all(imagePrefetch);
   }
 
   nextGift() {
