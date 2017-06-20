@@ -71,33 +71,27 @@ export default class GiftResultPage extends React.Component {
 
     this.showAsyncLoader();
 
-    client
-      .giftResult(req)
-      .then(this.handleResponse.bind(this, mockResponse))
-      .then(this.handleResponse.bind(this, mockResponse), this.handleResponse.bind(this, mockResponse))
+    client.giftResult(req)
+      .then(this.setGiftsFromResponse.bind(this, mockResponse), this.setGiftsFromResponse.bind(this, mockResponse))
       .then(this.preloadImages.bind(this))
+      .then(this.setStateByGift.bind(this))
       .then(this.hideAsyncLoader.bind(this));
-  }
-
-  handleResponse(resp) {
-    this.setGiftsFromResponse(resp);
-    this.setStateByGift();
   }
 
   setGiftsFromResponse(resp) {
     this.gifts = resp.response.items;
   } 
 
-  setStateByGift() {
-    const gift = this.gifts[this.currentGiftIdx];
-    const isLastGiftResult = this.currentGiftIdx === this.gifts.length - 1;
-    this.setState({ ...gift, isLastGiftResult });
-  }
-
   preloadImages() {
     const uris = this.gifts.map( v => v.largeImageURL );
     const imagePrefetch = uris.map( uri => Image.prefetch(uri));
     return Promise.all(imagePrefetch);
+  }
+
+  setStateByGift() {
+    const gift = this.gifts[this.currentGiftIdx];
+    const isLastGiftResult = this.currentGiftIdx === this.gifts.length - 1;
+    this.setState({ ...gift, isLastGiftResult });
   }
 
   nextGift() {
