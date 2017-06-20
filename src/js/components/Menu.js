@@ -82,6 +82,7 @@ class Menu extends React.Component {
   }
 
   goToSettingsPages() {
+    this.toggleSideMenu();
     this.props.navigator.push({
       id: 'SettingsPage'
     });
