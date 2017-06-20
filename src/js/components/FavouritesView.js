@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView } from 'react-native';
+import { StyleSheet, View, ScrollView, Text } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
 import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
 import BackButton from './BackButton';
@@ -21,6 +21,18 @@ const styles = StyleSheet.create({
   },
   list: {
     backgroundColor: '#fff'
+  },
+  listHeader: {
+    borderBottomWidth: 1, 
+    backgroundColor: '#f7f7f8',
+    borderColor: '#c8c7cc'
+  },
+  listHeaderText: {
+    alignSelf: 'center',
+    marginTop: 15,
+    marginBottom: 10,
+    fontWeight: 'bold',
+    fontSize: 16,
   },
   svg: { 
     position: 'absolute', 
@@ -66,7 +78,10 @@ export default class FavouritesView extends React.Component {
         </Svg>
         <View style={styles.navigatorContainer}>
           <BackButton onPress={this.props.onBack} />
-        </View>      
+        </View>
+        <View style={styles.listHeader}>
+          <Text style={styles.listHeaderText}>Favourites</Text>
+        </View>        
         <ScrollView contentContainerStyle={styles.list}>
           {this.props.favourites.map((data, idx) => this.renderRow(data, idx))}
         </ScrollView>

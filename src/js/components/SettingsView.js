@@ -19,9 +19,27 @@ const styles = StyleSheet.create({
     height: '100%',
     padding: 0
   },
+  header: {
+    alignItems: 'center',
+    fontSize: FONT_SIZE_SMALL,
+    marginTop: 15,
+    marginBottom: 15
+  },
   list: {
     backgroundColor: '#fff'
   },
+  listHeader: {
+    borderBottomWidth: 1, 
+    backgroundColor: '#f7f7f8',
+    borderColor: '#c8c7cc'
+  },
+  listHeaderText: {
+    alignSelf: 'center',
+    marginTop: 15,
+    marginBottom: 10,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },  
   svg: { 
     position: 'absolute', 
     zIndex: 0, 
@@ -36,17 +54,9 @@ export default class SettingsView extends React.Component {
 
   constructor(props) {
     super(props);
-    this.onValueChange = this.onValueChange.bind(this);
-  }
-
-  onValueChange() {
-    
   }
 
   render() {
-
-    if (!this.props.settings) return null;
-    
     return (
       <View style={styles.container}>
         <Svg style={styles.svg}>
@@ -62,13 +72,16 @@ export default class SettingsView extends React.Component {
           <BackButton onPress={this.props.onBack} />
         </View>      
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>
+          <View style={styles.listHeader}>
+            <Text style={styles.listHeaderText}>Settings</Text>
+          </View>        
           <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
-            <SettingsList.Header headerStyle={{marginTop:15}}/>
+            <SettingsList.Header headerStyle={styles.header} headerText="Basic" />
             <SettingsList.Item
               icon={<Image style={styles.imageStyle} source={require('../../../resources/img/notifications.png')}/>}
               hasSwitch={true}
-              switchState={this.props.switchValue}
-              switchOnValueChange={this.onValueChange}
+              switchState={this.props.notifications}
+              switchOnValueChange={this.props.onSetNotifications}
               hasNavArrow={false}
               title="Notifications" />
           </SettingsList>

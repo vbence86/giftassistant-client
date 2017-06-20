@@ -52,7 +52,7 @@ class Menu extends React.Component {
         subtitle: 'Change your personal settings',
         leftIcon: {
           type: 'font-awesome',
-          name: 'gift'
+          name: 'cog'
         },
         onPress: () => this.goToSettingsPages()
       },      
