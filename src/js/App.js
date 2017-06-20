@@ -8,6 +8,7 @@ import GiftCategoryPage from './pages/GiftCategoryPage';
 import GiftResultPage from './pages/GiftResultPage';
 import GiftDetailsPage from './pages/GiftDetailsPage';
 import FavouritesPage from './pages/FavouritesPage';
+import SettingsPage from './pages/SettingsPage';
 
 export default class App extends React.Component {
 

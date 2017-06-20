@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
 import SettingsList from 'react-native-settings-list';
 import BackButton from './BackButton';
@@ -45,7 +45,7 @@ export default class SettingsView extends React.Component {
 
   render() {
 
-    if (!this.props.favourites) return null;
+    if (!this.props.settings) return null;
     
     return (
       <View style={styles.container}>
@@ -65,12 +65,12 @@ export default class SettingsView extends React.Component {
           <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
             <SettingsList.Header headerStyle={{marginTop:15}}/>
             <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require('./images/airplane.png')}/>}
+              icon={<Image style={styles.imageStyle} source={require('../../../resources/img/notifications.png')}/>}
               hasSwitch={true}
               switchState={this.props.switchValue}
               switchOnValueChange={this.onValueChange}
               hasNavArrow={false}
-              title="Airplane Mode" />
+              title="Notifications" />
           </SettingsList>
         </View>
       </View>

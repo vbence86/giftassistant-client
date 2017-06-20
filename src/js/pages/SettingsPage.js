@@ -17,10 +17,11 @@ export default class SettingsPage extends React.Component {
   constructor(props) {
     super(props);
     this.onBack = this.onBack.bind(this);
+    this.settings = Settings.getInstance();
   }
 
-  componentWillMount() {
-    this.setState(Settings.getInstance().get());
+  componentDidMount() {
+    this.setState(this.settings);
   }
 
   onBack() {
@@ -28,8 +29,10 @@ export default class SettingsPage extends React.Component {
   }  
 
   navigateBack() {
-    this.props.navigator.pop();
-  }  
+    this.props.navigator.pop({
+      closeMenu: true
+    });
+  } 
 
   render() {
     
