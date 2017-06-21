@@ -18,13 +18,20 @@ export default class FavouritesPage extends React.Component {
     super(props);
     this.onBack = this.onBack.bind(this);
     this.onSelect = this.onSelect.bind(this);
+    this.favourites = Favourites.getInstance();
   }
 
-  componentWillMount() {
-    this.state = {
-      favourites: Favourites.getInstance().get()
-    };
+  componentDidMount() {
+    this.favourites
+      .syncFromLocalStorage()
+      .then(this.updateSettings.bind(this));
   }
+
+  updateSettings() {
+    this.setState({
+      favourites: this.favourites.get()
+    });
+  }  
 
   onSelect(data, idx) {
     this.navigateToGiftDetailsPage(data, idx)
@@ -40,10 +47,6 @@ export default class FavouritesPage extends React.Component {
   }
 
   onBack() {
-    this.navigateBack();
-  }  
-
-  navigateBack() {
     this.props.navigator.pop({
       closeMenu: true
     });

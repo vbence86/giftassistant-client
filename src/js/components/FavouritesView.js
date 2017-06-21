@@ -63,8 +63,6 @@ export default class FavouritesView extends React.Component {
 
   render() {
 
-    if (!this.props.favourites) return null;
-    
     return (
       <View style={styles.container}>
         <Svg style={styles.svg}>
@@ -82,10 +80,17 @@ export default class FavouritesView extends React.Component {
         <View style={styles.listHeader}>
           <Text style={styles.listHeaderText}>Favourites</Text>
         </View>        
-        <ScrollView contentContainerStyle={styles.list}>
-          {this.props.favourites.map((data, idx) => this.renderRow(data, idx))}
-        </ScrollView>
+        {this.renderFavouritesList()}
       </View>
+    );
+  }
+
+  renderFavouritesList() {
+    if (!this.props.favourites) return null;
+    return (
+      <ScrollView contentContainerStyle={styles.list}>
+        {this.props.favourites.map((data, idx) => this.renderRow(data, idx))}
+      </ScrollView>
     );
   }
 
