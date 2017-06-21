@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Image, Text } from 'react-native';
+import { StyleSheet, TouchableOpacity, Text } from 'react-native';
 import { Icon } from 'react-native-elements'
 
 const styles = StyleSheet.create({
@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
 
 export default class MenuButton extends Component {
 
+  constructor(props) {
+    super(props);
+    this.handlePress = this.handlePress.bind(this);
+  }
+
   handlePress(e) {
     if (this.props.onPress) {
       this.props.onPress(e);
@@ -25,15 +30,14 @@ export default class MenuButton extends Component {
 
   render() {
     return (
-      <View style={styles.container} >
+      <TouchableOpacity style={styles.container} onPress={this.handlePress}>
         <Icon 
           name="bars"
           type="font-awesome"
           size={32}
-          iconStyle={styles.button}
-          onPress={this.handlePress.bind(this)} />
+          iconStyle={styles.button} />
         <Text>{this.props.children}</Text>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
