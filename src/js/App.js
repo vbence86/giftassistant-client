@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navigator, View } from 'react-native';
+import Orientation from 'react-native-orientation';
 import Menu from './components/Menu';
 import SplashPage from './pages/SplashPage';
 import LoginPage from './pages/LoginPage';
@@ -14,6 +15,10 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    Orientation.lockToPortrait();
   }
 
   updateScene(route, navigator) {
