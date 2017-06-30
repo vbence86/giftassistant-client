@@ -49,8 +49,6 @@
 		CAABA2B7D7994B159AA24143 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F96D98E767FB4F4C9BE9CB0A /* MaterialCommunityIcons.ttf */; };
 		F17FA96D76DA4B6D9916E6B1 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A61239CE6503420A9D7CC4C1 /* Octicons.ttf */; };
 		F67B9447C9FE4F10B75FAE81 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F41B213570E45EE88786F54 /* Ionicons.ttf */; };
-		B61DB2FD026342B38FF14E40 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F32E70336AF447A6B883630C /* SimpleLineIcons.ttf */; };
-		A66CAE9C6EC14AA4AC037A94 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCB03D83125B40A39CB8B679 /* Zocial.ttf */; };
 		0F1AE414FE7A46BCB67FCEF4 /* libRNSVG.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97502AAD3EE749E4AA8C35F5 /* libRNSVG.a */; };
 /* End PBXBuildFile section */
 
@@ -288,8 +286,6 @@
 		F13BC8470F3CC139308D193D /* Pods-GiftAssistant.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GiftAssistant.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GiftAssistant/Pods-GiftAssistant.debug.xcconfig"; sourceTree = "<group>"; };
 		F32E70336AF447A6B883630C /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		F96D98E767FB4F4C9BE9CB0A /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		05B023E1976F45C390A9733A /* FontAwesome.ttf */ = {isa = PBXFileReference; name = "FontAwesome.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		0F41B213570E45EE88786F54 /* Ionicons.ttf */ = {isa = PBXFileReference; name = "Ionicons.ttf"; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		DD498288747C4C8188A21443 /* RNSVG.xcodeproj */ = {isa = PBXFileReference; name = "RNSVG.xcodeproj"; path = "../node_modules/react-native-svg/ios/RNSVG.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		97502AAD3EE749E4AA8C35F5 /* libRNSVG.a */ = {isa = PBXFileReference; name = "libRNSVG.a"; path = "libRNSVG.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
