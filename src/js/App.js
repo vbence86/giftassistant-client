@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Navigator, View } from 'react-native';
+import Orientation from 'react-native-orientation';
 import Menu from './components/Menu';
 import SplashPage from './pages/SplashPage';
 import LoginPage from './pages/LoginPage';
@@ -8,11 +9,16 @@ import GiftCategoryPage from './pages/GiftCategoryPage';
 import GiftResultPage from './pages/GiftResultPage';
 import GiftDetailsPage from './pages/GiftDetailsPage';
 import FavouritesPage from './pages/FavouritesPage';
+import SettingsPage from './pages/SettingsPage';
 
 export default class App extends React.Component {
 
   constructor(props) {
     super(props);
+  }
+
+  componentDidMount() {
+    Orientation.lockToPortrait();
   }
 
   updateScene(route, navigator) {
@@ -31,8 +37,10 @@ export default class App extends React.Component {
       return <GiftDetailsPage navigator={navigator} data={route.data} index={route.index} />
     } else if (routeId === 'FavouritesPage') {
       return <FavouritesPage navigator={navigator} />
-    }
-    return <Menu page={page} navigator={navigator} />
+    } else if (routeId === 'SettingsPage') {
+      return <SettingsPage navigator={navigator} />
+    }    
+    return <Menu page={page} navigator={navigator} closeMenu={route.closeMenu}/>
   }
 
   render () {

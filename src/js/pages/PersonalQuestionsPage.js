@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Text } from 'react-native-elements';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 import QuestionView from '../components/QuestionView';
 import GiftClient from '../helpers/GiftClient';
@@ -76,6 +77,7 @@ export default class PersonalQuestionsPage extends React.Component {
   }
 
   componentDidMount() {
+    this.showAsyncLoader();
     this.initHelpers();
     this.loadQuestions();
   }
@@ -89,10 +91,19 @@ export default class PersonalQuestionsPage extends React.Component {
   loadQuestions() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
     const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
+
     client
       .question(req)
-      .then(this.handleResponse.bind(this, mockResponse))
-      .catch(this.handleResponse.bind(this, mockResponse));
+      .then(this.handleResponse.bind(this), this.handleResponse.bind(this, mockResponse))
+      .then(this.hideAsyncLoader.bind(this));
+  }
+
+  showAsyncLoader() {
+    this.setState({ ...this.state, showAsyncLoader: true });
+  }
+
+  hideAsyncLoader() {
+    this.setState({ ...this.state, showAsyncLoader: false });
   }
 
   handleResponse(resp) {
@@ -107,7 +118,7 @@ export default class PersonalQuestionsPage extends React.Component {
   setStateByCurrentQuestion() {
     const questionDetails = this.questions[this.currentQuestionIdx];
     const isLastQuestion = this.currentQuestionIdx === this.questions.length - 1;
-    this.setState({...questionDetails, isLastQuestion});
+    this.setState({...questionDetails, isLastQuestion });
   }
 
   handleAnswer(value) {
@@ -128,9 +139,10 @@ export default class PersonalQuestionsPage extends React.Component {
   }
 
   lastQuestionIsAnswered() {
+    this.showAsyncLoader();
     this.sendAnswersToGiftService()
-      .then(this.navigateToGiftCategoryPage.bind(this))
-      .catch(this.navigateToGiftCategoryPage.bind(this));
+      .then(this.navigateToGiftCategoryPage.bind(this), this.navigateToGiftCategoryPage.bind(this))
+      .then(this.hideAsyncLoader.bind(this));
   }
 
   sendAnswersToGiftService() {
@@ -153,6 +165,7 @@ export default class PersonalQuestionsPage extends React.Component {
     
     return (
       <View style={styles.container}>
+        <Spinner visible={this.state.showAsyncLoader} overlayColor="rgba(0, 0, 0, 0.75)" />
         <QuestionView {...this.state} onAnswer={this.handleAnswer}/>
       </View>
     );

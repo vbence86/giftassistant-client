@@ -3715,11 +3715,23 @@ react-native-elements@^0.9.5:
     react-native-side-menu "^0.20.1"
     react-native-tab-navigator "^0.3.3"
 
+react-native-loading-spinner-overlay@latest:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-native-loading-spinner-overlay/-/react-native-loading-spinner-overlay-0.5.0.tgz#2f06c14da24139303ff95364f4b9de8ab1cacc97"
+
 react-native-lock@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/react-native-lock/-/react-native-lock-0.6.0.tgz#2fc40caf74e60b7516b2faeee975271a71696c49"
   dependencies:
     react-native-auth0 "^0.0.1"
+
+"react-native-orientation@git+https://git@github.com/yamill/react-native-orientation.git":
+  version "1.17.0"
+  resolved "git+https://git@github.com/yamill/react-native-orientation.git#ef221b5720ced0d9ed0c9de14082a5eabba4db7a"
+
+react-native-settings-list@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-settings-list/-/react-native-settings-list-1.4.0.tgz#75533e72e109ea478f9abd9cc491703970153a5b"
 
 react-native-side-menu@^0.20.1:
   version "0.20.1"
@@ -3738,6 +3750,10 @@ react-native-star-rating@^1.0.7:
   dependencies:
     react-native-button "^1.6.0"
     react-native-vector-icons "^2.0.3"
+
+react-native-storage@^0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/react-native-storage/-/react-native-storage-0.2.2.tgz#4449197f122b2da0650e3704e1f050260ed58d9f"
 
 react-native-svg@^5.1.7:
   version "5.1.7"

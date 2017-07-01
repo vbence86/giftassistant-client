@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
-import { List, ListItem } from 'react-native-elements';
+import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
+import SettingsList from 'react-native-settings-list';
 import BackButton from './BackButton';
 
 const FONT_SIZE_DEFAULT = 30;
@@ -19,6 +19,12 @@ const styles = StyleSheet.create({
     height: '100%',
     padding: 0
   },
+  header: {
+    alignItems: 'center',
+    fontSize: FONT_SIZE_SMALL,
+    marginTop: 15,
+    marginBottom: 15
+  },
   list: {
     backgroundColor: '#fff'
   },
@@ -33,7 +39,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontWeight: 'bold',
     fontSize: 16,
-  },
+  },  
   svg: { 
     position: 'absolute', 
     zIndex: 0, 
@@ -44,25 +50,13 @@ const styles = StyleSheet.create({
   }
 });
 
-export default class FavouritesView extends React.Component {
+export default class SettingsView extends React.Component {
 
-  renderRow (data, idx) {
-    return (
-      <ListItem
-        roundAvatar
-        key={idx}
-        title={data.label}
-        subtitle={data.formattedPrice}
-        avatar={{uri:data.largeImageURL}}
-        onPress={() => {
-          this.props.onSelect(data, idx);
-        }}
-      />
-    )
+  constructor(props) {
+    super(props);
   }
 
   render() {
-
     return (
       <View style={styles.container}>
         <Svg style={styles.svg}>
@@ -76,21 +70,23 @@ export default class FavouritesView extends React.Component {
         </Svg>
         <View style={styles.navigatorContainer}>
           <BackButton onPress={this.props.onBack} />
+        </View>      
+        <View style={{backgroundColor:'#EFEFF4',flex:1}}>
+          <View style={styles.listHeader}>
+            <Text style={styles.listHeaderText}>Settings</Text>
+          </View>        
+          <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
+            <SettingsList.Header headerStyle={styles.header} headerText="Basic" />
+            <SettingsList.Item
+              icon={<Image style={styles.imageStyle} source={require('../../../resources/img/notifications.png')}/>}
+              hasSwitch={true}
+              switchState={this.props.notifications}
+              switchOnValueChange={this.props.onSetNotifications}
+              hasNavArrow={false}
+              title="Notifications" />
+          </SettingsList>
         </View>
-        <View style={styles.listHeader}>
-          <Text style={styles.listHeaderText}>Favourites</Text>
-        </View>        
-        {this.renderFavouritesList()}
       </View>
-    );
-  }
-
-  renderFavouritesList() {
-    if (!this.props.favourites) return null;
-    return (
-      <ScrollView contentContainerStyle={styles.list}>
-        {this.props.favourites.map((data, idx) => this.renderRow(data, idx))}
-      </ScrollView>
     );
   }
 

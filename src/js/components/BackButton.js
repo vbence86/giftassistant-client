@@ -4,11 +4,18 @@ import { Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   button: {
-    margin: 5
+    width: '100%',
+    margin: 5,
+    alignItems: 'flex-start',    
   }
 });
 
 export default class BackButton extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handlePress = this.handlePress.bind(this);
+  }
 
   handlePress(e) {
     if (this.props.onPress) {
@@ -18,12 +25,10 @@ export default class BackButton extends Component {
 
   render() {
     return (
-      <View style={styles.button} >
-        <TouchableOpacity onPress={this.handlePress.bind(this)} style={this.props.style}>
-          <Text>{this.props.children}</Text>
-          <Icon name='chevron-left' type='font-awesome' color='#777' />    
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity onPress={this.handlePress} style={styles.button} >
+        <Text>{this.props.children}</Text>
+        <Icon name='chevron-left' type='font-awesome' color='#777' />    
+      </TouchableOpacity>
     );
   }
 }
