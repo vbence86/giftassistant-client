@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navigator, View } from 'react-native';
+import { Platform, View } from 'react-native';
 import Orientation from 'react-native-orientation';
 import Menu from './components/Menu';
 import SplashPage from './pages/SplashPage';
@@ -10,6 +10,7 @@ import GiftResultPage from './pages/GiftResultPage';
 import GiftDetailsPage from './pages/GiftDetailsPage';
 import FavouritesPage from './pages/FavouritesPage';
 import SettingsPage from './pages/SettingsPage';
+import NavigationExperimental from 'react-native-deprecated-custom-components';
 
 export default class App extends React.Component {
 
@@ -18,6 +19,7 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
+    if (Platform.OS === 'ios') return;
     Orientation.lockToPortrait();
   }
 
@@ -45,14 +47,14 @@ export default class App extends React.Component {
 
   render () {
     return (
-      <Navigator
+      <NavigationExperimental.Navigator
             initialRoute={{id: 'SplashPage', name: 'Index'}}
             renderScene={this.updateScene.bind(this)}
             configureScene={(route) => {
         if (route.sceneConfig) {
           return route.sceneConfig;
         }
-        return Navigator.SceneConfigs.HorizontalSwipeJump;
+        return NavigationExperimental.Navigator.SceneConfigs.HorizontalSwipeJump;
       }}/>
     );
   }
