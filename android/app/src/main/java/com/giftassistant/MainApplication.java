@@ -3,9 +3,7 @@ package com.giftassistant;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
-import com.auth0.react.A0Auth0Package;
 import com.oblador.vectoricons.VectorIconsPackage;
-import com.horcrux.svg.SvgPackage;
 import com.github.yamill.orientation.OrientationPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
@@ -27,9 +25,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new A0Auth0Package(),
             new VectorIconsPackage(),
-            new SvgPackage(),
             new OrientationPackage()
       );
     }
