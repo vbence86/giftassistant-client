@@ -20,7 +20,7 @@ export default class App extends React.Component {
 
   componentDidMount() {
     if (Platform.OS === 'ios') return;
-    Orientation.lockToPortrait();
+    //Orientation.lockToPortrait();
   }
 
   updateScene(route, navigator) {

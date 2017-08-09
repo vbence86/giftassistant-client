@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Animated } from 'react-native';
 import { Grid, Row, Column, Button, Text } from 'react-native-elements';
-import Svg, { LinearGradient, RadialGradient, Rect, Defs, Stop } from 'react-native-svg';
 import StarRating from 'react-native-star-rating';
 import BackButton from './BackButton';
 
@@ -93,14 +92,6 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: FONT_SIZE_SMALL    
   },
-  svg: { 
-    position: 'absolute', 
-    zIndex: 0, 
-    left: 0, 
-    top: 0, 
-    width: '100%', 
-    height: '100%' 
-  },
 });
 
 export default class GiftDetailsView extends React.Component {
@@ -118,15 +109,6 @@ export default class GiftDetailsView extends React.Component {
 
     return (
       <View style={styles.container}>
-        <Svg style={styles.svg}>
-          <Defs> 
-            <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
-              <Stop offset="0" stopColor="rgb(255, 255, 255)" stopOpacity="1" />
-              <Stop offset="1" stopColor="rgb(235, 235, 235)" stopOpacity="1" />
-            </LinearGradient> 
-          </Defs>
-          <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
-        </Svg>
         <View style={styles.navigatorContainer}>
           <BackButton onPress={this.props.onBack} />
         </View>

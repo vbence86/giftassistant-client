@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Animated, Easing } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import Slider from 'react-native-slider';
-import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
 
 const FONT_SIZE_DEFAULT = 30;
 const FONT_SIZE_SMALL = 20;
@@ -57,14 +56,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: FONT_SIZE_DEFAULT
   },
-  svg: { 
-    position: 'absolute', 
-    zIndex: 0, 
-    left: 0, 
-    top: 0, 
-    width: '100%', 
-    height: '100%' 
-  }
 });
 
 class SliderGroup extends React.Component {
@@ -213,15 +204,6 @@ export default class QuestionView extends React.Component {
     
     return (
       <View>
-        <Svg style={styles.svg}>
-          <Defs> 
-            <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
-              <Stop offset="0" stopColor="rgb(255, 255, 255)" stopOpacity="1" />
-              <Stop offset="1" stopColor="rgb(156, 199, 255)" stopOpacity="1" />
-            </LinearGradient> 
-          </Defs>
-          <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
-        </Svg>
         <Animated.View style={{ marginTop, opacity }}>
           <Grid style={{ width: '100%' }}>
             <Row size={20}>

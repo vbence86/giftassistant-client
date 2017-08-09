@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Animated } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
-import Svg, { LinearGradient, RadialGradient, Rect, Defs, Stop } from 'react-native-svg';
 import EmoticonChoiceList from './EmoticonChoiceList';
 
 const FONT_SIZE_SMALL = 20;
@@ -62,19 +61,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontSize: FONT_SIZE_SMALL    
-  },
-  shadow: {
-    position: 'absolute',
-    width: '75%',
-    height: '75%',
-    minWidth: 400,
-    minHeight: 400,
-    top: '20%',
-    left: '-40%'
-  },
-  shadowSvg: {
-    width: '100%',
-    height: '100%'
   },
   choiceListContainer: {
     position: 'absolute',
@@ -156,16 +142,7 @@ export default class GiftResultView extends React.Component {
     });
 
     return (
-      <View>
-        <Svg style={styles.svg}>
-          <Defs> 
-            <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
-              <Stop offset="0" stopColor="rgb(255, 255, 255)" stopOpacity="1" />
-              <Stop offset="1" stopColor="rgb(156, 199, 255)" stopOpacity="1" />
-            </LinearGradient>
-          </Defs>
-          <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
-        </Svg>
+      <View>>
         <View style={styles.container}>
           {this.renderGiftResultComponent({scale, opacity, marginLeft})}
           <View style={styles.choiceListContainer}>                
@@ -181,17 +158,6 @@ export default class GiftResultView extends React.Component {
     return (
       <Animated.View style={{ transform: [{scale}], opacity, marginLeft }}>
         <View style={styles.imageContainer}>
-          <View style={styles.shadow}>
-            <Svg style={styles.shadowSvg}>
-              <Defs>
-                <RadialGradient id="shadow">
-                  <Stop offset="0%" stopColor="rgb(0, 0, 0)" stopOpacity="0.75"/>
-                  <Stop offset="100%" stopColor="rgb(0, 0, 0)" stopOpacity="0"/>
-                </RadialGradient>
-              </Defs>
-              <Rect x="0" y="0" width="100%" height="100%" fill="url(#shadow)"/>
-            </Svg>
-          </View>
           <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
           <View style={styles.priceLabelContainer}>
             <Text style={styles.priceLabelText}>{this.props.formattedPrice}</Text>
