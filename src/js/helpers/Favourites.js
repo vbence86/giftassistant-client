@@ -6,7 +6,24 @@ let singleton;
 class Favourites {
 
   constructor() {
-    this.favourites = [];
+    this.favourites = [
+      {
+        "asin": "asin1",
+        "label": "label1",
+        "price": 10,
+        "formattedPrice": "10.00",
+        "amazonURL": "amazon.com/shortURL",
+        "largeImageURL": "amazon.com/LongURL"
+      },
+      {
+        "asin": "asin1",
+        "label": "label1",
+        "price": 10,
+        "formattedPrice": "10.00",
+        "amazonURL": "amazon.com/shortURL",
+        "largeImageURL": "amazon.com/LongURL"
+      }
+    ];
   }
 
   add(gift) {
@@ -43,6 +60,7 @@ class Favourites {
   }
 
   syncFromLocalStorage() {
+    return Promise.resolve();
     return Storage.getInstance()
       .load({ key: STORAGE_KEY })
       .then(data => this.favourites = data)

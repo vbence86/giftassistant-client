@@ -142,7 +142,7 @@ export default class GiftResultView extends React.Component {
     });
 
     return (
-      <View>>
+      <View>
         <View style={styles.container}>
           {this.renderGiftResultComponent({scale, opacity, marginLeft})}
           <View style={styles.choiceListContainer}>                

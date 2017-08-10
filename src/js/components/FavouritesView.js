@@ -8,9 +8,9 @@ const FONT_SIZE_SMALL = 20;
 
 const styles = StyleSheet.create({
   navigatorContainer: {
-    width: '100%', 
+    position: 'relative',
+    width: '100%',
     height: 50,
-    alignItems: 'flex-start',
     backgroundColor: '#f2f2f2', 
   },
   container: {
@@ -21,18 +21,13 @@ const styles = StyleSheet.create({
   list: {
     backgroundColor: '#fff'
   },
-  listHeader: {
-    borderBottomWidth: 1, 
-    backgroundColor: '#f7f7f8',
-    borderColor: '#c8c7cc'
-  },
-  listHeaderText: {
+  MenuHeaderText: {
     alignSelf: 'center',
     marginTop: 15,
     marginBottom: 10,
     fontWeight: 'bold',
     fontSize: 16,
-  }
+  },
 });
 
 export default class FavouritesView extends React.Component {
@@ -40,7 +35,6 @@ export default class FavouritesView extends React.Component {
   renderRow (data, idx) {
     return (
       <ListItem
-        roundAvatar
         key={idx}
         title={data.label}
         subtitle={data.formattedPrice}
@@ -58,10 +52,8 @@ export default class FavouritesView extends React.Component {
       <View style={styles.container}>
         <View style={styles.navigatorContainer}>
           <BackButton onPress={this.props.onBack} />
+          <Text style={styles.MenuHeaderText}>Favourites</Text>
         </View>
-        <View style={styles.listHeader}>
-          <Text style={styles.listHeaderText}>Favourites</Text>
-        </View>        
         {this.renderFavouritesList()}
       </View>
     );

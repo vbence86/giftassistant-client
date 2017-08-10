@@ -27,26 +27,13 @@ const styles = StyleSheet.create({
   list: {
     backgroundColor: '#fff'
   },
-  listHeader: {
-    borderBottomWidth: 1, 
-    backgroundColor: '#f7f7f8',
-    borderColor: '#c8c7cc'
-  },
-  listHeaderText: {
+  MenuHeaderText: {
     alignSelf: 'center',
     marginTop: 15,
     marginBottom: 10,
     fontWeight: 'bold',
     fontSize: 16,
   },  
-  svg: { 
-    position: 'absolute', 
-    zIndex: 0, 
-    left: 0, 
-    top: 0, 
-    width: '100%', 
-    height: '100%' 
-  }
 });
 
 export default class SettingsView extends React.Component {
@@ -60,11 +47,9 @@ export default class SettingsView extends React.Component {
       <View style={styles.container}>
         <View style={styles.navigatorContainer}>
           <BackButton onPress={this.props.onBack} />
+          <Text style={styles.MenuHeaderText}>Settings</Text>
         </View>      
-        <View style={{backgroundColor:'#EFEFF4',flex:1}}>
-          <View style={styles.listHeader}>
-            <Text style={styles.listHeaderText}>Settings</Text>
-          </View>        
+        <View style={{backgroundColor:'#EFEFF4',flex:1}}>     
           <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
             <SettingsList.Header headerStyle={styles.header} headerText="Basic" />
             <SettingsList.Item

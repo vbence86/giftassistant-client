@@ -4,9 +4,11 @@ import { Icon } from 'react-native-elements';
 
 const styles = StyleSheet.create({
   button: {
-    width: '100%',
-    margin: 5,
-    alignItems: 'flex-start',    
+    position: 'absolute',
+    left: 10,
+    width: 100,
+    height: 50,
+    alignItems: 'flex-start',
   }
 });
 

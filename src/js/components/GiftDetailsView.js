@@ -92,6 +92,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: FONT_SIZE_SMALL    
   },
+  MenuHeaderText: {
+    alignSelf: 'center',
+    marginTop: 15,
+    marginBottom: 10,
+    fontWeight: 'bold',
+    fontSize: 16,
+  },  
 });
 
 export default class GiftDetailsView extends React.Component {
@@ -111,6 +118,7 @@ export default class GiftDetailsView extends React.Component {
       <View style={styles.container}>
         <View style={styles.navigatorContainer}>
           <BackButton onPress={this.props.onBack} />
+          <Text style={styles.MenuHeaderText}>{this.data.label}</Text>
         </View>
         <View style={styles.contentContainer}>
           <View style={styles.imageContainer}>

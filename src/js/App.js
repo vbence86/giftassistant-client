@@ -20,11 +20,12 @@ export default class App extends React.Component {
 
   componentDidMount() {
     if (Platform.OS === 'ios') return;
-    //Orientation.lockToPortrait();
+    Orientation.lockToPortrait();
   }
 
   updateScene(route, navigator) {
     const routeId = route.id;
+    let page;
     if (routeId === 'SplashPage') {
       return <SplashPage navigator={navigator} />
     } else if (routeId === 'LoginPage') {
