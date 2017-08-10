@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
-import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
 import SettingsList from 'react-native-settings-list';
 import BackButton from './BackButton';
 
@@ -59,15 +58,6 @@ export default class SettingsView extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Svg style={styles.svg}>
-          <Defs> 
-            <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
-              <Stop offset="0" stopColor="rgb(255, 255, 255)" stopOpacity="1" />
-              <Stop offset="1" stopColor="rgb(156, 199, 255)" stopOpacity="1" />
-            </LinearGradient> 
-          </Defs>
-          <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
-        </Svg>
         <View style={styles.navigatorContainer}>
           <BackButton onPress={this.props.onBack} />
         </View>      
