@@ -1,4 +1,5 @@
 import Storage from './Storage';
+const package require('../../../../package.json');
 
 const STORAGE_KEY = 'settings';
 let singleton;
@@ -6,7 +7,9 @@ let singleton;
 class Settings {
 
   constructor() {
-    this.settings = {};
+    this.settings = {
+      version: package.version,
+    };
   }
 
   set(key, value) {

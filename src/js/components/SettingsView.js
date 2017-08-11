@@ -43,6 +43,7 @@ export default class SettingsView extends React.Component {
   }
 
   render() {
+    const version = this.props.version || '1.0.0';
     return (
       <View style={styles.container}>
         <View style={styles.navigatorContainer}>
@@ -60,6 +61,12 @@ export default class SettingsView extends React.Component {
               hasNavArrow={false}
               title="Notifications" />
           </SettingsList>
+          <SettingsList.Item
+              icon={<Image style={styles.imageStyle} source={require('../../../resources/img/notifications.png')}/>}
+              hasSwitch={false}
+              hasNavArrow={false}
+              title={`Version ${version}`} />
+          </SettingsList>          
         </View>
       </View>
     );

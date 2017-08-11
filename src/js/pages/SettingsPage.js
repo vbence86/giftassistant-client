@@ -4,6 +4,7 @@ import SettingsView from '../components/SettingsView';
 import Settings from '../helpers/Settings';
 
 const SETTINGS_NOTIFICATIONS = 'notifications';
+const SETTINGS_VERSION = 'version';
 
 const styles = StyleSheet.create({
   container: {
