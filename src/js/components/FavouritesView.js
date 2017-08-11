@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, ScrollView, Text } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import { List, ListItem } from 'react-native-elements';
+import StarRating from 'react-native-star-rating';
 import BackButton from './BackButton';
 
 const FONT_SIZE_DEFAULT = 30;
@@ -28,7 +29,40 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  titleText: {
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  subtitleContainer: {
+    flexDirection: 'row',
+    paddingLeft: 10,
+    paddingTop: 10,
+  },
+  subtitleView: {
+    flexDirection: 'column',
+    paddingLeft: 10,
+    paddingTop: 5,
+  },
+  subtitleText: {
+    fontSize: 12,
+    color: 'red',
+  },
+  starContainer: {
+    flexDirection: 'row',
+    marginTop: 5,
+  },
+  ratingText: {
+    paddingLeft: 5,
+    fontSize: 9,
+    color: '#aaa',
+  },
+  image: {
+    width: 100,
+    height: 100,
+  }  
 });
+
+// <Image style={styles.image} source={{uri: data.largeImageURL}} />
 
 export default class FavouritesView extends React.Component {
 
@@ -36,9 +70,29 @@ export default class FavouritesView extends React.Component {
     return (
       <ListItem
         key={idx}
-        title={data.label}
-        subtitle={data.formattedPrice}
-        avatar={{uri:data.largeImageURL}}
+        subtitle={
+          <View style={styles.subtitleContainer}>
+            <Image style={styles.image} source={{uri: data.largeImageURL}} />
+            <View style={styles.subtitleView}>
+              <Text style={styles.titleText}>{data.label}</Text>
+              <Text style={styles.subtitleText}>{data.formattedPrice}</Text>
+              <View style={styles.starContainer}>
+                <StarRating
+                  disabled={true}
+                  emptyStar={'star-o'}
+                  fullStar={'star'}
+                  halfStar={'star-half-empty'}
+                  iconSet={'FontAwesome'}
+                  maxStars={5}
+                  rating={4.5}
+                  starColor={'#ffc200'}
+                  starSize={10}
+                />
+                <Text style={styles.ratingText}>(38)</Text>
+              </View>
+            </View>
+          </View>          
+        }
         onPress={() => {
           this.props.onSelect(data, idx);
         }}

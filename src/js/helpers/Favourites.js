@@ -9,19 +9,21 @@ class Favourites {
     this.favourites = [
       {
         "asin": "asin1",
-        "label": "label1",
+        "label": "How I Lost You",
         "price": 10,
-        "formattedPrice": "10.00",
+        "formattedPrice": "$12.00",
+        "description": "Jenny Blackhurst's debut psychological thriller and #1 Kindle bestseller HOW I LOST YOU was described by Clare Mackintosh as 'utterly gripping'. If you love Louise Jensen's THE SISTER or Tracy Buchanan's NO TURNING BACK you will love this.",
         "amazonURL": "amazon.com/shortURL",
-        "largeImageURL": "amazon.com/LongURL"
+        "largeImageURL": "https://images-eu.ssl-images-amazon.com/images/I/513FmahVMwL.jpg"
       },
       {
         "asin": "asin1",
-        "label": "label1",
+        "label": "PAUL JONES® Men's Long Sleeve Shirts Button Front Cotton Slim Fit Plain Color S-XXL",
         "price": 10,
-        "formattedPrice": "10.00",
+        "formattedPrice": "£6.87",
+        "description": "Jenny Blackhurst's debut psychological thriller and #1 Kindle bestseller HOW I LOST YOU was described by Clare Mackintosh as 'utterly gripping'. If you love Louise Jensen's THE SISTER or Tracy Buchanan's NO TURNING BACK you will love this.",
         "amazonURL": "amazon.com/shortURL",
-        "largeImageURL": "amazon.com/LongURL"
+        "largeImageURL": "https://images-na.ssl-images-amazon.com/images/I/71mu17tCzLL._UX425_.jpg"
       }
     ];
   }
