@@ -18,7 +18,7 @@ class Favourites {
       },
       {
         "asin": "asin1",
-        "label": "PAUL JONES® Men's Long Sleeve Shirts Button Front Cotton Slim Fit Plain Color S-XXL",
+        "label": "Men's Long Sleeve Shirts",
         "price": 10,
         "formattedPrice": "£6.87",
         "description": "Jenny Blackhurst's debut psychological thriller and #1 Kindle bestseller HOW I LOST YOU was described by Clare Mackintosh as 'utterly gripping'. If you love Louise Jensen's THE SISTER or Tracy Buchanan's NO TURNING BACK you will love this.",
