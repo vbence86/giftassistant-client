@@ -21,7 +21,7 @@
     "react-native-deprecated-custom-components": "^0.1.1",
     "react-native-elements": "^0.9.5",
     "react-native-loading-spinner-overlay": "latest",
-    "react-native-lock": "^0.6.1",    
+    "react-native-lock": "^0.6.1",
     "react-native-orientation": "git+https://git@github.com/yamill/react-native-orientation.git",
     "react-native-settings-list": "^1.4.0",
     "react-native-slider": "^0.9.1",
