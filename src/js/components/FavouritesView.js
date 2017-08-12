@@ -106,7 +106,7 @@ export default class FavouritesView extends React.Component {
       <View style={styles.container}>
         <View style={styles.navigatorContainer}>
           <BackButton onPress={this.props.onBack} />
-          <Text style={styles.MenuHeaderText}>Favourites</Text>
+          <Text style={styles.MenuHeaderText}>Trolley</Text>
         </View>
         {this.renderFavouritesList()}
       </View>
