@@ -29,14 +29,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'     
   },
   button: {
-    width: '40%',
-    height: 50,
+    margin: '5%',
     backgroundColor: '#007aff',
     borderRadius: 10,
   },
   buttonInverse: {
-    width: '40%',
-    height: '50%',
     margin: '5%',
     backgroundColor: 'red',
     borderRadius: 10,
@@ -64,7 +61,7 @@ const styles = StyleSheet.create({
   },
   textDescription: {
     color: '#333',    
-    marginTop: 10,
+    marginTop: 20,
     fontSize: 13,
     textAlign: 'justify',
     lineHeight: 20,
@@ -107,6 +104,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   divider: {
+    marginTop: 20,
     backgroundColor: '#aaa',
   }  
 });
