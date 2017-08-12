@@ -54,15 +54,12 @@ export default class SettingsView extends React.Component {
           <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
             <SettingsList.Header headerStyle={styles.header} headerText="Basic" />
             <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require('../../../resources/img/notifications.png')}/>}
               hasSwitch={true}
               switchState={this.props.notifications}
               switchOnValueChange={this.props.onSetNotifications}
               hasNavArrow={false}
               title="Notifications" />
-          </SettingsList>
-          <SettingsList.Item
-              icon={<Image style={styles.imageStyle} source={require('../../../resources/img/notifications.png')}/>}
+            <SettingsList.Item
               hasSwitch={false}
               hasNavArrow={false}
               title={`Version ${version}`} />

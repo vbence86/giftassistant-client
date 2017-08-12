@@ -3,6 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import SettingsView from '../components/SettingsView';
 import Settings from '../helpers/Settings';
 
+const conf = require('../../../package.json');
 const SETTINGS_NOTIFICATIONS = 'notifications';
 const SETTINGS_VERSION = 'version';
 
@@ -32,7 +33,11 @@ export default class SettingsPage extends React.Component {
   }
 
   updateSettings() {
-    this.setState(this.settings.get());
+    const settings = this.settings.get();
+    const defaultProps = {
+      version: conf.version,
+    };
+    this.setState({...settings, ...defaultProps});
   }
 
   onSetNotifications() {
