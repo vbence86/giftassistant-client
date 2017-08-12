@@ -1,23 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Animated } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
-import EmoticonChoiceList from './EmoticonChoiceList';
+import StarRating from 'react-native-star-rating';
 
 const FONT_SIZE_SMALL = 20;
+const FONT_SIZE_BUTTON = 12;
 
 const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    marginTop: '5%',
-    textAlign: 'center',
-    fontSize: FONT_SIZE_SMALL
-  },
-  price: {
-    width: '100%',
-    marginTop: '5%',
-    textAlign: 'center',
-    fontSize: FONT_SIZE_SMALL
-  },
   container: {
     width: '100%',
     height: '100%',
@@ -26,34 +15,73 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  svg: { 
-    position: 'absolute', 
-    zIndex: 0, 
-    left: 0, 
-    top: 0, 
-    width: '100%', 
-    height: '100%' 
+  choiceListContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: 100,
+    bottom: 0
+  },
+  ctaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'     
+  },
+  button: {
+    width: 120,
+    margin: '5%',
+    backgroundColor: '#007aff',
+    borderRadius: 10,
+  },
+  buttonInverse: {
+    width: 120,
+    margin: '5%',
+    backgroundColor: 'red',
+    borderRadius: 10,
+  },
+  contentContainer: {
+    width: '100%',
+    height: '100%',
+    marginTop: 10,
   },
   imageContainer: {
-    width: '60%',
-    marginLeft: '20%',
-    marginRight: '20%',
-    marginTop: '5%',
-    marginBottom: '30%',
-    position: 'relative'
+    marginLeft: '25%',
+    marginRight: '25%',
+    maxHeight: 200,     
+  },
+  textContainer: {
+    marginLeft: '2%',
+    marginTop: '2%',
+    marginRight: '2%',
+    marginBottom: '2%',
+  },
+  textHeader: {
+    color: '#333',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  textDescription: {
+    color: '#333',    
+    marginTop: 20,
+    fontSize: 13,
+    textAlign: 'justify',
+    lineHeight: 20,
+  },  
+  textRatingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    marginTop: 10,
+  },
+  textRatingCount: {
+    paddingLeft: 5,
+    fontSize: 9,
+    color: '#aaa',
   },
   image: {
     width: '100%',
-    minHeight: '100%',
-  },
-  priceLabelContainer: {
-    position: 'absolute',
-    width: '100%',
-    left: 0,
-    top: 0,
-    backgroundColor: 'red',
-    zIndex: 1,
-    opacity: 0.85,
+    height: '100%',
+    maxHeight: 300,
   },
   priceLabelText: {
     width: '100%',
@@ -61,13 +89,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     fontSize: FONT_SIZE_SMALL    
-  },
-  choiceListContainer: {
-    position: 'absolute',
-    width: '100%',
-    height: '20%',
-    bottom: 0
-  }
+  },    
 });
 
 export default class GiftResultView extends React.Component {
@@ -75,7 +97,6 @@ export default class GiftResultView extends React.Component {
   constructor(props) {
     super(props);
     this.initAnimations();
-    this.initEventListeners();
   }
 
   initAnimations() {
@@ -83,19 +104,9 @@ export default class GiftResultView extends React.Component {
     this.outroAnimValue = new Animated.Value(0);
   }
 
-  initEventListeners() {
-    this.onAnswer = this.onAnswer.bind(this);    
-  }
- 
   animateNewGift() {
     const anim = this.getNewGiftAnimation();
     this.introAnimValue.setValue(0);
-    anim.start();
-  }
-
-  animatePreviousGift() {
-    const anim = this.getPreviousGiftAnimation();
-    this.outroAnimValue.setValue(0);
     anim.start();
   }
 
@@ -125,11 +136,6 @@ export default class GiftResultView extends React.Component {
     if (!this.props) {
       return null;
     }
-
-    const scale = this.introAnimValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1]
-    });
     
     const opacity = this.introAnimValue.interpolate({
       inputRange: [0, 1],
@@ -144,26 +150,43 @@ export default class GiftResultView extends React.Component {
     return (
       <View>
         <View style={styles.container}>
-          {this.renderGiftResultComponent({scale, opacity, marginLeft})}
+          {this.renderGiftResultComponent({opacity, marginLeft})}
           <View style={styles.choiceListContainer}>                
-            <EmoticonChoiceList onAnswer={this.onAnswer}/>
+            <View style={styles.ctaContainer}>
+              <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'trash', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="Bin" large/>
+              <Button onPress={this.onAnswer.bind(this, 1)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'shopping-cart'}} fontWeight='bold' buttonStyle={styles.button} title="Trolley" large/>
+            </View>             
           </View>
         </View>
       </View>
     );
   }
 
-  renderGiftResultComponent({scale, opacity, marginLeft}) {
+  renderGiftResultComponent({opacity, marginLeft}) {
     if (!this.props.largeImageURL) return null;
     return (
-      <Animated.View style={{ transform: [{scale}], opacity, marginLeft }}>
-        <View style={styles.imageContainer}>
-          <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
-          <View style={styles.priceLabelContainer}>
-            <Text style={styles.priceLabelText}>{this.props.formattedPrice}</Text>
+        <View style={styles.contentContainer}>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
+          </View>
+          <View style={styles.textContainer}>
+            <Text style={styles.textHeader}>{this.props.label}</Text>
+            <View style={styles.textRatingContainer}>
+              <StarRating
+                disabled={true}
+                emptyStar={'star-o'}
+                fullStar={'star'}
+                halfStar={'star-half-empty'}
+                iconSet={'FontAwesome'}
+                maxStars={5}
+                rating={4.5}
+                starColor={'#ffc200'}
+                starSize={10}
+              />
+              <Text style={styles.textRatingCount}>(38)</Text>
+            </View>
           </View>
         </View>
-      </Animated.View>
     );
   }
 
@@ -177,16 +200,6 @@ export default class GiftResultView extends React.Component {
       }
     );
   }
-
-  getPreviousGiftAnimation() {
-    return Animated.timing(
-      this.outroAnimValue,
-      {
-        toValue: 1,
-      }
-    );
-  }
-
 
 
 }

@@ -69,7 +69,11 @@ export default class GiftResultPage extends React.Component {
     const client = GiftClient.connect(appConfig.giftServiceURL);
     const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
 
-    this.showAsyncLoader();
+    //this.showAsyncLoader();
+
+    this.setGiftsFromResponse(mockResponse);
+    this.setStateByGift();
+    return;
 
     client.giftResult(req)
       .then(this.setGiftsFromResponse.bind(this, mockResponse), this.setGiftsFromResponse.bind(this, mockResponse))
