@@ -8,4 +8,6 @@ import React, { Component } from 'react';
 import { AppRegistry } from 'react-native';
 import App from './src/js/App';
 
-AppRegistry.registerComponent('GiftAssistant', () => App);
+const displayName = require('app.json').displayName;
+
+AppRegistry.registerComponent(displayName, () => App);
