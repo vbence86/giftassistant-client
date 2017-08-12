@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
   },
   MenuHeaderText: {
     alignSelf: 'center',
-    marginTop: 15,
+    marginTop: 20,
     marginBottom: 10,
     fontWeight: 'bold',
     fontSize: 16,

@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   MenuHeaderText: {
     alignSelf: 'center',
-    marginTop: 15,
+    marginTop: 20,
     marginBottom: 10,
     fontWeight: 'bold',
     fontSize: 16,
@@ -59,6 +59,7 @@ export default class SettingsView extends React.Component {
               switchOnValueChange={this.props.onSetNotifications}
               hasNavArrow={false}
               title="Notifications" />
+            <SettingsList.Header headerStyle={styles.header} headerText="About" />
             <SettingsList.Item
               hasSwitch={false}
               hasNavArrow={false}
