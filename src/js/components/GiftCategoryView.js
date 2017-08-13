@@ -53,7 +53,6 @@ export default class GiftCategoryView extends React.Component {
   constructor(props) {
     super(props);
     this.animValue = new Animated.Value(1);
-    this.onAnswer = this.onAnswer.bind(this);
   }
 
   animate() {
