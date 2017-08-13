@@ -134,15 +134,15 @@ export default class GiftResultView extends React.Component {
       return null;
     }
     
-    const margin = this.introAnimValue.interpolate({
+    const left = this.introAnimValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [-1000, 0]
+      outputRange: [500, 0]
     });
 
     return (
       <View>
         <View style={styles.container}>
-          {this.renderGiftResultComponent({margin})}
+          {this.renderGiftResultComponent({left})}
           <View style={styles.choiceListContainer}>                
             <View style={styles.ctaContainer}>
               <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'trash', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="Bin" large/>
@@ -154,9 +154,10 @@ export default class GiftResultView extends React.Component {
     );
   }
 
-  renderGiftResultComponent({margin}) {
+  renderGiftResultComponent({left}) {
     if (!this.props.largeImageURL) return null;
     return (
+      <Animated.View style={{ left }}>
         <View style={styles.contentContainer}>
           <View style={styles.imageContainer}>
             <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
@@ -182,6 +183,7 @@ export default class GiftResultView extends React.Component {
             </View>
           </View>
         </View>
+      </Animated.View>
     );
   }
 
@@ -191,7 +193,7 @@ export default class GiftResultView extends React.Component {
       {
         toValue: 1,
         friction: 7,
-        tension: 50
+        tension: 40
       }
     );
   }
