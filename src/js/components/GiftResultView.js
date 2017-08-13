@@ -3,7 +3,7 @@ import { StyleSheet, View, Image, Animated } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import StarRating from 'react-native-star-rating';
 
-const FONT_SIZE_SMALL = 20;
+const FONT_SIZE_SMALL = 16;
 const FONT_SIZE_BUTTON = 12;
 
 const styles = StyleSheet.create({
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   choiceListContainer: {
     position: 'absolute',
     width: '100%',
-    height: 100,
+    height: 95,
     bottom: 0
   },
   ctaContainer: {
@@ -83,12 +83,18 @@ const styles = StyleSheet.create({
     height: '100%',
     maxHeight: 300,
   },
-  priceLabelText: {
-    width: '100%',
-    margin: 5,
-    textAlign: 'center',
-    color: 'white',
-    fontSize: FONT_SIZE_SMALL    
+  priceContainer: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderColor: '#007aff',
+    borderWidth: 1,
+    marginRight: 20,
+  },    
+  priceText: {
+    fontSize: FONT_SIZE_SMALL,
+    color: '#007aff',    
   },    
 });
 
@@ -101,7 +107,6 @@ export default class GiftResultView extends React.Component {
 
   initAnimations() {
     this.introAnimValue = new Animated.Value(1);
-    this.outroAnimValue = new Animated.Value(0);
   }
 
   animateNewGift() {
@@ -110,21 +115,13 @@ export default class GiftResultView extends React.Component {
     anim.start();
   }
 
-  animateFullCycle() {
-    this.introAnimValue.setValue(0);
-    this.outroAnimValue.setValue(0);
-    Animated.sequence([
-      this.getNewGiftAnimation()
-    ]).start();
-  }
-
   componentDidMount() {
     this.animateNewGift();
   }
 
   onAnswer() {
     if (!this.props.isLastGiftResult) {
-      this.animateFullCycle();
+      this.animateNewGift();
     }
     if (this.props.onAnswer) {
       let args = Array.prototype.slice.call(arguments);
@@ -137,20 +134,15 @@ export default class GiftResultView extends React.Component {
       return null;
     }
     
-    const opacity = this.introAnimValue.interpolate({
+    const margin = this.introAnimValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
-    });
-
-    const marginLeft = this.outroAnimValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, -1000]
+      outputRange: [-1000, 0]
     });
 
     return (
       <View>
         <View style={styles.container}>
-          {this.renderGiftResultComponent({opacity, marginLeft})}
+          {this.renderGiftResultComponent({margin})}
           <View style={styles.choiceListContainer}>                
             <View style={styles.ctaContainer}>
               <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'trash', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="Bin" large/>
@@ -162,7 +154,7 @@ export default class GiftResultView extends React.Component {
     );
   }
 
-  renderGiftResultComponent({opacity, marginLeft}) {
+  renderGiftResultComponent({margin}) {
     if (!this.props.largeImageURL) return null;
     return (
         <View style={styles.contentContainer}>
@@ -172,6 +164,9 @@ export default class GiftResultView extends React.Component {
           <View style={styles.textContainer}>
             <Text style={styles.textHeader}>{this.props.label}</Text>
             <View style={styles.textRatingContainer}>
+              <View style={styles.priceContainer}>
+                <Text style={styles.priceText}>{this.props.formattedPrice}</Text>
+              </View>
               <StarRating
                 disabled={true}
                 emptyStar={'star-o'}

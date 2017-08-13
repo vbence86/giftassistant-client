@@ -62,8 +62,6 @@ const styles = StyleSheet.create({
   }  
 });
 
-// <Image style={styles.image} source={{uri: data.largeImageURL}} />
-
 export default class FavouritesView extends React.Component {
 
   renderRow (data, idx) {
