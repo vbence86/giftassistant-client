@@ -29,12 +29,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'     
   },
   button: {
-    margin: '5%',
+    marginTop: '5%',
+    marginBottom: '5%',
+    marginRight: 0,
     backgroundColor: '#007aff',
     borderRadius: 10,
   },
   buttonInverse: {
-    margin: '5%',
+    marginTop: '5%',
+    marginBottom: '5%',
     backgroundColor: 'red',
     borderRadius: 10,
   },

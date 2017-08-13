@@ -17,7 +17,7 @@ class Favourites {
         "largeImageURL": "https://images-eu.ssl-images-amazon.com/images/I/513FmahVMwL.jpg"
       },
       {
-        "asin": "asin1",
+        "asin": "asin2",
         "label": "Men's Long Sleeve Shirts",
         "price": 10,
         "formattedPrice": "£6.87",

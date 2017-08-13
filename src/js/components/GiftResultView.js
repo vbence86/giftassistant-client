@@ -115,10 +115,6 @@ export default class GiftResultView extends React.Component {
     anim.start();
   }
 
-  componentDidMount() {
-    this.animateNewGift();
-  }
-
   onAnswer() {
     if (!this.props.isLastGiftResult) {
       this.animateNewGift();

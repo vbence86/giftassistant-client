@@ -3,8 +3,8 @@ import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import SettingsList from 'react-native-settings-list';
 import BackButton from './BackButton';
 
-const FONT_SIZE_DEFAULT = 30;
-const FONT_SIZE_SMALL = 20;
+const FONT_SIZE_DEFAULT = 16;
+const FONT_SIZE_SMALL = 12;
 
 const styles = StyleSheet.create({
   navigatorContainer: {
@@ -22,7 +22,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     fontSize: FONT_SIZE_SMALL,
     marginTop: 15,
-    marginBottom: 15
+    marginBottom: 15,
+    color: '#aaa',
   },
   list: {
     backgroundColor: '#fff'

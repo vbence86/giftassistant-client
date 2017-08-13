@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_DEFAULT
   },
   selectionContainer: {
+    width: '100%',
+    minWidth: '100%',
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -24,18 +26,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   selectionItem: {
-    width: '80%',
+    width: 240,
+    minWidth: 240,
     height: '20%',
     margin: '5%',
     backgroundColor: '#007aff',
     borderRadius: 10,
   },
   selectionItemSmall: {
-    width: '40%',
+    width: 120,
+    minWidth: 120,
     height: '20%',
-    margin: '5%',
+    margin: '5%',    
     backgroundColor: '#007aff',
     borderRadius: 10,
+    alignSelf: 'center',  
+    justifyContent: 'center', 
   },
   sliderContainer: {
     flex: 1,
