@@ -15,10 +15,14 @@ const mockResponse = {
         "id": 1,
         "label": "What is his/her age?",
         "category": "personal",
-        "input": "slider",
+        "input": "select",
         "values": {
-          "min": "1",
-          "max": "99"
+          "1": "0-4",
+          "2": "5-9",
+          "3": "10-17",
+          "4": "18-34",
+          "5": "35-54",
+          "6": "55+",
         }
       },
       {
@@ -27,7 +31,6 @@ const mockResponse = {
         "category": "personal",
         "input": "select",
         "values": {
-          "OtherValue": "Other",
           "FemaleValue": "Female",
           "MaleValue": "Male"
         }
@@ -48,11 +51,11 @@ const mockResponse = {
         "category": "personal",
         "input": "select",
         "values": {
-          "Range1Value:": "0-10",
-          "Range2Value:": "10-50",
-          "Range3Value:": "50-100",
-          "Range4Value:": "100-500",
-          "Range5Value:": "500-10000"
+          "Range1Value:": "<$10",
+          "Range2Value:": "$10-$50",
+          "Range3Value:": "$50-$100",
+          "Range4Value:": "$100-$500",
+          "Range5Value:": "$500+"
         }
       }
     ]
