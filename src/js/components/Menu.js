@@ -39,8 +39,8 @@ class Menu extends React.Component {
         onPress: () => this.goToPersonalQuestionsPage()
       },
       {
-        title: 'Favourites',
-        subtitle: 'Browse item you have liked',
+        title: 'Trolley',
+        subtitle: 'Browse items you have added to the Trolley',
         leftIcon: {
           type: 'font-awesome',
           name: 'gift'
