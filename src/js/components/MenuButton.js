@@ -8,10 +8,11 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: 'flex-start',
     marginTop: 0,
-    backgroundColor: '#f2fff2'
+    backgroundColor: '#f2f2f2'
   },
   button: {
-    margin: 10
+    marginTop: 15,
+    marginLeft: 10,
   }
 });
 

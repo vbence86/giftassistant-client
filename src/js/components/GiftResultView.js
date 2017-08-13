@@ -1,24 +1,12 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, Animated } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
-import Svg, { LinearGradient, RadialGradient, Rect, Defs, Stop } from 'react-native-svg';
-import EmoticonChoiceList from './EmoticonChoiceList';
+import StarRating from 'react-native-star-rating';
 
-const FONT_SIZE_SMALL = 20;
+const FONT_SIZE_SMALL = 16;
+const FONT_SIZE_BUTTON = 12;
 
 const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    marginTop: '5%',
-    textAlign: 'center',
-    fontSize: FONT_SIZE_SMALL
-  },
-  price: {
-    width: '100%',
-    marginTop: '5%',
-    textAlign: 'center',
-    fontSize: FONT_SIZE_SMALL
-  },
   container: {
     width: '100%',
     height: '100%',
@@ -27,61 +15,87 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  svg: { 
-    position: 'absolute', 
-    zIndex: 0, 
-    left: 0, 
-    top: 0, 
-    width: '100%', 
-    height: '100%' 
-  },
-  imageContainer: {
-    width: '60%',
-    marginLeft: '20%',
-    marginRight: '20%',
-    marginTop: '5%',
-    marginBottom: '30%',
-    position: 'relative'
-  },
-  image: {
-    width: '100%',
-    minHeight: '100%',
-  },
-  priceLabelContainer: {
-    position: 'absolute',
-    width: '100%',
-    left: 0,
-    top: 0,
-    backgroundColor: 'red',
-    zIndex: 1,
-    opacity: 0.85,
-  },
-  priceLabelText: {
-    width: '100%',
-    margin: 5,
-    textAlign: 'center',
-    color: 'white',
-    fontSize: FONT_SIZE_SMALL    
-  },
-  shadow: {
-    position: 'absolute',
-    width: '75%',
-    height: '75%',
-    minWidth: 400,
-    minHeight: 400,
-    top: '20%',
-    left: '-40%'
-  },
-  shadowSvg: {
-    width: '100%',
-    height: '100%'
-  },
   choiceListContainer: {
     position: 'absolute',
     width: '100%',
-    height: '20%',
+    height: 95,
     bottom: 0
-  }
+  },
+  ctaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'     
+  },
+  button: {
+    width: 120,
+    margin: '5%',
+    backgroundColor: '#007aff',
+    borderRadius: 10,
+  },
+  buttonInverse: {
+    width: 120,
+    margin: '5%',
+    backgroundColor: 'red',
+    borderRadius: 10,
+  },
+  contentContainer: {
+    width: '100%',
+    height: '100%',
+    marginTop: 10,
+  },
+  imageContainer: {
+    marginLeft: '25%',
+    marginRight: '25%',
+    maxHeight: 200,     
+  },
+  textContainer: {
+    marginLeft: '2%',
+    marginTop: '2%',
+    marginRight: '2%',
+    marginBottom: '2%',
+  },
+  textHeader: {
+    color: '#333',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  textDescription: {
+    color: '#333',    
+    marginTop: 20,
+    fontSize: 13,
+    textAlign: 'justify',
+    lineHeight: 20,
+  },  
+  textRatingContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '100%',
+    marginTop: 10,
+  },
+  textRatingCount: {
+    paddingLeft: 5,
+    fontSize: 9,
+    color: '#aaa',
+  },
+  image: {
+    width: '100%',
+    height: '100%',
+    maxHeight: 300,
+  },
+  priceContainer: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    paddingLeft: 15,
+    paddingRight: 15,
+    borderColor: '#007aff',
+    borderWidth: 1,
+    marginRight: 20,
+  },    
+  priceText: {
+    fontSize: FONT_SIZE_SMALL,
+    color: '#007aff',    
+  },    
 });
 
 export default class GiftResultView extends React.Component {
@@ -89,45 +103,21 @@ export default class GiftResultView extends React.Component {
   constructor(props) {
     super(props);
     this.initAnimations();
-    this.initEventListeners();
   }
 
   initAnimations() {
     this.introAnimValue = new Animated.Value(1);
-    this.outroAnimValue = new Animated.Value(0);
   }
 
-  initEventListeners() {
-    this.onAnswer = this.onAnswer.bind(this);    
-  }
- 
   animateNewGift() {
     const anim = this.getNewGiftAnimation();
     this.introAnimValue.setValue(0);
     anim.start();
   }
 
-  animatePreviousGift() {
-    const anim = this.getPreviousGiftAnimation();
-    this.outroAnimValue.setValue(0);
-    anim.start();
-  }
-
-  animateFullCycle() {
-    this.introAnimValue.setValue(0);
-    this.outroAnimValue.setValue(0);
-    Animated.sequence([
-      this.getNewGiftAnimation()
-    ]).start();
-  }
-
-  componentDidMount() {
-    this.animateNewGift();
-  }
-
   onAnswer() {
     if (!this.props.isLastGiftResult) {
-      this.animateFullCycle();
+      this.animateNewGift();
     }
     if (this.props.onAnswer) {
       let args = Array.prototype.slice.call(arguments);
@@ -139,62 +129,54 @@ export default class GiftResultView extends React.Component {
     if (!this.props) {
       return null;
     }
-
-    const scale = this.introAnimValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1]
-    });
     
-    const opacity = this.introAnimValue.interpolate({
+    const left = this.introAnimValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [0, 1]
-    });
-
-    const marginLeft = this.outroAnimValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, -1000]
+      outputRange: [500, 0]
     });
 
     return (
       <View>
-        <Svg style={styles.svg}>
-          <Defs> 
-            <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
-              <Stop offset="0" stopColor="rgb(255, 255, 255)" stopOpacity="1" />
-              <Stop offset="1" stopColor="rgb(156, 199, 255)" stopOpacity="1" />
-            </LinearGradient>
-          </Defs>
-          <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
-        </Svg>
         <View style={styles.container}>
-          {this.renderGiftResultComponent({scale, opacity, marginLeft})}
+          {this.renderGiftResultComponent({left})}
           <View style={styles.choiceListContainer}>                
-            <EmoticonChoiceList onAnswer={this.onAnswer}/>
+            <View style={styles.ctaContainer}>
+              <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'trash', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="Bin" large/>
+              <Button onPress={this.onAnswer.bind(this, 1)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'shopping-cart'}} fontWeight='bold' buttonStyle={styles.button} title="Trolley" large/>
+            </View>             
           </View>
         </View>
       </View>
     );
   }
 
-  renderGiftResultComponent({scale, opacity, marginLeft}) {
+  renderGiftResultComponent({left}) {
     if (!this.props.largeImageURL) return null;
     return (
-      <Animated.View style={{ transform: [{scale}], opacity, marginLeft }}>
-        <View style={styles.imageContainer}>
-          <View style={styles.shadow}>
-            <Svg style={styles.shadowSvg}>
-              <Defs>
-                <RadialGradient id="shadow">
-                  <Stop offset="0%" stopColor="rgb(0, 0, 0)" stopOpacity="0.75"/>
-                  <Stop offset="100%" stopColor="rgb(0, 0, 0)" stopOpacity="0"/>
-                </RadialGradient>
-              </Defs>
-              <Rect x="0" y="0" width="100%" height="100%" fill="url(#shadow)"/>
-            </Svg>
+      <Animated.View style={{ left }}>
+        <View style={styles.contentContainer}>
+          <View style={styles.imageContainer}>
+            <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
           </View>
-          <Image style={styles.image} source={{uri: this.props.largeImageURL}} />
-          <View style={styles.priceLabelContainer}>
-            <Text style={styles.priceLabelText}>{this.props.formattedPrice}</Text>
+          <View style={styles.textContainer}>
+            <Text style={styles.textHeader}>{this.props.label}</Text>
+            <View style={styles.textRatingContainer}>
+              <View style={styles.priceContainer}>
+                <Text style={styles.priceText}>{this.props.formattedPrice}</Text>
+              </View>
+              <StarRating
+                disabled={true}
+                emptyStar={'star-o'}
+                fullStar={'star'}
+                halfStar={'star-half-empty'}
+                iconSet={'FontAwesome'}
+                maxStars={5}
+                rating={4.5}
+                starColor={'#ffc200'}
+                starSize={10}
+              />
+              <Text style={styles.textRatingCount}>(38)</Text>
+            </View>
           </View>
         </View>
       </Animated.View>
@@ -207,20 +189,10 @@ export default class GiftResultView extends React.Component {
       {
         toValue: 1,
         friction: 7,
-        tension: 50
+        tension: 40
       }
     );
   }
-
-  getPreviousGiftAnimation() {
-    return Animated.timing(
-      this.outroAnimValue,
-      {
-        toValue: 1,
-      }
-    );
-  }
-
 
 
 }

@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Animated, Easing } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
-import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
 import EmoticonChoiceList from './EmoticonChoiceList';
 
-const FONT_SIZE_DEFAULT = 30;
+const FONT_SIZE_DEFAULT = 16;
 const FONT_SIZE_SMALL = 20;
+const FONT_SIZE_BUTTON = 14;
 
 const styles = StyleSheet.create({
   header: {
     width: '100%',
-    marginTop: '5%',
+    marginTop: '10%',
     textAlign: 'center',
     fontSize: FONT_SIZE_DEFAULT
   },
@@ -22,14 +22,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center'
   },
-  svg: { 
-    position: 'absolute', 
-    zIndex: 0, 
-    left: 0, 
-    top: 0, 
-    width: '100%', 
-    height: '100%' 
-  }
+  choiceListContainer: {
+    position: 'absolute',
+    width: '100%',
+    height: 95,
+    bottom: 0
+  },
+  ctaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'     
+  },
+  button: {
+    width: 120,
+    margin: '5%',
+    backgroundColor: '#007aff',
+    borderRadius: 10,
+  },
+  buttonInverse: {
+    width: 120,
+    margin: '5%',
+    backgroundColor: 'red',
+    borderRadius: 10,
+  },  
 });
 
 
@@ -38,7 +53,6 @@ export default class GiftCategoryView extends React.Component {
   constructor(props) {
     super(props);
     this.animValue = new Animated.Value(1);
-    this.onAnswer = this.onAnswer.bind(this);
   }
 
   animate() {
@@ -48,7 +62,7 @@ export default class GiftCategoryView extends React.Component {
       {
         toValue: 1,
         friction: 7,
-        tension: 50
+        tension: 40
       }
     ).start();
   }
@@ -68,42 +82,28 @@ export default class GiftCategoryView extends React.Component {
       return null;
     }
 
-    const marginTop = this.animValue.interpolate({
+    const left = this.animValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [-150, 0]
-    });
-    
-    const opacity = this.animValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1]
+      outputRange: [500, 0]
     });
 
     return (
       <View>
-        <Svg style={styles.svg}>
-          <Defs> 
-            <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
-              <Stop offset="0" stopColor="rgb(255, 255, 255)" stopOpacity="1" />
-              <Stop offset="1" stopColor="rgb(156, 199, 255)" stopOpacity="1" />
-            </LinearGradient> 
-          </Defs>
-          <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
-        </Svg>
-        <Animated.View style={{ marginTop, opacity }}>
+        <Animated.View style={{ left }}>
           <View style={styles.container}>
             <Grid style={{ width: '100%' }}>
-              <Row size={30}>
-                <Text style={styles.header} h3>What does the person like?</Text>
-              </Row>
               <Row size={40}>
                 <Text style={styles.header} h2>{this.props.name}</Text>
-              </Row>
-              <Row size={30}>
-                <EmoticonChoiceList onAnswer={this.onAnswer}/>
               </Row>
             </Grid>
           </View>
         </Animated.View>
+        <View style={styles.choiceListContainer}>                
+          <View style={styles.ctaContainer}>
+            <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'trash', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="No" large/>
+            <Button onPress={this.onAnswer.bind(this, 1)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'shopping-cart'}} fontWeight='bold' buttonStyle={styles.button} title="Yes" large/>
+          </View>             
+        </View>
       </View>
     );
   }

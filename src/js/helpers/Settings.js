@@ -6,7 +6,7 @@ let singleton;
 class Settings {
 
   constructor() {
-    this.settings = {};
+    this.reset();
   }
 
   set(key, value) {
@@ -27,7 +27,11 @@ class Settings {
     return Storage.getInstance()
       .load({ key: STORAGE_KEY })
       .then(data => this.settings = data)
-      .catch(data => this.settings = {});
+      .catch(data => this.reset);
+  }
+
+  reset() {
+    this.settings = {};
   }
     
 }

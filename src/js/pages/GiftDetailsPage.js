@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Linking } from 'react-native';
 import { Button, Text } from 'react-native-elements';
 import Favourites from '../helpers/Favourites';
 import GiftDetailsView from '../components/GiftDetailsView';
@@ -34,7 +34,16 @@ export default class GiftDetailsPage extends React.Component {
   }
 
   onBuy() {
+    const appUrl = 'com.amazon.mobile.shopping://www.amazon.co.uk/dp/B00A2T6X0K/?tag=headpreviehea-20';
+    const webUrl = 'https://www.amazon.co.uk/dp/B00A2T6X0K/?tag=headpreviehea-20';
+    let url = appUrl;
 
+    Linking.canOpenURL(url).then(supported => {
+      if (!supported) {
+        url = webUrl;
+      }
+      return Linking.openURL(url);
+    }).catch(err => console.error('An error occurred', err));
   }
 
   navigateBack() {

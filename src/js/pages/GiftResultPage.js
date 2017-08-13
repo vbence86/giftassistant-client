@@ -13,7 +13,7 @@ const mockResponse = {
   "response": {
     "items": [
       {
-        "asin": "asin1",
+        "asin": "asin10",
         "label": "The Silent Wife: A gripping emotional page turner with a twist that will take your breath away",
         "price": 10,
         "formattedPrice": "$12.85",
@@ -21,7 +21,7 @@ const mockResponse = {
         "largeImageURL": "https://images-eu.ssl-images-amazon.com/images/I/51UUcbFtpXL.jpg"
       },
       {
-        "asin": "asin1",
+        "asin": "asin11",
         "label": "Rogue One: A Star Wars Story [DVD] [2016] [2017]",
         "price": 9.99,
         "formattedPrice": "$9.99",
@@ -29,7 +29,7 @@ const mockResponse = {
         "largeImageURL": "https://images-na.ssl-images-amazon.com/images/I/912ud5CJkEL._SL1500_.jpg"
       },
       {
-        "asin": "asin1",
+        "asin": "asin12",
         "label": "Swimming glass",
         "price": 29.99,
         "formattedPrice": "$29.99",
@@ -69,7 +69,11 @@ export default class GiftResultPage extends React.Component {
     const client = GiftClient.connect(appConfig.giftServiceURL);
     const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
 
-    this.showAsyncLoader();
+    //this.showAsyncLoader();
+
+    this.setGiftsFromResponse(mockResponse);
+    this.setStateByGift();
+    return;
 
     client.giftResult(req)
       .then(this.setGiftsFromResponse.bind(this, mockResponse), this.setGiftsFromResponse.bind(this, mockResponse))

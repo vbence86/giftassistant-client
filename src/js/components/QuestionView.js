@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Animated, Easing } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import Slider from 'react-native-slider';
-import Svg, { LinearGradient, Rect, Defs, Stop } from 'react-native-svg';
 
-const FONT_SIZE_DEFAULT = 30;
+const FONT_SIZE_DEFAULT = 16;
 const FONT_SIZE_SMALL = 20;
+const FONT_SIZE_BUTTON = 14;
 
 const styles = StyleSheet.create({
   header: {
@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
     fontSize: FONT_SIZE_DEFAULT
   },
   selectionContainer: {
+    width: '100%',
+    minWidth: '100%',
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -24,18 +26,22 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   selectionItem: {
-    width: '80%',
+    width: 240,
+    minWidth: 240,
     height: '20%',
     margin: '5%',
-    backgroundColor: '#397af8',
-    borderRadius: 5,
+    backgroundColor: '#007aff',
+    borderRadius: 10,
   },
   selectionItemSmall: {
-    width: '40%',
+    width: 120,
+    minWidth: 120,
     height: '20%',
-    margin: '5%',
-    backgroundColor: '#397af8',
-    borderRadius: 5,
+    margin: '5%',    
+    backgroundColor: '#007aff',
+    borderRadius: 10,
+    alignSelf: 'center',  
+    justifyContent: 'center', 
   },
   sliderContainer: {
     flex: 1,
@@ -57,14 +63,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: FONT_SIZE_DEFAULT
   },
-  svg: { 
-    position: 'absolute', 
-    zIndex: 0, 
-    left: 0, 
-    top: 0, 
-    width: '100%', 
-    height: '100%' 
-  }
 });
 
 class SliderGroup extends React.Component {
@@ -88,7 +86,7 @@ class SliderGroup extends React.Component {
         <Slider style={styles.sliderItem} value={this.state.value} 
                 onValueChange={(value) => this.setState({value})} />
         <Text styles={styles.sliderText} h3>{shownValue}</Text>
-        <Button fontSize={FONT_SIZE_DEFAULT} buttonStyle={styles.selectionItem} title="OK" onPress={this.onPress}/>
+        <Button fontSize={FONT_SIZE_BUTTON} buttonStyle={styles.selectionItem} title="OK" onPress={this.onPress}/>
       </View>
     );
   }
@@ -114,13 +112,13 @@ class SelectionGroup extends React.Component {
     let selection = keys.map((key) => {
       const value = values[key];
       let buttonStyle = styles.selectionItem;
-      let fontSize = FONT_SIZE_DEFAULT;
+      let fontSize = FONT_SIZE_BUTTON + 3;
       if (numberOfValues > 3) {
         buttonStyle = styles.selectionItemSmall;
-        fontSize = FONT_SIZE_SMALL;
+        fontSize = FONT_SIZE_BUTTON;
       }
       return (
-        <Button fontSize={fontSize} buttonStyle={buttonStyle} title={value} key={key} onPress={this.onPress.bind(this, key)} raised large/>
+        <Button fontSize={fontSize} buttonStyle={buttonStyle} title={value} key={key} onPress={this.onPress.bind(this, key)} large/>
       );
     });
     
@@ -181,7 +179,7 @@ export default class QuestionView extends React.Component {
       {
         toValue: 1,
         friction: 7,
-        tension: 50
+        tension: 40
       }
     ).start();
   }
@@ -201,33 +199,19 @@ export default class QuestionView extends React.Component {
       return null;
     }
 
-    const marginTop = this.animValue.interpolate({
+    const left = this.animValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [-150, 0]
-    });
-    
-    const opacity = this.animValue.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, 1]
+      outputRange: [500, 0]
     });
     
     return (
       <View>
-        <Svg style={styles.svg}>
-          <Defs> 
-            <LinearGradient id="lgrad" x1="0%" y1="100%" x2="100%" y2="0%" > 
-              <Stop offset="0" stopColor="rgb(255, 255, 255)" stopOpacity="1" />
-              <Stop offset="1" stopColor="rgb(156, 199, 255)" stopOpacity="1" />
-            </LinearGradient> 
-          </Defs>
-          <Rect x="0" y="0" width="100%" height="100%" fill="url(#lgrad)"/>
-        </Svg>
-        <Animated.View style={{ marginTop, opacity }}>
+        <Animated.View style={{ left }}>
           <Grid style={{ width: '100%' }}>
-            <Row size={20}>
+            <Row size={15}>
               <Text style={styles.header} h3>{this.props.label}</Text>
             </Row>
-            <Row size={80}>
+            <Row size={85}>
               <Choice type={this.props.input} values={this.props.values} onAnswer={this.onAnswer}/>
             </Row>
           </Grid>

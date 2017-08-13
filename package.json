@@ -1,6 +1,6 @@
 {
-  "name": "GiftAssistant",
-  "version": "0.10.0",
+  "name": "Dora",
+  "version": "0.13.0",
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
@@ -21,12 +21,12 @@
     "react-native-deprecated-custom-components": "^0.1.1",
     "react-native-elements": "^0.9.5",
     "react-native-loading-spinner-overlay": "latest",
+    "react-native-lock": "^0.6.1",
     "react-native-orientation": "git+https://git@github.com/yamill/react-native-orientation.git",
     "react-native-settings-list": "^1.4.0",
     "react-native-slider": "^0.9.1",
     "react-native-star-rating": "^1.0.7",
     "react-native-storage": "^0.2.2",
-    "react-native-svg": "^5.1.7",
     "react-native-vector-icons": "^4.0.0"
   },
   "devDependencies": {
@@ -36,7 +36,6 @@
     "babel-register": "^6.24.0",
     "chai-as-promised": "^6.0.0",
     "jest": "18.1.0",
-    "react-native-lock": "^0.6.0",
     "react-test-renderer": "15.4.2",
     "sinon": "^2.1.0"
   },

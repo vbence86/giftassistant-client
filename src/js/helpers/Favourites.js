@@ -6,7 +6,26 @@ let singleton;
 class Favourites {
 
   constructor() {
-    this.favourites = [];
+    this.favourites = [
+      {
+        "asin": "asin1",
+        "label": "How I Lost You",
+        "price": 10,
+        "formattedPrice": "$12.00",
+        "description": "Jenny Blackhurst's debut psychological thriller and #1 Kindle bestseller HOW I LOST YOU was described by Clare Mackintosh as 'utterly gripping'. If you love Louise Jensen's THE SISTER or Tracy Buchanan's NO TURNING BACK you will love this.",
+        "amazonURL": "amazon.com/shortURL",
+        "largeImageURL": "https://images-eu.ssl-images-amazon.com/images/I/513FmahVMwL.jpg"
+      },
+      {
+        "asin": "asin2",
+        "label": "Men's Long Sleeve Shirts",
+        "price": 10,
+        "formattedPrice": "£6.87",
+        "description": "Jenny Blackhurst's debut psychological thriller and #1 Kindle bestseller HOW I LOST YOU was described by Clare Mackintosh as 'utterly gripping'. If you love Louise Jensen's THE SISTER or Tracy Buchanan's NO TURNING BACK you will love this.",
+        "amazonURL": "amazon.com/shortURL",
+        "largeImageURL": "https://images-na.ssl-images-amazon.com/images/I/71mu17tCzLL._UX425_.jpg"
+      }
+    ];
   }
 
   add(gift) {
@@ -43,6 +62,7 @@ class Favourites {
   }
 
   syncFromLocalStorage() {
+    return Promise.resolve();
     return Storage.getInstance()
       .load({ key: STORAGE_KEY })
       .then(data => this.favourites = data)
