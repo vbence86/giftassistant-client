@@ -12,6 +12,7 @@ class Menu extends React.Component {
     }
     this.toggleSideMenu = this.toggleSideMenu.bind(this);
     this.onSideMenuChange = this.onSideMenuChange.bind(this);
+    this.goStraightToFavouritesPages = this.goStraightToFavouritesPages.bind(this);
   }
 
   toggleSideMenu() {
@@ -81,6 +82,12 @@ class Menu extends React.Component {
     });
   }
 
+  goStraightToFavouritesPages() {
+    this.props.navigator.push({
+      id: 'FavouritesPage'
+    });
+  }
+
   goToSettingsPages() {
     this.toggleSideMenu();
     this.props.navigator.push({
@@ -102,7 +109,7 @@ class Menu extends React.Component {
         onChange={this.onSideMenuChange} 
         isOpen={this.state.isOpen} 
         menu={this.getSideMenu()}>
-        <MenuButton onPress={this.toggleSideMenu} />
+        <MenuButton onMenuButton={this.toggleSideMenu} onTrolleyButton={this.goStraightToFavouritesPages}/>
         {this.props.page}
       </SideMenu>
     )
