@@ -1,3 +1,15 @@
+/*
+To add togglable items to the list
+
+            <SettingsList.Header headerStyle={styles.header} headerText="Basic" />
+            <SettingsList.Item
+              hasSwitch={true}
+              switchState={this.props.notifications}
+              switchOnValueChange={this.props.onSetNotifications}
+              hasNavArrow={false}
+              title="Notifications" />
+*/
+
 import React, { Component } from 'react';
 import { StyleSheet, View, ScrollView, Text, Image } from 'react-native';
 import SettingsList from 'react-native-settings-list';
@@ -53,13 +65,6 @@ export default class SettingsView extends React.Component {
         </View>      
         <View style={{backgroundColor:'#EFEFF4',flex:1}}>     
           <SettingsList borderColor='#c8c7cc' defaultItemSize={50}>
-            <SettingsList.Header headerStyle={styles.header} headerText="Basic" />
-            <SettingsList.Item
-              hasSwitch={true}
-              switchState={this.props.notifications}
-              switchOnValueChange={this.props.onSetNotifications}
-              hasNavArrow={false}
-              title="Notifications" />
             <SettingsList.Header headerStyle={styles.header} headerText="About" />
             <SettingsList.Item
               hasSwitch={false}

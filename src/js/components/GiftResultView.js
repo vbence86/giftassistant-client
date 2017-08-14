@@ -144,7 +144,7 @@ export default class GiftResultView extends React.Component {
               <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'trash', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="Bin" large/>
               <Button onPress={this.onAnswer.bind(this, 1)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'shopping-cart'}} fontWeight='bold' buttonStyle={styles.button} title="Trolley" large/>
             </View>             
-          </View>
+          </View>          
         </View>
       </View>
     );
