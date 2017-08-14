@@ -44,9 +44,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   imageContainer: {
-    marginLeft: '25%',
-    marginRight: '25%',
-    maxHeight: 200,     
+    height: '60%',     
   },
   textContainer: {
     marginLeft: '2%',
@@ -81,7 +79,7 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
-    maxHeight: 300,
+    resizeMode: 'contain',
   },
   priceContainer: {
     paddingTop: 5,
@@ -141,8 +139,8 @@ export default class GiftResultView extends React.Component {
           {this.renderGiftResultComponent({left})}
           <View style={styles.choiceListContainer}>                
             <View style={styles.ctaContainer}>
-              <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'trash', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="Bin" large/>
-              <Button onPress={this.onAnswer.bind(this, 1)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'shopping-cart'}} fontWeight='bold' buttonStyle={styles.button} title="Trolley" large/>
+              <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'trash', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="Drop it" large/>
+              <Button onPress={this.onAnswer.bind(this, 1)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'shopping-cart'}} fontWeight='bold' buttonStyle={styles.button} title="Add to Trolley" large/>
             </View>             
           </View>          
         </View>
