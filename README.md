@@ -1,5 +1,22 @@
-# giftassistant-client [![Build Status](https://travis-ci.org/vbence86/giftassistant-client.svg?branch=master)](https://travis-ci.org/vbence86/giftassistant-client)
-React Native Application to realise the client mobile app for the GiftAssistant Project
+# Dora [![Build Status](https://travis-ci.org/vbence86/giftassistant-client.svg?branch=master)](https://travis-ci.org/vbence86/giftassistant-client)
+React Native Application to realise the client mobile app for the Dora Project
+
+# Prerequisits
+
+- XCode 
+- Node and NPM. To install them on Mac type `brew install node`
+
+# Install the development environment
+
+- Clone the repository `git clone https://github.com/vbence86/giftassistant-client.git`
+- Enter to the project folder `cd giftassistant-client`
+- Install dependencies `npm install`
+- Install react-native cli `npm install -g react-native-cli`
+
+# Run the Application on Mac
+- Enter to the project folder `cd giftassistant-client`
+- Start development server `react-native run-ios`
+- The app will open in the default simulator
 
 # Naming
 
