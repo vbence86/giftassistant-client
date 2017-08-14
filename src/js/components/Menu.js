@@ -43,7 +43,7 @@ class Menu extends React.Component {
         subtitle: 'Browse items you have added to the Trolley',
         leftIcon: {
           type: 'font-awesome',
-          name: 'gift'
+          name: 'shopping-cart'
         },
         onPress: () => this.goToFavouritesPages()
       },

@@ -3,7 +3,7 @@ import { StyleSheet, View, Animated, Easing } from 'react-native';
 import { Grid, Row, Button, Text } from 'react-native-elements';
 import Slider from 'react-native-slider';
 
-const FONT_SIZE_DEFAULT = 16;
+const FONT_SIZE_DEFAULT = 18;
 const FONT_SIZE_SMALL = 20;
 const FONT_SIZE_BUTTON = 14;
 

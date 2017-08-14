@@ -6,7 +6,9 @@ const splashImage = require('../../../resources/img/gift-flat.png');
 
 const styles = StyleSheet.create({
   splashImage: {
-    marginBottom: 30
+    marginBottom: 30,
+    width: 256,
+    height: 256,
   },
   container: {
     flex: 1,
@@ -29,7 +31,7 @@ export default class SplashPage extends React.Component {
 
   _goToLoginPage(props) {
     this.props.navigator.push({
-      id: 'LoginPage',
+      id: 'PersonalQuestionsPage',
       name: 'Authorisation',
       passProps: {
         name: props

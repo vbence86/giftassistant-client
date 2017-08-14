@@ -4,15 +4,18 @@ import { Grid, Row, Button, Text } from 'react-native-elements';
 import EmoticonChoiceList from './EmoticonChoiceList';
 
 const FONT_SIZE_DEFAULT = 16;
+const FONT_SIZE_HEADER = 18;
 const FONT_SIZE_SMALL = 20;
 const FONT_SIZE_BUTTON = 14;
 
 const styles = StyleSheet.create({
   header: {
     width: '100%',
-    marginTop: '10%',
+    marginTop: '40%',
+    paddingLeft: 20,
+    paddingRight: 20,
     textAlign: 'center',
-    fontSize: FONT_SIZE_DEFAULT
+    fontSize: FONT_SIZE_SMALL,
   },
   container: {
     flex: 1,
@@ -20,13 +23,13 @@ const styles = StyleSheet.create({
     margin: 0,
     padding: 0,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   choiceListContainer: {
     position: 'absolute',
     width: '100%',
     height: 95,
-    bottom: 0
+    bottom: 0,
   },
   ctaContainer: {
     flexDirection: 'row',
@@ -92,7 +95,7 @@ export default class GiftCategoryView extends React.Component {
         <Animated.View style={{ left }}>
           <View style={styles.container}>
             <Grid style={{ width: '100%' }}>
-              <Row size={40}>
+              <Row size={100}>
                 <Text style={styles.header} h2>{this.props.name}</Text>
               </Row>
             </Grid>
@@ -100,8 +103,8 @@ export default class GiftCategoryView extends React.Component {
         </Animated.View>
         <View style={styles.choiceListContainer}>                
           <View style={styles.ctaContainer}>
-            <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'trash', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="No" large/>
-            <Button onPress={this.onAnswer.bind(this, 1)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'shopping-cart'}} fontWeight='bold' buttonStyle={styles.button} title="Yes" large/>
+            <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'thumbs-o-down', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="No" large/>
+            <Button onPress={this.onAnswer.bind(this, 1)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'thumbs-o-up', type: 'font-awesome'}} fontWeight='bold' buttonStyle={styles.button} title="Yes" large/>
           </View>             
         </View>
       </View>
