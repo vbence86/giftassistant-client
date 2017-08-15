@@ -1,11 +1,14 @@
 import Storage from './Storage';
+import EventEmitter from 'es6-event-emitter';
 
 const STORAGE_KEY = 'favourites';
 let singleton;
 
-class Favourites {
+class Favourites extends EventEmitter {
 
   constructor() {
+    super();
+
     this.favourites = [
       {
         "asin": "asin1",
@@ -26,11 +29,13 @@ class Favourites {
         "largeImageURL": "https://images-na.ssl-images-amazon.com/images/I/71mu17tCzLL._UX425_.jpg"
       }
     ];
+
   }
 
   add(gift) {
     this.favourites.push(gift);
     this.syncToLocalStorage();
+    this.trigger('update', this.favourites.length);
   }
 
   remove(gift) {
@@ -38,6 +43,7 @@ class Favourites {
       if (gift.asin === this.favourites[i].asin) {
         this.favourites.splice(i, 1);
         this.syncToLocalStorage();
+        this.trigger('update', this.favourites.length);
         return;
       }
     }

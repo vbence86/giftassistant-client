@@ -15,9 +15,10 @@ class Menu extends React.Component {
     this.goStraightToFavouritesPages = this.goStraightToFavouritesPages.bind(this);
   }
 
+
   toggleSideMenu() {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
     })
   }
   
@@ -61,20 +62,6 @@ class Menu extends React.Component {
 
   }
 
-  getSideMenu() {
-    return (
-      <View style={{flex: 1, backgroundColor: '#f2f2f2', paddingTop: 50, margin: 0}}>
-        <List containerStyle={{marginBottom: 20}}>
-        {
-          this.getDataModel().map((l, i) => (
-            <ListItem roundAvatar key={i} {...l} />
-          ))
-        }
-        </List>
-      </View>
-    );
-  }
-
   goToFavouritesPages() {
     this.toggleSideMenu();
     this.props.navigator.push({
@@ -114,6 +101,21 @@ class Menu extends React.Component {
       </SideMenu>
     )
   }
+
+  getSideMenu() {
+    return (
+      <View style={{flex: 1, backgroundColor: '#f2f2f2', paddingTop: 50, margin: 0}}>
+        <List containerStyle={{marginBottom: 20}}>
+        {
+          this.getDataModel().map((l, i) => (
+            <ListItem roundAvatar key={i} {...l} />
+          ))
+        }
+        </List>
+      </View>
+    );
+  }
+
 }
 
 export default Menu;
