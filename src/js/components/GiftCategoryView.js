@@ -7,7 +7,7 @@ const FONT_SIZE_DEFAULT = 16;
 const FONT_SIZE_HEADER = 18;
 const FONT_SIZE_SMALL = 20;
 const FONT_SIZE_BUTTON = 14;
-const FONT_SIZE_CATEGORY_BUTTON = 11;
+const FONT_SIZE_CATEGORY_BUTTON = 10;
 
 const styles = StyleSheet.create({
   container: {
@@ -21,26 +21,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  categoryButton: {
-    width: 80,
-    minWidth: 80,
-    height:  40,
-    margin: '5%',    
+  categoryButtonFlagged: {
+    width: 75,
+    height:  50,
+    margin: '2%',    
     backgroundColor: '#007aff',
     borderRadius: 10,
     alignSelf: 'center',  
     justifyContent: 'center',
-  },  
+  },
+  categoryButton: {
+    width: 75,
+    height:  50,
+    margin: '2%',    
+    backgroundColor: '#a3a3a3',
+    borderRadius: 10,
+    alignSelf: 'center',  
+    justifyContent: 'center',
+  },   
   choiceListContainer: {
     position: 'absolute',
-    width: '100%',
     height: 95,
     bottom: 0,
-  },
-  ctaContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',     
+    right: 0,
   },
   button: {
     width: 120,
@@ -48,12 +51,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#007aff',
     borderRadius: 10,
   },
-  buttonInverse: {
-    width: 120,
-    margin: '5%',
-    backgroundColor: 'red',
-    borderRadius: 10,
-  },  
 });
 
 
@@ -76,7 +73,9 @@ export default class GiftCategoryView extends React.Component {
     ).start();
   }
 
-  onPressCategoryButton() {
+  onPressCategoryButton(id) {
+    if (!this.props.onFlagCategory) return;
+    this.props.onFlagCategory({id, value: !this.props.answers[id]});
   }
 
   render() {
@@ -97,23 +96,23 @@ export default class GiftCategoryView extends React.Component {
           </View>
         </Animated.View>
         <View style={styles.choiceListContainer}>                
-          <View style={styles.ctaContainer}>
-            <Button onPress={this.onComplete.bind(this)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'thumbs-o-up', type: 'font-awesome'}} fontWeight='bold' buttonStyle={styles.button} title="" large/>
-          </View>             
+          <Button onPress={this.props.onComplete} fontSize={FONT_SIZE_BUTTON} icon={{name: 'thumbs-o-up', type: 'font-awesome'}} fontWeight='bold' buttonStyle={styles.button} title="I'm done!" large/>            
         </View>
       </View>
     );
   }
 
   renderCategories() {
-    if (!this.props.categories) reutrn null;
-    return this.props.categories.map(category => (
+    const categories = this.props.categories;
+    const answers = this.props.answers;
+    if (!categories || !answers) return null;
+    return categories.map(category => (
       <Button 
         fontSize={FONT_SIZE_CATEGORY_BUTTON} 
-        buttonStyle={styles.categoryButton} 
-        title={categories.name} 
-        key={categories.id} 
-        onPress={this.onPressCategoryButton.bind(this, id)} 
+        buttonStyle={answers[category.id] ? styles.categoryButtonFlagged : styles.categoryButton} 
+        title={category.categoryName} 
+        key={category.id} 
+        onPress={this.onPressCategoryButton.bind(this, category.id)}
         large />
     ));
   }

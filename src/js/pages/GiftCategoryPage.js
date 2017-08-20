@@ -14,42 +14,42 @@ const mockResponse = {
       {
        "id": 1,
         "categoryName": "Books",
-       "url": "http://schioppa.com/book.png"
+       "url": "http://schioppa.com/book.png",
       },
       {
        "id": 2,
         "categoryName": "Music",
-       "url": "http://schioppaBazMeg.com/music.png"
+       "url": "http://schioppaBazMeg.com/music.png",
       },
       {
        "id": 3,
         "categoryName": "Tech (Electronics & Games)",
-       "url": "http://schioppaBazMeg.com/techandgames.png"
+       "url": "http://schioppaBazMeg.com/techandgames.png",
       },
       {
        "id": 4,
       "categoryName": "Home",
-       "url": "http://schioppaBazMeg.com/home.png"
+       "url": "http://schioppaBazMeg.com/home.png",
       },
       {
         "id": 5,
         "categoryName": "Pets",
-        "url": "http://schioppaBazMeg.com/pets.png"
+        "url": "http://schioppaBazMeg.com/pets.png",
       },
       {
         "id": 6,
         "categoryName": "Garden  DIY",
-        "url": "http://schioppaBazMeg.com/garden.png"
+        "url": "http://schioppaBazMeg.com/garden.png",
       },
       {
         "id": 7,
         "categoryName": "Toys  Children  Baby",
-        "url": "http://schioppaBazMeg.com/toys.png"
+        "url": "http://schioppaBazMeg.com/toys.png",
       },
       {
         "id": 8,
         "categoryName": "Clothes & Shoes",
-        "url": "http://schioppaBazMeg.com/clothesandshoes.png"
+        "url": "http://schioppaBazMeg.com/clothesandshoes.png",
       },
       {
         "id": 9,
@@ -59,45 +59,23 @@ const mockResponse = {
       {
         "id": 10,
         "categoryName": "Sports and outdoor",
-        "url": "http://schioppaBazMeg.com/sportandoutdoor.png"
+        "url": "http://schioppaBazMeg.com/sportandoutdoor.png",
       },
       {
         "id": 11,
         "categoryName": "Beauty and Health",
-        "url": "http://schioppaBazMeg.com/beautyandhealth.png"
+        "url": "http://schioppaBazMeg.com/beautyandhealth.png",
       },
       {
         "id": 12,
         "categoryName": "Car And Bike",
-        "url": "http://schioppaBazMeg.com/carandbike.png"
-        "categoryName": "Clothes & Shoes",
-        "url": "http://schioppaBazMeg.com/clothesandshoes.png"
-      },
-      {
-        "id": 9,
-        "categoryName": "Jewelry",
-        "url": "http://schioppaBazMeg.com/jewelry.png"
-      },
-      {
-        "id": 10,
-        "categoryName": "Sports and outdoor",
-        "url": "http://schioppaBazMeg.com/sportandoutdoor.png"
-      },
-      {
-        "id": 11,
-        "categoryName": "Beauty and Health",
-        "url": "http://schioppaBazMeg.com/beautyandhealth.png"
-      },
-      {
-        "id": 12,
-        "categoryName": "Car And Bike",
-        "url": "http://schioppaBazMeg.com/carandbike.png"
+        "url": "http://schioppaBazMeg.com/carandbike.png",
       },
       {
         "id": 13,
         "categoryName": "Handcraft",
-        "url": "http://schioppaBazMeg.com/handcraft.png"
-      }
+        "url": "http://schioppaBazMeg.com/handcraft.png",
+      },
     ]
   }
 };
@@ -117,12 +95,14 @@ export default class GiftCategoryPage extends React.Component {
     super(props);
 
     this.flagCategory = this.flagCategory.bind(this);
+    this.generateGifts = this.generateGifts.bind(this);
 
     this.state = {
-      showAsyncLoader: false
+      showAsyncLoader: false,
+      answers: {},
     };
     this.categories = [];
-    this.answers = [];
+    this.answers = {};
   }
 
   componentDidMount() {
@@ -139,20 +119,20 @@ export default class GiftCategoryPage extends React.Component {
 
   handleResponse(resp) {
     this.setCategoriesFromResponse(resp);
-    this.setStateByCurrentCategory();
+    this.setStateByCategories();
   }
 
   setCategoriesFromResponse(resp) {
     this.categories = resp.response.listCategory;
   } 
 
-  setStateByCurrentCategory() {
-    this.setState({categories});
+  setStateByCategories() {
+    this.setState({categories: this.categories});
   }
 
-
   flagCategory({id, value}) {
-    this.answers.push({ id, value });
+    this.answers[id] = !!value;
+    this.setState({answers: this.answers});
   }
 
   generateGifts() {
@@ -164,11 +144,11 @@ export default class GiftCategoryPage extends React.Component {
 
   sendAnswersToGiftService() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
-    const requests = this.answers.map(({id, flag}) => {
+    const requests = Object.keys(this.answers).map(id => {
         const req = { 
           facebookId: 'jkfs7583452njfds7238423',
           id,
-          flag
+          flag: this.answers[id],
         };
         return client.flagGiftCategory(req);
       });
@@ -195,7 +175,7 @@ export default class GiftCategoryPage extends React.Component {
     return (
       <View style={styles.container}>
         <Spinner visible={this.state.showAsyncLoader} overlayColor="rgba(0, 0, 0, 0.75)" />
-        <GiftCategoryView categories={this.state.categories} onFlagCategory={this.flagCategory} onComplete={this.generateGifts}/>
+        <GiftCategoryView answers={this.state.answers} categories={this.state.categories} onFlagCategory={this.flagCategory} onComplete={this.generateGifts}/>
       </View>
     );
 
