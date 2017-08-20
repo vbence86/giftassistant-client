@@ -13,7 +13,7 @@ const should = chai.should();
 const MockServicePort = 9872;
 const environment = {
   stab: `http://127.0.0.1:${MockServicePort}`,
-  integration: 'http://www.extendus.co.uk:9797'
+  integration: 'http://34.211.244.122:9592'
 };
 
 function testQuestionService(endpoint) {
@@ -24,7 +24,6 @@ function testQuestionService(endpoint) {
     return result.then(resp => {
       assert.isDefined(resp);
       assert.isDefined(resp.response);
-      assert.isDefined(resp.response.questions);
       assert.isDefined(resp.response.questions);
       assert.isArray(resp.response.questions);
       resp.response.questions.forEach(question => {
@@ -231,7 +230,7 @@ describe('GiftClient', () => {
       
   });
 
-  describe('#Services', () => {
+  /*describe('#Services', () => {
 
     describe('GET /question', testQuestionService.bind(null, environment.stab));
     describe('GET /giftCategory', testGiftCategoryService.bind(null, environment.stab));
@@ -242,7 +241,7 @@ describe('GiftClient', () => {
     describe('GET /userDetail', testUserDetails.bind(null, environment.stab));
     describe('POST /testSwipeResult', testSwipeResult.bind(null, environment.stab));
 
-  });
+  });*/
 
   describe('#Integration', () => {
 

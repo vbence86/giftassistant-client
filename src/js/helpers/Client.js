@@ -1,5 +1,5 @@
 /* global module, Promise, require */
-const TIMEOUT = 10;
+const TIMEOUT = 10000;
 
 const defaults = {
   headers: {

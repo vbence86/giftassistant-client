@@ -3499,6 +3499,10 @@ nested-error-stacks@^1.0.0:
   dependencies:
     inherits "~2.0.1"
 
+node-base64@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/node-base64/-/node-base64-0.0.1.tgz#ee3e095f97e9f4d72fb3dea98bcb2d25c8716b03"
+
 node-emoji@^1.4.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/node-emoji/-/node-emoji-1.5.1.tgz#fd918e412769bf8c448051238233840b2aff16a1"
