@@ -12,25 +12,92 @@ const mockResponse = {
   "response": {
     "listCategory": [
       {
-        "id": 1,
-        "categoryName": "Does she read often?",
-        "url": "http://schioppa.com/book.png"
+       "id": 1,
+        "categoryName": "Books",
+       "url": "http://schioppa.com/book.png"
       },
       {
-        "id": 2,
-        "categoryName": "Does the person like cars?",
-        "url": "http://schioppaBazMeg.com/music.png"
+       "id": 2,
+        "categoryName": "Music",
+       "url": "http://schioppaBazMeg.com/music.png"
       },
       {
-        "id": 3,
-        "categoryName": "Does the person spend too much time in front of the computer?",
-        "url": "http://schioppaBazMeg.com/techandgames.png"
+       "id": 3,
+        "categoryName": "Tech (Electronics & Games)",
+       "url": "http://schioppaBazMeg.com/techandgames.png"
       },
       {
-        "id": 4,
-        "categoryName": "Does the person like rearranging the room ever so often?",
-        "url": "http://schioppaBazMeg.com/home.png"
+       "id": 4,
+      "categoryName": "Home",
+       "url": "http://schioppaBazMeg.com/home.png"
       },
+      {
+        "id": 5,
+        "categoryName": "Pets",
+        "url": "http://schioppaBazMeg.com/pets.png"
+      },
+      {
+        "id": 6,
+        "categoryName": "Garden  DIY",
+        "url": "http://schioppaBazMeg.com/garden.png"
+      },
+      {
+        "id": 7,
+        "categoryName": "Toys  Children  Baby",
+        "url": "http://schioppaBazMeg.com/toys.png"
+      },
+      {
+        "id": 8,
+        "categoryName": "Clothes & Shoes",
+        "url": "http://schioppaBazMeg.com/clothesandshoes.png"
+      },
+      {
+        "id": 9,
+        "categoryName": "Jewelry",
+        "url": "http://schioppaBazMeg.com/jewelry.png"
+      },
+      {
+        "id": 10,
+        "categoryName": "Sports and outdoor",
+        "url": "http://schioppaBazMeg.com/sportandoutdoor.png"
+      },
+      {
+        "id": 11,
+        "categoryName": "Beauty and Health",
+        "url": "http://schioppaBazMeg.com/beautyandhealth.png"
+      },
+      {
+        "id": 12,
+        "categoryName": "Car And Bike",
+        "url": "http://schioppaBazMeg.com/carandbike.png"
+        "categoryName": "Clothes & Shoes",
+        "url": "http://schioppaBazMeg.com/clothesandshoes.png"
+      },
+      {
+        "id": 9,
+        "categoryName": "Jewelry",
+        "url": "http://schioppaBazMeg.com/jewelry.png"
+      },
+      {
+        "id": 10,
+        "categoryName": "Sports and outdoor",
+        "url": "http://schioppaBazMeg.com/sportandoutdoor.png"
+      },
+      {
+        "id": 11,
+        "categoryName": "Beauty and Health",
+        "url": "http://schioppaBazMeg.com/beautyandhealth.png"
+      },
+      {
+        "id": 12,
+        "categoryName": "Car And Bike",
+        "url": "http://schioppaBazMeg.com/carandbike.png"
+      },
+      {
+        "id": 13,
+        "categoryName": "Handcraft",
+        "url": "http://schioppaBazMeg.com/handcraft.png"
+      }
     ]
   }
 };
@@ -49,14 +116,13 @@ export default class GiftCategoryPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleAnswer = this.handleAnswer.bind(this);
+    this.flagCategory = this.flagCategory.bind(this);
 
     this.state = {
       showAsyncLoader: false
     };
     this.categories = [];
     this.answers = [];
-    this.currentCategoryIdx = 0;
   }
 
   componentDidMount() {
@@ -81,26 +147,15 @@ export default class GiftCategoryPage extends React.Component {
   } 
 
   setStateByCurrentCategory() {
-    const category = this.categories[this.currentCategoryIdx];
-    const isLastCategory = this.currentCategoryIdx === this.categories.length - 1;
-    this.setState({ ...category, isLastCategory });
+    this.setState({categories});
   }
 
-  nextCategory() {
-    this.currentCategoryIdx += 1;
-    if (this.currentCategoryIdx < this.categories.length) {
-      this.setStateByCurrentCategory();
-    } else {
-      this.lastCategoryIsFlagged();
-    }
+
+  flagCategory({id, value}) {
+    this.answers.push({ id, value });
   }
 
-  handleAnswer(value) {
-    this.answers.push({ id: this.categories[this.currentCategoryIdx].id, value });
-    this.nextCategory();
-  }
-
-  lastCategoryIsFlagged() {
+  generateGifts() {
     this.showAsyncLoader();
     this.sendAnswersToGiftService()
       .then(this.navigateToGiftResultPage.bind(this), this.navigateToGiftResultPage.bind(this))
@@ -140,7 +195,7 @@ export default class GiftCategoryPage extends React.Component {
     return (
       <View style={styles.container}>
         <Spinner visible={this.state.showAsyncLoader} overlayColor="rgba(0, 0, 0, 0.75)" />
-        <GiftCategoryView isLastCategory={this.state.isLastCategory} name={this.state.categoryName} onAnswer={this.handleAnswer}/>
+        <GiftCategoryView categories={this.state.categories} onFlagCategory={this.flagCategory} onComplete={this.generateGifts}/>
       </View>
     );
 
