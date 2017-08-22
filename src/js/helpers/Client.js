@@ -21,7 +21,7 @@ function getHeaders() {
  * @param  {object} req Object to be stringified
  * @return {Promise} Genuine Promise instance
  */
-function getBody(req) {
+function getBody(req) { 
   return JSON.stringify(req);
 }
 

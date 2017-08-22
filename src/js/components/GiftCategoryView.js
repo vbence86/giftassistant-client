@@ -110,7 +110,7 @@ export default class GiftCategoryView extends React.Component {
       <Button 
         fontSize={FONT_SIZE_CATEGORY_BUTTON} 
         buttonStyle={answers[category.id] ? styles.categoryButtonFlagged : styles.categoryButton} 
-        title={category.categoryName} 
+        title={category.title} 
         key={category.id} 
         onPress={this.onPressCategoryButton.bind(this, category.id)}
         large />

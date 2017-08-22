@@ -13,67 +13,67 @@ const mockResponse = {
     "listCategory": [
       {
        "id": 1,
-        "categoryName": "Books",
+        "title": "Books",
        "url": "http://schioppa.com/book.png",
       },
       {
        "id": 2,
-        "categoryName": "Music",
+        "title": "Music",
        "url": "http://schioppaBazMeg.com/music.png",
       },
       {
        "id": 3,
-        "categoryName": "Tech (Electronics & Games)",
+        "title": "Tech (Electronics & Games)",
        "url": "http://schioppaBazMeg.com/techandgames.png",
       },
       {
        "id": 4,
-      "categoryName": "Home",
+      "title": "Home",
        "url": "http://schioppaBazMeg.com/home.png",
       },
       {
         "id": 5,
-        "categoryName": "Pets",
+        "title": "Pets",
         "url": "http://schioppaBazMeg.com/pets.png",
       },
       {
         "id": 6,
-        "categoryName": "Garden  DIY",
+        "title": "Garden  DIY",
         "url": "http://schioppaBazMeg.com/garden.png",
       },
       {
         "id": 7,
-        "categoryName": "Toys  Children  Baby",
+        "title": "Toys  Children  Baby",
         "url": "http://schioppaBazMeg.com/toys.png",
       },
       {
         "id": 8,
-        "categoryName": "Clothes & Shoes",
+        "title": "Clothes & Shoes",
         "url": "http://schioppaBazMeg.com/clothesandshoes.png",
       },
       {
         "id": 9,
-        "categoryName": "Jewelry",
+        "title": "Jewelry",
         "url": "http://schioppaBazMeg.com/jewelry.png"
       },
       {
         "id": 10,
-        "categoryName": "Sports and outdoor",
+        "title": "Sports and outdoor",
         "url": "http://schioppaBazMeg.com/sportandoutdoor.png",
       },
       {
         "id": 11,
-        "categoryName": "Beauty and Health",
+        "title": "Beauty and Health",
         "url": "http://schioppaBazMeg.com/beautyandhealth.png",
       },
       {
         "id": 12,
-        "categoryName": "Car And Bike",
+        "title": "Car And Bike",
         "url": "http://schioppaBazMeg.com/carandbike.png",
       },
       {
         "id": 13,
-        "categoryName": "Handcraft",
+        "title": "Handcraft",
         "url": "http://schioppaBazMeg.com/handcraft.png",
       },
     ]
