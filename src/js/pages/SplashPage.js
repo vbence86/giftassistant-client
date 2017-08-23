@@ -31,7 +31,7 @@ export default class SplashPage extends React.Component {
 
   _goToLoginPage(props) {
     this.props.navigator.push({
-      id: 'GiftCategoryPage',
+      id: 'LoginPage',
       name: 'Authorisation',
       passProps: {
         name: props

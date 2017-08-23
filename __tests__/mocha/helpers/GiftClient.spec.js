@@ -67,7 +67,7 @@ function testAnswerService(endpoint) {
       answers: [ 
         {
           id: 1,
-          value: 24
+          value: 'Age5Value'
         },
         {
           id: 2,
@@ -79,7 +79,7 @@ function testAnswerService(endpoint) {
         },
         {
           id: 4,
-          value: 100
+          value: 'Range5Value'
         }
       ]
     });
@@ -136,7 +136,7 @@ function testGiftResult(endpoint) {
         answers: [ 
           {
             id: 1,
-            value: '22-29'
+            value: 'Age5Value'
           },
           {
             id: 2,
@@ -148,7 +148,7 @@ function testGiftResult(endpoint) {
           },
           {
             id: 4,
-            value: '500-10000'
+            value: 'Range5Value'
           }
         ]
       })
