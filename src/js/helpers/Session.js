@@ -11,7 +11,7 @@ class Session extends EventEmitter {
     this.session = {};
   }
 
-  add(key, value) {
+  set(key, value) {
     this.session[key] = value;
     this.syncToLocalStorage();
     this.trigger('update', { key, value });
@@ -45,7 +45,7 @@ class Session extends EventEmitter {
     return Storage.getInstance()
       .load({ key: STORAGE_KEY })
       .then(data => this.session = data)
-      .catch(err => this.session = {};
+      .catch(err => this.session = {});
   }  
   
 }

@@ -41,11 +41,10 @@ export default class PersonalQuestionsPage extends React.Component {
 
   loadQuestions() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
-    const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
 
     client
       .question({ id: this.session.get('facebookId') })
-      .then(this.handleResponse.bind(this), this.handleResponse.bind(this, mockResponse))
+      .then(this.handleResponse.bind(this))
       .then(this.hideAsyncLoader.bind(this));
   }
 

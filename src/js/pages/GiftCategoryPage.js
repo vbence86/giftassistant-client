@@ -5,80 +5,9 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import GiftCategoryView from '../components/GiftCategoryView';
 import GiftClient from '../helpers/GiftClient';
+import Session from '../helpers/Session';
 
 const appConfig = require('../../../environment.json');
-
-const mockResponse = {
-  "response": {
-    "listCategory": [
-      {
-       "id": 1,
-        "title": "Books",
-       "url": "http://schioppa.com/book.png",
-      },
-      {
-       "id": 2,
-        "title": "Music",
-       "url": "http://schioppaBazMeg.com/music.png",
-      },
-      {
-       "id": 3,
-        "title": "Tech (Electronics & Games)",
-       "url": "http://schioppaBazMeg.com/techandgames.png",
-      },
-      {
-       "id": 4,
-      "title": "Home",
-       "url": "http://schioppaBazMeg.com/home.png",
-      },
-      {
-        "id": 5,
-        "title": "Pets",
-        "url": "http://schioppaBazMeg.com/pets.png",
-      },
-      {
-        "id": 6,
-        "title": "Garden  DIY",
-        "url": "http://schioppaBazMeg.com/garden.png",
-      },
-      {
-        "id": 7,
-        "title": "Toys  Children  Baby",
-        "url": "http://schioppaBazMeg.com/toys.png",
-      },
-      {
-        "id": 8,
-        "title": "Clothes & Shoes",
-        "url": "http://schioppaBazMeg.com/clothesandshoes.png",
-      },
-      {
-        "id": 9,
-        "title": "Jewelry",
-        "url": "http://schioppaBazMeg.com/jewelry.png"
-      },
-      {
-        "id": 10,
-        "title": "Sports and outdoor",
-        "url": "http://schioppaBazMeg.com/sportandoutdoor.png",
-      },
-      {
-        "id": 11,
-        "title": "Beauty and Health",
-        "url": "http://schioppaBazMeg.com/beautyandhealth.png",
-      },
-      {
-        "id": 12,
-        "title": "Car And Bike",
-        "url": "http://schioppaBazMeg.com/carandbike.png",
-      },
-      {
-        "id": 13,
-        "title": "Handcraft",
-        "url": "http://schioppaBazMeg.com/handcraft.png",
-      },
-    ]
-  }
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -96,6 +25,7 @@ export default class GiftCategoryPage extends React.Component {
 
     this.flagCategory = this.flagCategory.bind(this);
     this.generateGifts = this.generateGifts.bind(this);
+    this.session = Session.getInstance();
 
     this.state = {
       showAsyncLoader: false,
@@ -107,13 +37,13 @@ export default class GiftCategoryPage extends React.Component {
 
   componentDidMount() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
-    const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
+    const req = { id: this.session.get('facebookId') };
 
     this.showAsyncLoader();
 
     client
       .giftCategory(req)
-      .then(this.handleResponse.bind(this, mockResponse), this.handleResponse.bind(this, mockResponse))
+      .then(this.handleResponse.bind(this, mockResponse))
       .then(this.hideAsyncLoader.bind(this));
   }
 
@@ -146,7 +76,7 @@ export default class GiftCategoryPage extends React.Component {
     const client = GiftClient.connect(appConfig.giftServiceURL);
     const requests = Object.keys(this.answers).map(id => {
         const req = { 
-          facebookId: 'jkfs7583452njfds7238423',
+          facebookId: this.session.get('facebookId'),
           id,
           flag: this.answers[id],
         };
