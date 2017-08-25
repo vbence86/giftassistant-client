@@ -6,7 +6,7 @@
     "start": "node node_modules/react-native/local-cli/cli.js start",
     "stab": "babel-node __tests__/mocha/stabs/GiftServer/server.js",
     "test": "jest",
-    "test-mocha": "mocha -t 10000 --require babel-core/register __tests__/mocha/**/*.spec.js",
+    "test-mocha": "mocha -t 30000 --require babel-core/register __tests__/mocha/**/*.spec.js",
     "build": "npm run test && npm run test-mocha"
   },
   "dependencies": {
