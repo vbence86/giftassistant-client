@@ -172,7 +172,6 @@ function testGiftResult(endpoint) {
         assert.isDefined(resp.response.items);
         assert.isArray(resp.response.items);
         resp.response.items.forEach(item => {
-          console.log(item);
           assert.isDefined(item.label);
           assert.isDefined(item.price);
           assert.isDefined(item.formattedPrice);
