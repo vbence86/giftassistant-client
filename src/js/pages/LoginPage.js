@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
 import Auth0Lock from 'react-native-lock';
+import Session from '../helpers/Session';
 
 const appConfig = require('../../../environment.json');
 const lock = new Auth0Lock({ 
@@ -11,9 +12,15 @@ const lock = new Auth0Lock({
 export default class LoginPage extends React.Component {
 
   componentDidMount() {
-    lock.show({}, (err, profile, token) => {
+    /*lock.show({}, (err, profile, token) => {
       this.navigateToPersonalQuestionsPage();
-    }); 
+    });*/
+
+    this.session = Session.getInstance();
+    this.session.set('facebookId', '10211657971266827');
+
+    this.navigateToPersonalQuestionsPage();
+    
   }
 
   navigateToPersonalQuestionsPage() {

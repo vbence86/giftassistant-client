@@ -1,5 +1,5 @@
 /* global module, Promise, require */
-const TIMEOUT = 10;
+const TIMEOUT = 30000;
 
 const defaults = {
   headers: {
@@ -21,7 +21,7 @@ function getHeaders() {
  * @param  {object} req Object to be stringified
  * @return {Promise} Genuine Promise instance
  */
-function getBody(req) {
+function getBody(req) { 
   return JSON.stringify(req);
 }
 

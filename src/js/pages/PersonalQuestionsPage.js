@@ -5,62 +5,9 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import QuestionView from '../components/QuestionView';
 import GiftClient from '../helpers/GiftClient';
+import Session from '../helpers/Session';
 
 const appConfig = require('../../../environment.json');
-
-const mockResponse = {
-  "response": {
-    "questions": [
-      {
-        "id": 1,
-        "label": "What is his/her age?",
-        "category": "personal",
-        "input": "select",
-        "values": {
-          "1": "0-4",
-          "2": "5-9",
-          "3": "10-17",
-          "4": "18-34",
-          "5": "35-54",
-          "6": "55+",
-        }
-      },
-      {
-        "id": 2,
-        "label": "Sex?",
-        "category": "personal",
-        "input": "select",
-        "values": {
-          "FemaleValue": "Female",
-          "MaleValue": "Male"
-        }
-      },
-      {
-        "id": 3,
-        "label": "Purpose?",
-        "category": "personal",
-        "input": "select",
-        "values": {
-          "MarriageValue:": "Marriage",
-          "BirthdayValue:": "Birthday"
-        }
-      },
-      {
-        "id": 4,
-        "label": "Price Range?",
-        "category": "personal",
-        "input": "select",
-        "values": {
-          "Range1Value:": "<$10",
-          "Range2Value:": "$10-$50",
-          "Range3Value:": "$50-$100",
-          "Range4Value:": "$100-$500",
-          "Range5Value:": "$500+"
-        }
-      }
-    ]
-  }
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -77,6 +24,7 @@ export default class PersonalQuestionsPage extends React.Component {
     super(props);
     this.state = {};
     this.handleAnswer = this.handleAnswer.bind(this);
+    this.session = Session.getInstance();
   }
 
   componentDidMount() {
@@ -93,11 +41,13 @@ export default class PersonalQuestionsPage extends React.Component {
 
   loadQuestions() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
-    const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
+    const id = this.session.get('facebookId');
 
     client
-      .question(req)
-      .then(this.handleResponse.bind(this), this.handleResponse.bind(this, mockResponse))
+      .resetSession({ id })
+      .start({ id })
+      .question({ id })
+      .then(this.handleResponse.bind(this))
       .then(this.hideAsyncLoader.bind(this));
   }
 
@@ -151,7 +101,7 @@ export default class PersonalQuestionsPage extends React.Component {
   sendAnswersToGiftService() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
     const req = { 
-      facebookId: 'jkfs7583452njfds7238423',
+      facebookId: this.session.get('facebookId'),
       answers: this.answers 
     };
     return client.answer(req);

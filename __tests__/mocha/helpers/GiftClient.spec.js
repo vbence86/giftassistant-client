@@ -13,18 +13,17 @@ const should = chai.should();
 const MockServicePort = 9872;
 const environment = {
   stab: `http://127.0.0.1:${MockServicePort}`,
-  integration: 'http://www.extendus.co.uk:9797'
+  integration: 'http://54.70.223.164:9592'
 };
 
 function testQuestionService(endpoint) {
 
   it('Calling the "question" service must return an object including questions', function () {
     const client = GiftClient.connect(endpoint);
-    const result = client.question({ id: 18 });
+    const result = client.question({ id: '10211657971266827' });
     return result.then(resp => {
       assert.isDefined(resp);
       assert.isDefined(resp.response);
-      assert.isDefined(resp.response.questions);
       assert.isDefined(resp.response.questions);
       assert.isArray(resp.response.questions);
       resp.response.questions.forEach(question => {
@@ -43,16 +42,16 @@ function testGiftCategoryService(endpoint) {
 
   it('Calling the "giftCategory" service must return an object including gift categories', function () {
     const client = GiftClient.connect(endpoint);
-    const result = client.giftCategory({ id: 1 });
+    const result = client.giftCategory({ id: '10211657971266827' });
     return result.then(resp => {
       assert.isDefined(resp);
       assert.isDefined(resp.response);
       assert.isDefined(resp.response.listCategory);
       assert.isArray(resp.response.listCategory);
-      resp.response.listCategory.forEach(category => {
+      resp.response.listCategory.forEach(category => {    
         assert.isDefined(category.id);
-        assert.isDefined(category.categoryName);
-        assert.isDefined(category.url);
+        assert.isDefined(category.title);
+        assert.isDefined(category.number);
       });
     });
   });
@@ -64,11 +63,11 @@ function testAnswerService(endpoint) {
   it('Calling the "answer" service returns only an empty 200', function () {
     const client = GiftClient.connect(endpoint);
     const result = client.answer({
-      facebookId: 1,
+      facebookId: '10211657971266827',
       answers: [ 
         {
           id: 1,
-          value: 24
+          value: 'Age5Value'
         },
         {
           id: 2,
@@ -80,7 +79,7 @@ function testAnswerService(endpoint) {
         },
         {
           id: 4,
-          value: 100
+          value: 'Range5Value'
         }
       ]
     });
@@ -93,7 +92,7 @@ function testStartService(endpoint) {
 
   it('Calling the "start" service must return an object with the service names', function () {
     const client = GiftClient.connect(endpoint);
-    const result = client.start({ id: 99 });
+    const result = client.start({ id: '10211657971266827' });
     return result.then(resp => {
       assert.isDefined(resp);
       assert.isDefined(resp.response);
@@ -114,8 +113,8 @@ function testFlagGiftCategoryService(endpoint) {
   it('Calling the "flagGiftCategory" service returns only an empty 200', function () {
     const client = GiftClient.connect(endpoint);
     const result = client.flagGiftCategory({
-      facebookId: 1,
-      id: 1,
+      facebookId: '10211657971266827',
+      id: '712832',
       flag: true
     });
     return result.should.be.fulfilled;
@@ -126,21 +125,63 @@ function testFlagGiftCategoryService(endpoint) {
 function testGiftResult(endpoint) {
 
   it('Calling the "giftResult" service must return an object including gift details', function () {
+
     const client = GiftClient.connect(endpoint);
-    const result = client.giftResult({ id: 1 });
-    return result.then(resp => {
-      assert.isDefined(resp);
-      assert.isDefined(resp.response);
-      assert.isDefined(resp.response.items);
-      assert.isArray(resp.response.items);
-      resp.response.items.forEach(item => {
-        assert.isDefined(item.label);
-        assert.isDefined(item.price);
-        assert.isDefined(item.formattedPrice);
-        assert.isDefined(item.amazonURL);
-        assert.isDefined(item.largeImageURL);
+    return client.start({ id: '10211657971266827' })
+    .then(() => {
+
+      const answerClient = GiftClient.connect(endpoint);
+      return answerClient.answer({
+        facebookId: '10211657971266827',
+        answers: [ 
+          {
+            id: 1,
+            value: 'Age5Value'
+          },
+          {
+            id: 2,
+            value: 'FemaleValue'
+          },
+          {
+            id: 3,
+            value: 'RetirementValue'
+          },
+          {
+            id: 4,
+            value: 'Range5Value'
+          }
+        ]
+      })
+
+    }).then(() => {
+
+      const flagClient = GiftClient.connect(endpoint);
+      return flagClient.flagGiftCategory({
+        facebookId: '10211657971266827',
+        id: '712832',
+        flag: true
       });
+
+    }).then(() => {
+
+      const client = GiftClient.connect(endpoint);
+      const result = client.giftResult({ id: '10211657971266827' });
+      return result.then(resp => {
+        assert.isDefined(resp);
+        assert.isDefined(resp.response);
+        assert.isDefined(resp.response.items);
+        assert.isArray(resp.response.items);
+        resp.response.items.forEach(item => {
+          assert.isDefined(item.label);
+          assert.isDefined(item.price);
+          assert.isDefined(item.formattedPrice);
+          assert.isDefined(item.amazonURL);
+          assert.isDefined(item.largeImageURL);
+        });
+      });
+
     });
+
   });
 
 }
@@ -149,7 +190,7 @@ function testUserDetails(endpoint) {
 
   it('Calling the "userDetail" service must return an object with the user`s personal informations', function () {
     const client = GiftClient.connect(endpoint);
-    const facebookId = '99';
+    const facebookId = '10211657971266827';
     const result = client.userDetail({ id: facebookId });
     return result.then(resp => {
       assert.isDefined(resp);
@@ -168,7 +209,7 @@ function testSwipeResult(endpoint) {
   it('Calling the "swipeResult" service returns only an empty 200', function () {
     const client = GiftClient.connect(endpoint);
     const result = client.swipeResult({
-      facebookId: 1,
+      facebookId: 10211657971266827,
       swipeDecisionList: [
           {
             id: 1,
@@ -231,7 +272,7 @@ describe('GiftClient', () => {
       
   });
 
-  describe('#Services', () => {
+  /*describe('#Services', () => {
 
     describe('GET /question', testQuestionService.bind(null, environment.stab));
     describe('GET /giftCategory', testGiftCategoryService.bind(null, environment.stab));
@@ -242,7 +283,7 @@ describe('GiftClient', () => {
     describe('GET /userDetail', testUserDetails.bind(null, environment.stab));
     describe('POST /testSwipeResult', testSwipeResult.bind(null, environment.stab));
 
-  });
+  });*/
 
   describe('#Integration', () => {
 

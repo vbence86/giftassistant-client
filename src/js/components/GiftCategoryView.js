@@ -7,34 +7,43 @@ const FONT_SIZE_DEFAULT = 16;
 const FONT_SIZE_HEADER = 18;
 const FONT_SIZE_SMALL = 20;
 const FONT_SIZE_BUTTON = 14;
+const FONT_SIZE_CATEGORY_BUTTON = 10;
 
 const styles = StyleSheet.create({
-  header: {
-    width: '100%',
-    marginTop: '40%',
-    paddingLeft: 20,
-    paddingRight: 20,
-    textAlign: 'center',
-    fontSize: FONT_SIZE_SMALL,
-  },
   container: {
+    width: '100%',
+    minWidth: '100%',
     flex: 1,
-    flexDirection: 'column',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     margin: 0,
     padding: 0,
     alignItems: 'center',
     justifyContent: 'center',
   },
+  categoryButtonFlagged: {
+    width: 75,
+    height:  50,
+    margin: '2%',    
+    backgroundColor: '#007aff',
+    borderRadius: 10,
+    alignSelf: 'center',  
+    justifyContent: 'center',
+  },
+  categoryButton: {
+    width: 75,
+    height:  50,
+    margin: '2%',    
+    backgroundColor: '#a3a3a3',
+    borderRadius: 10,
+    alignSelf: 'center',  
+    justifyContent: 'center',
+  },   
   choiceListContainer: {
     position: 'absolute',
-    width: '100%',
     height: 95,
     bottom: 0,
-  },
-  ctaContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between'     
+    right: 0,
   },
   button: {
     width: 120,
@@ -42,12 +51,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#007aff',
     borderRadius: 10,
   },
-  buttonInverse: {
-    width: 120,
-    margin: '5%',
-    backgroundColor: 'red',
-    borderRadius: 10,
-  },  
 });
 
 
@@ -70,14 +73,9 @@ export default class GiftCategoryView extends React.Component {
     ).start();
   }
 
-  onAnswer() {
-    if (!this.props.isLastCategory) {
-      this.animate();
-    }
-    if (this.props.onAnswer) {
-      let args = Array.prototype.slice.call(arguments);
-      this.props.onAnswer.apply(null, args);
-    }
+  onPressCategoryButton(id) {
+    if (!this.props.onFlagCategory) return;
+    this.props.onFlagCategory({id, value: !this.props.answers[id]});
   }
 
   render() {
@@ -94,21 +92,29 @@ export default class GiftCategoryView extends React.Component {
       <View>
         <Animated.View style={{ left }}>
           <View style={styles.container}>
-            <Grid style={{ width: '100%' }}>
-              <Row size={100}>
-                <Text style={styles.header} h2>{this.props.name}</Text>
-              </Row>
-            </Grid>
+            {this.renderCategories()}
           </View>
         </Animated.View>
         <View style={styles.choiceListContainer}>                
-          <View style={styles.ctaContainer}>
-            <Button onPress={this.onAnswer.bind(this, 0)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'thumbs-o-down', type: 'font-awesome'}} buttonStyle={styles.buttonInverse} title="No" large/>
-            <Button onPress={this.onAnswer.bind(this, 1)} fontSize={FONT_SIZE_BUTTON} icon={{name: 'thumbs-o-up', type: 'font-awesome'}} fontWeight='bold' buttonStyle={styles.button} title="Yes" large/>
-          </View>             
+          <Button onPress={this.props.onComplete} fontSize={FONT_SIZE_BUTTON} icon={{name: 'thumbs-o-up', type: 'font-awesome'}} fontWeight='bold' buttonStyle={styles.button} title="I'm done!" large/>            
         </View>
       </View>
     );
+  }
+
+  renderCategories() {
+    const categories = this.props.categories;
+    const answers = this.props.answers;
+    if (!categories || !answers) return null;
+    return categories.map(category => (
+      <Button 
+        fontSize={FONT_SIZE_CATEGORY_BUTTON} 
+        buttonStyle={answers[category.id] ? styles.categoryButtonFlagged : styles.categoryButton} 
+        title={category.title} 
+        key={category.id} 
+        onPress={this.onPressCategoryButton.bind(this, category.id)}
+        large />
+    ));
   }
 
 }

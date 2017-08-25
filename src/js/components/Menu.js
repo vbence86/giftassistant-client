@@ -12,11 +12,13 @@ class Menu extends React.Component {
     }
     this.toggleSideMenu = this.toggleSideMenu.bind(this);
     this.onSideMenuChange = this.onSideMenuChange.bind(this);
+    this.goStraightToFavouritesPages = this.goStraightToFavouritesPages.bind(this);
   }
+
 
   toggleSideMenu() {
     this.setState({
-      isOpen: !this.state.isOpen
+      isOpen: !this.state.isOpen,
     })
   }
   
@@ -60,22 +62,14 @@ class Menu extends React.Component {
 
   }
 
-  getSideMenu() {
-    return (
-      <View style={{flex: 1, backgroundColor: '#f2f2f2', paddingTop: 50, margin: 0}}>
-        <List containerStyle={{marginBottom: 20}}>
-        {
-          this.getDataModel().map((l, i) => (
-            <ListItem roundAvatar key={i} {...l} />
-          ))
-        }
-        </List>
-      </View>
-    );
-  }
-
   goToFavouritesPages() {
     this.toggleSideMenu();
+    this.props.navigator.push({
+      id: 'FavouritesPage'
+    });
+  }
+
+  goStraightToFavouritesPages() {
     this.props.navigator.push({
       id: 'FavouritesPage'
     });
@@ -102,11 +96,26 @@ class Menu extends React.Component {
         onChange={this.onSideMenuChange} 
         isOpen={this.state.isOpen} 
         menu={this.getSideMenu()}>
-        <MenuButton onPress={this.toggleSideMenu} />
+        <MenuButton onMenuButton={this.toggleSideMenu} onTrolleyButton={this.goStraightToFavouritesPages}/>
         {this.props.page}
       </SideMenu>
     )
   }
+
+  getSideMenu() {
+    return (
+      <View style={{flex: 1, backgroundColor: '#f2f2f2', paddingTop: 50, margin: 0}}>
+        <List containerStyle={{marginBottom: 20}}>
+        {
+          this.getDataModel().map((l, i) => (
+            <ListItem roundAvatar key={i} {...l} />
+          ))
+        }
+        </List>
+      </View>
+    );
+  }
+
 }
 
 export default Menu;

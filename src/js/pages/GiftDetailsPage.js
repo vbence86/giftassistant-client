@@ -34,8 +34,9 @@ export default class GiftDetailsPage extends React.Component {
   }
 
   onBuy() {
-    const appUrl = 'com.amazon.mobile.shopping://www.amazon.co.uk/dp/B00A2T6X0K/?tag=headpreviehea-20';
-    const webUrl = 'https://www.amazon.co.uk/dp/B00A2T6X0K/?tag=headpreviehea-20';
+    const webUrl = this.gift.amazonURL;
+    const urlWithoutProtocol = this.gift.amazonURL.replace('https://', '');
+    const appUrl = `com.amazon.mobile.shopping://${urlWithoutProtocol}`;
     let url = appUrl;
 
     Linking.canOpenURL(url).then(supported => {

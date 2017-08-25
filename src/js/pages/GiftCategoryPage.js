@@ -5,35 +5,9 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 import GiftCategoryView from '../components/GiftCategoryView';
 import GiftClient from '../helpers/GiftClient';
+import Session from '../helpers/Session';
 
 const appConfig = require('../../../environment.json');
-
-const mockResponse = {
-  "response": {
-    "listCategory": [
-      {
-        "id": 1,
-        "categoryName": "Does she read often?",
-        "url": "http://schioppa.com/book.png"
-      },
-      {
-        "id": 2,
-        "categoryName": "Does the person like cars?",
-        "url": "http://schioppaBazMeg.com/music.png"
-      },
-      {
-        "id": 3,
-        "categoryName": "Does the person spend too much time in front of the computer?",
-        "url": "http://schioppaBazMeg.com/techandgames.png"
-      },
-      {
-        "id": 4,
-        "categoryName": "Does the person like rearranging the room ever so often?",
-        "url": "http://schioppaBazMeg.com/home.png"
-      },
-    ]
-  }
-};
 
 const styles = StyleSheet.create({
   container: {
@@ -49,71 +23,62 @@ export default class GiftCategoryPage extends React.Component {
   constructor(props) {
     super(props);
 
-    this.handleAnswer = this.handleAnswer.bind(this);
+    this.flagCategory = this.flagCategory.bind(this);
+    this.generateGifts = this.generateGifts.bind(this);
+    this.session = Session.getInstance();
 
     this.state = {
-      showAsyncLoader: false
+      showAsyncLoader: false,
+      answers: {},
     };
     this.categories = [];
-    this.answers = [];
-    this.currentCategoryIdx = 0;
+    this.answers = {};
   }
 
   componentDidMount() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
-    const req = { authenticatedFacebookToken: 'jkfs7583452njfds7238423' };
+    const req = { id: this.session.get('facebookId') };
 
     this.showAsyncLoader();
 
     client
       .giftCategory(req)
-      .then(this.handleResponse.bind(this, mockResponse), this.handleResponse.bind(this, mockResponse))
+      .then(this.handleResponse.bind(this))
       .then(this.hideAsyncLoader.bind(this));
   }
 
   handleResponse(resp) {
     this.setCategoriesFromResponse(resp);
-    this.setStateByCurrentCategory();
+    this.setStateByCategories();
   }
 
   setCategoriesFromResponse(resp) {
     this.categories = resp.response.listCategory;
   } 
 
-  setStateByCurrentCategory() {
-    const category = this.categories[this.currentCategoryIdx];
-    const isLastCategory = this.currentCategoryIdx === this.categories.length - 1;
-    this.setState({ ...category, isLastCategory });
+  setStateByCategories() {
+    this.setState({categories: this.categories});
   }
 
-  nextCategory() {
-    this.currentCategoryIdx += 1;
-    if (this.currentCategoryIdx < this.categories.length) {
-      this.setStateByCurrentCategory();
-    } else {
-      this.lastCategoryIsFlagged();
-    }
+  flagCategory({id, value}) {
+    this.answers[id] = !!value;
+    this.setState({answers: this.answers});
   }
 
-  handleAnswer(value) {
-    this.answers.push({ id: this.categories[this.currentCategoryIdx].id, value });
-    this.nextCategory();
-  }
-
-  lastCategoryIsFlagged() {
+  generateGifts() {
     this.showAsyncLoader();
     this.sendAnswersToGiftService()
-      .then(this.navigateToGiftResultPage.bind(this), this.navigateToGiftResultPage.bind(this))
+      .then(this.navigateToGiftResultPage.bind(this))
       .then(this.hideAsyncLoader.bind(this));
   }
 
   sendAnswersToGiftService() {
     const client = GiftClient.connect(appConfig.giftServiceURL);
-    const requests = this.answers.map(({id, flag}) => {
+    const requests = Object.keys(this.answers).map(id => {
         const req = { 
-          facebookId: 'jkfs7583452njfds7238423',
+          facebookId: this.session.get('facebookId'),
           id,
-          flag
+          flag: this.answers[id],
         };
         return client.flagGiftCategory(req);
       });
@@ -140,7 +105,7 @@ export default class GiftCategoryPage extends React.Component {
     return (
       <View style={styles.container}>
         <Spinner visible={this.state.showAsyncLoader} overlayColor="rgba(0, 0, 0, 0.75)" />
-        <GiftCategoryView isLastCategory={this.state.isLastCategory} name={this.state.categoryName} onAnswer={this.handleAnswer}/>
+        <GiftCategoryView answers={this.state.answers} categories={this.state.categories} onFlagCategory={this.flagCategory} onComplete={this.generateGifts}/>
       </View>
     );
 
