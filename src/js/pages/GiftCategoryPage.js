@@ -43,7 +43,7 @@ export default class GiftCategoryPage extends React.Component {
 
     client
       .giftCategory(req)
-      .then(this.handleResponse.bind(this, mockResponse))
+      .then(this.handleResponse.bind(this))
       .then(this.hideAsyncLoader.bind(this));
   }
 
@@ -68,7 +68,7 @@ export default class GiftCategoryPage extends React.Component {
   generateGifts() {
     this.showAsyncLoader();
     this.sendAnswersToGiftService()
-      .then(this.navigateToGiftResultPage.bind(this), this.navigateToGiftResultPage.bind(this))
+      .then(this.navigateToGiftResultPage.bind(this))
       .then(this.hideAsyncLoader.bind(this));
   }
 

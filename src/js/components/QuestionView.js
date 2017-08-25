@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   selectionItemSmall: {
     width: 120,
     minWidth: 120,
-    height: '20%',
+    height: '15%',
     margin: '5%',    
     backgroundColor: '#007aff',
     borderRadius: 10,
