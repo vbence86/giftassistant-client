@@ -50,6 +50,7 @@ function GiftClient(serviceURL) {
     },
 
     resetSession: function(options) {
+      const id = options.id;
       return client.get(`resetSession/${id}`);
     }
 
