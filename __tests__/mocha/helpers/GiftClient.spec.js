@@ -42,16 +42,20 @@ function testGiftCategoryService(endpoint) {
 
   it('Calling the "giftCategory" service must return an object including gift categories', function () {
     const client = GiftClient.connect(endpoint);
-    const result = client.giftCategory({ id: '10211657971266827' });
-    return result.then(resp => {
-      assert.isDefined(resp);
-      assert.isDefined(resp.response);
-      assert.isDefined(resp.response.listCategory);
-      assert.isArray(resp.response.listCategory);
-      resp.response.listCategory.forEach(category => {    
-        assert.isDefined(category.id);
-        assert.isDefined(category.title);
-        assert.isDefined(category.number);
+    client.start({id: '10211657971266827'})
+    .then(() => {
+      const result = client.giftCategory({ id: '10211657971266827' });
+      result.then()
+      return result.then(resp => {
+        assert.isDefined(resp);
+        assert.isDefined(resp.response);
+        assert.isDefined(resp.response.listCategory);
+        assert.isArray(resp.response.listCategory);
+        resp.response.listCategory.forEach(category => {    
+          assert.isDefined(category.id);
+          assert.isDefined(category.title);
+          assert.isDefined(category.number);
+        });
       });
     });
   });
@@ -112,10 +116,15 @@ function testFlagGiftCategoryService(endpoint) {
 
   it('Calling the "flagGiftCategory" service returns only an empty 200', function () {
     const client = GiftClient.connect(endpoint);
-    const result = client.flagGiftCategory({
-      facebookId: '10211657971266827',
-      id: '712832',
-      flag: true
+    const result = client.start({ id: '10211657971266827' })
+    .then(() => {
+
+      return client.flagGiftCategory({
+        facebookId: '10211657971266827',
+        id: '712832',
+        flag: true
+      });
+
     });
     return result.should.be.fulfilled;
   });
@@ -130,8 +139,7 @@ function testGiftResult(endpoint) {
     return client.start({ id: '10211657971266827' })
     .then(() => {
 
-      const answerClient = GiftClient.connect(endpoint);
-      return answerClient.answer({
+      return client.answer({
         facebookId: '10211657971266827',
         answers: [ 
           {
@@ -155,8 +163,7 @@ function testGiftResult(endpoint) {
 
     }).then(() => {
 
-      const flagClient = GiftClient.connect(endpoint);
-      return flagClient.flagGiftCategory({
+      return client.flagGiftCategory({
         facebookId: '10211657971266827',
         id: '712832',
         flag: true
@@ -164,7 +171,6 @@ function testGiftResult(endpoint) {
 
     }).then(() => {
 
-      const client = GiftClient.connect(endpoint);
       const result = client.giftResult({ id: '10211657971266827' });
       return result.then(resp => {
         assert.isDefined(resp);
@@ -224,6 +230,15 @@ function testSwipeResult(endpoint) {
     return result.should.be.fulfilled;
   });
 
+}
+
+function testResetSession(endpoint) {
+it('Calling the "resetSession" service must return an object that verifies that the session is now reset', function () {
+    const client = GiftClient.connect(endpoint);
+    const facebookId = '10211657971266827';
+    const result = client.resetSession({ id: facebookId });
+    return result.should.be.fulfilled;
+  });  
 }
 
 describe('GiftClient', () => {
@@ -295,6 +310,7 @@ describe('GiftClient', () => {
     describe('GET /giftResult', testGiftResult.bind(null, environment.integration));
     describe('GET /userDetail', testUserDetails.bind(null, environment.integration));
     describe('POST /testSwipeResult', testSwipeResult.bind(null, environment.integration));
+    describe('GET /resetSession', testResetSession.bind(null, environment.integration));
     
   });
 
