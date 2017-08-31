@@ -12,14 +12,13 @@ const lock = new Auth0Lock({
 export default class LoginPage extends React.Component {
 
   componentDidMount() {
-    /*lock.show({}, (err, profile, token) => {
+    lock.show({}, (err, profile, token) => {
+
+      const session = Session.getInstance();
+      session.set('facebookId', '10211657971266827');
+
       this.navigateToPersonalQuestionsPage();
-    });*/
-
-    this.session = Session.getInstance();
-    this.session.set('facebookId', '10211657971266827');
-
-    this.navigateToPersonalQuestionsPage();
+    });
     
   }
 

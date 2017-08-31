@@ -45,8 +45,12 @@ export default class PersonalQuestionsPage extends React.Component {
 
     client
       .resetSession({ id })
-      .start({ id })
-      .question({ id })
+      .then(() => {
+        return client.start({ id })
+      })
+      .then(() => {
+        return client.question({ id })
+      })
       .then(this.handleResponse.bind(this))
       .then(this.hideAsyncLoader.bind(this));
   }
