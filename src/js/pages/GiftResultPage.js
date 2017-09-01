@@ -42,7 +42,7 @@ export default class GiftResultPage extends React.Component {
     const req = { id: this.session.get('facebookId') };
 
     client.giftResult(req)
-      .then(this.setGiftsFromResponse.bind(this, mockResponse))
+      .then(this.setGiftsFromResponse.bind(this))
       .then(this.preloadImages.bind(this))
       .then(this.setStateByGift.bind(this))
       .then(this.hideAsyncLoader.bind(this));
